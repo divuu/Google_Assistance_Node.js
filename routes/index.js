@@ -10,6 +10,7 @@ router.post('/webhook', function(req, res, next){
   let data  = {
     'testing': true
   }
+  console.log(req.body);
   res.json(data)
 });
 
