@@ -11,6 +11,7 @@ router.post('/webhook', function(req, res, next){
     'testing': true
   }
   console.log(req.body);
+  console.log("User", req.body.originalDetectIntentRequest.payload.user);
   res.json(data)
 });
 
