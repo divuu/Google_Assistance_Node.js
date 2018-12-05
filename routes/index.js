@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const askLocationPermission = "Ask Location Permission";
-
+let coordinates;
 const permission = {
   "payload": {
     "google": {
@@ -41,9 +40,15 @@ router.post('/webhook', function(req, res, next){
   if(req.body.queryResult.action === "ask_location"){
     res.json(permission);
   }else if(req.body.queryResult.action === "location_given"){
-    console.log(req.body)
+    coordinates = req.body.originalDetectIntentRequest.payload.device.location;
+    console.log(coordinates);
     res.json({
-      fulfillmentText: 'We have received your location'
+      fulfillmentText: 'We have received your location',
+      payload: {
+        google: {
+          expectedUserResponse: false
+        }
+      }
     });
   }
 });
