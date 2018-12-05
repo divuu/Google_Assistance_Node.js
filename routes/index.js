@@ -1,16 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
-let resData = {
-  speech: "",
-  displayText: "Testing",
-  data:{
-    google: {
-      expected_user_response: false,
-      is_ssml: false,
-      permission_request:{
-        opt_context: '',
-        permissions: []
+const askLocationPermission = "Ask Location Permission";
+
+const permission = {
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "systemIntent": {
+        "intent": "actions.intent.PERMISSION",
+        "data": {
+          "@type": "type.googleapis.com/google.actions.v2.PermissionValueSpec",
+          "optContext": "To deliver your order",
+          "permissions": [
+            "NAME",
+            "DEVICE_PRECISE_LOCATION"
+          ]
+        }
       }
     }
   }
@@ -27,9 +33,11 @@ router.post('/webhook', function(req, res, next){
     "fulfillmentText": "This is coming from Heroku!",
     "outputContexts": []
   }
-  resData.speech = 'Your bus is 5 mins away';
-  resData.displayText = 'Your bus is 5 mins away'
-  res.json(test);
+  if(req.body.intent.displayName === askLocationPermission){
+    res.json(permission);
+  }else{
+    res.json(test);
+  }
 });
 
 module.exports = router;
