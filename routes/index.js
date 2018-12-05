@@ -23,9 +23,13 @@ router.get('/', function(req, res, next) {
 router.post('/webhook', function(req, res, next){
   console.log(req.body);
   console.log("User", req.body.originalDetectIntentRequest.payload.user);
+  let test = {
+    "fulfillmentText": "This is coming from Heroku!",
+    "outputContexts": []
+  }
   resData.speech = 'Your bus is 5 mins away';
   resData.displayText = 'Your bus is 5 mins away'
-  res.json(resData);
+  res.json(test);
 });
 
 module.exports = router;
