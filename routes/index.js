@@ -38,14 +38,13 @@ router.get('/', function(req, res, next) {
 router.post('/webhook', function(req, res, next){
   console.log(req.body);
   console.log("User", req.body.originalDetectIntentRequest.payload.user);
-  let test = {
-    "fulfillmentText": "This is coming from Heroku!",
-    "outputContexts": []
-  }
   if(req.body.queryResult.action === "ask_location"){
     res.json(permission);
-  }else{
-    res.json(test);
+  }else if(req.body.queryResult.action === "location_given"){
+    console.log(req.body)
+    res.json({
+      fulfillmentText: 'We have received your location'
+    });
   }
 });
 
