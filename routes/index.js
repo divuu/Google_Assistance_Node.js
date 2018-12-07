@@ -27,14 +27,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/webhook', function (req, res, next) {
+  let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
   //checking data
   console.log("Request", req.body);
   console.log("Payload", req.body.originalDetectIntentRequest.payload);
   // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
-  console.log("User", verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE));
+  console.log("User", );
   if (req.body.queryResult.action === "action_register") {
       thisResponse = JSON.parse(JSON.stringify(basicResponse));
-      res.json(register(thisResponse, req.body));
+      res.json(register(thisResponse, req.body, user));
     } else {
     res.json(basicResponse);
   }
@@ -42,9 +43,9 @@ router.post('/webhook', function (req, res, next) {
 
 // handles registration process
 // adds in the data base
-function register(bResponse, requestObj) {
+function register(bResponse, requestObj, user) {
   //logic to add to db
-  bResponse.fulfillmentText = `Welcome to Route Alert! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone}. Thank you!`
+  bResponse.fulfillmentText = `Greetings, ${user.name} from Route Alert! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email id, ${user.email}. Thank you!`
   return bResponse;
 }
 
