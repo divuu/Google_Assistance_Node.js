@@ -32,7 +32,7 @@ router.post('/webhook', function (req, res, next) {
   console.log("Token", req.body.originalDetectIntentRequest.payload.user.accessToken);
   if (req.body.queryResult.action === "action_register") {
     //create a deep copy
-    if(req.body.originalDetectIntentRequest.payload.user.accessToken)
+    if(req.body.originalDetectIntentRequest.payload.user.accessToken == undefined)
       res.json(signInPayload);
     else{
       thisResponse = JSON.parse(JSON.stringify(basicResponse));
