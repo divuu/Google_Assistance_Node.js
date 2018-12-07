@@ -45,7 +45,7 @@ router.post('/webhook', function (req, res, next) {
 // adds in the data base
 function register(bResponse, requestObj, user) {
   //logic to add to db
-  bResponse.fulfillmentText = `Greetings, ${user.name} from Route Alert! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email id, ${user.email}. Thank you!`
+  bResponse.fulfillmentText = `Greetings ${user.name}, from Route Alert! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email id, ${user.email}. Thank you!`
   return bResponse;
 }
 
