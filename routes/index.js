@@ -49,7 +49,8 @@ function register(bResponse, requestObj, user) {
   bResponse.payload.google.richResponse.items = [
     {
       "simpleResponse": {
-        "ssml": `<speak>Hi ${user.name}! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>${requestObj.queryResult.parameters.phone}<say-as> with your email-Id, ${user.email}. Thank you!</speak>`
+        "ssml": `<speak>Hi ${user.name}! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>${requestObj.queryResult.parameters.phone}<say-as> with your email-Id, ${user.email}. Thank you!</speak>`,
+        "displayText": `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
       }
     }
   ]
