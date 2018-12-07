@@ -29,8 +29,8 @@ router.get('/', function (req, res, next) {
 router.post('/webhook', function (req, res, next) {
   let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
   //checking data
-  console.log("Request", req.body);
-  console.log("Payload", req.body.originalDetectIntentRequest.payload);
+  // console.log("Request", req.body);
+  // console.log("Payload", req.body.originalDetectIntentRequest.payload);
   // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
   console.log("User", );
   if (req.body.queryResult.action === "action_register") {
@@ -54,6 +54,7 @@ function register(bResponse, requestObj, user) {
       }
     }
   ]
+  console.log(bResponse);
   return bResponse;
 }
 
