@@ -11,7 +11,7 @@ let basicResponse = {
   }
 }
 const signInPayload = {
-  "payload":{
+  "payload": {
     "google": {
       "expectUserResponse": true,
       "systemIntent": {
@@ -32,11 +32,11 @@ router.post('/webhook', function (req, res, next) {
   // console.log("Request", req.body);
   // console.log("Payload", req.body.originalDetectIntentRequest.payload);
   // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
-  console.log("User", );
+  console.log("User");
   if (req.body.queryResult.action === "action_register") {
-      thisResponse = JSON.parse(JSON.stringify(basicResponse));
-      res.json(register(thisResponse, req.body, user));
-    } else {
+    thisResponse = JSON.parse(JSON.stringify(basicResponse));
+    res.json(register(thisResponse, req.body, user));
+  } else {
     res.json(basicResponse);
   }
 });
@@ -45,36 +45,31 @@ router.post('/webhook', function (req, res, next) {
 // adds in the data base
 function register(bResponse, requestObj, user) {
   //logic to add to db
-  // bResponse.fulfillmentText = `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
+  bResponse.fulfillmentText = `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
+  bResponse.fulfillmentMessages = [
+    {
+      "simpleResponses": [
+        {
+          "textToSpeech": "Registered",
+          "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
+          "displayText": "Hello"
+        }
+      ]
+    }
+  ]
   // bResponse.payload.google.richResponse.items.push(
   //   {
   //     "simpleResponse": {
-  //       "ssml": ,
+  //       "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
   //       "displayText": `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
   //     }
   //   });
   // console.log(bResponse);
-  return {
-    "payload": {
-      "google": {
-        "expectUserResponse": false,
-        "richResponse": {
-          "items": [
-            {
-              "simpleResponse": {
-                "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
-                "displayText": "This is a SSML sample. Make sure your sound is enabled to hear the demo"
-              }
-            }
-          ]
-        }
-      }
-    }
-  };
+  return
 }
 
 //verify jwt for user information
-function verifyJWT(token, cert){
+function verifyJWT(token, cert) {
   return jwt.verify(token, cert, {
     audience: keys.CLIENT_ID,
     issuer: "https://accounts.google.com"
