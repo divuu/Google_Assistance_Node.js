@@ -29,16 +29,11 @@ router.post('/webhook', function (req, res, next) {
   //checking data
   console.log("Request", req.body);
   console.log("Payload", req.body.originalDetectIntentRequest.payload);
-  console.log("Token", req.body.originalDetectIntentRequest.payload.user.accessToken);
+  console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
   if (req.body.queryResult.action === "action_register") {
-    //create a deep copy
-    if(req.body.originalDetectIntentRequest.payload.user.accessToken == undefined)
-      res.json(signInPayload);
-    else{
       thisResponse = JSON.parse(JSON.stringify(basicResponse));
       res.json(register(thisResponse, req.body));
-    }
-  } else {
+    } else {
     res.json(basicResponse);
   }
 });
