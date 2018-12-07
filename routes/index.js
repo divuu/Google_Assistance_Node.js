@@ -16,6 +16,7 @@ router.get('/', function (req, res, next) {
 router.post('/webhook', function (req, res, next) {
   //checking data
   console.log("Request", req.body);
+  console.log("Payload", req.body.originalDetectIntentRequest.payload)
   if (req.body.queryResult.action === "action_register") {
     //create a deep copy
     thisResponse = JSON.parse(JSON.stringify(basicResponse));
