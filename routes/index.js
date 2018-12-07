@@ -14,10 +14,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/webhook', function (req, res, next) {
+  //checking data
+  console.log("Request", req.body);
   if (req.body.queryResult.action === "action_register") {
     //create a deep copy
     thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    
     res.json(register(thisResponse, req.body));
   } else {
     res.json(basicResponse);
