@@ -28,7 +28,8 @@ router.get('/', function (req, res, next) {
 router.post('/webhook', function (req, res, next) {
   //checking data
   console.log("Request", req.body);
-  console.log("Payload", req.body.originalDetectIntentRequest.payload)
+  console.log("Payload", req.body.originalDetectIntentRequest.payload);
+  console.log("Token", req.body.originalDetectIntentRequest.payload.user.accessToken);
   if (req.body.queryResult.action === "action_register") {
     //create a deep copy
     if(req.body.originalDetectIntentRequest.payload.user.accessToken)
