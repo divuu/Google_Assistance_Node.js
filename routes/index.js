@@ -8,6 +8,18 @@ let basicResponse = {
     }
   }
 }
+const signInPayload = {
+  "payload":{
+    "google": {
+      "expectUserResponse": true,
+      "systemIntent": {
+        "intent": "actions.intent.SIGN_IN",
+        "data": {}
+      }
+    }
+  }
+}
+const CLIENT_ID = "808427351381-k59o1kn1ueiqg1dsc6h2lrhs43387c75.apps.googleusercontent.com"
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -19,8 +31,12 @@ router.post('/webhook', function (req, res, next) {
   console.log("Payload", req.body.originalDetectIntentRequest.payload)
   if (req.body.queryResult.action === "action_register") {
     //create a deep copy
-    thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    res.json(register(thisResponse, req.body));
+    if(req.body.originalDetectIntentRequest.payload.user.accessToken)
+      res.json(signInPayload);
+    else{
+      thisResponse = JSON.parse(JSON.stringify(basicResponse));
+      res.json(register(thisResponse, req.body));
+    }
   } else {
     res.json(basicResponse);
   }
