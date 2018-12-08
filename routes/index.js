@@ -10,17 +10,6 @@ let basicResponse = {
     }
   }
 }
-const signInPayload = {
-  "payload": {
-    "google": {
-      "expectUserResponse": true,
-      "systemIntent": {
-        "intent": "actions.intent.SIGN_IN",
-        "data": {}
-      }
-    }
-  }
-}
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -58,23 +47,15 @@ function register(bResponse, requestObj, user) {
   //   }
   // ]
   // console.log(bResponse);
-  return {
-    "payload": {
-      "google": {
-        "expectUserResponse": false,
-        "richResponse": {
-          "items": [
-            {
-              "simpleResponse": {
-                // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>"
-                "ssml": "<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>7855413456</say-as> with your email-Id, abc@aa.com. Thank you!</speak>"
-              }
-            }
-          ]
-        }
+  bResponse.payload.google.richResponse.items = [
+    {
+      "simpleResponse": {
+        // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>"
+        "ssml": "<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>7855413456</say-as> with your email-Id, abc@aa.com. Thank you!</speak>"
       }
     }
-  }
+  ]
+  return bResponse;
 }
 
 //verify jwt for user information
