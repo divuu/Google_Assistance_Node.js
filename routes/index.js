@@ -3,10 +3,12 @@ let router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let basicResponse = {
-  "fulfillmentText": "There was some error on our side. Please try again later. Thank You!",
   "payload": {
     "google": {
       "expectUserResponse": false,
+      "richResponse": {
+        "items": []
+      }
     }
   }
 }
@@ -47,14 +49,14 @@ function register(bResponse, requestObj, user) {
   //   }
   // ]
   // console.log(bResponse);
-  bResponse.payload.google.richResponse.items = [
+  bResponse.payload.google.richResponse.items.push(
     {
       "simpleResponse": {
         // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>"
         "ssml": "<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>7855413456</say-as> with your email-Id, abc@aa.com. Thank you!</speak>"
       }
     }
-  ]
+  );
   return bResponse;
 }
 
