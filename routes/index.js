@@ -66,7 +66,7 @@ function register(bResponse, requestObj, user) {
           "items": [
             {
               "simpleResponse": {
-                "textToSpeech": "this is a simple response"
+                "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>"
               }
             }
           ]
