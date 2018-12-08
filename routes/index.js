@@ -35,25 +35,12 @@ router.post('/webhook', function (req, res, next) {
 // handles registration process
 // adds in the data base
 function register(bResponse, requestObj, user) {
-  //logic to add to db
-  // bResponse.fulfillmentText = `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
-  // bResponse.fulfillmentMessages = [
-  //   {
-  //     "simpleResponses": [
-  //       {
-  //         "textToSpeech": "Registered",
-  //         "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
-  //         "displayText": "Hello"
-  //       }
-  //     ]
-  //   }
-  // ]
-  // console.log(bResponse);
+  //to do logic to add to db
   bResponse.payload.google.richResponse.items.push(
     {
       "simpleResponse": {
-        // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>"
-        "ssml": '<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">9939141858</say-as> with your email-Id, abc@aa.com. Thank you!</speak>'
+        // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +  + "<say-as> with your email-Id, " +  +". Thank you!</speak>"
+        "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
       }
     }
   );
