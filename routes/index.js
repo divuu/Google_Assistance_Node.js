@@ -45,27 +45,35 @@ router.post('/webhook', function (req, res, next) {
 // adds in the data base
 function register(bResponse, requestObj, user) {
   //logic to add to db
-  bResponse.fulfillmentText = `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
-  bResponse.fulfillmentMessages = [
-    {
-      "simpleResponses": [
-        {
-          "textToSpeech": "Registered",
-          "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
-          "displayText": "Hello"
-        }
-      ]
-    }
-  ]
-  // bResponse.payload.google.richResponse.items.push(
+  // bResponse.fulfillmentText = `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
+  // bResponse.fulfillmentMessages = [
   //   {
-  //     "simpleResponse": {
-  //       "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
-  //       "displayText": `Hi ${user.name}! Good to have you with us. I have registered your number ${requestObj.queryResult.parameters.phone} with your email-Id, ${user.email}. Thank you!`
-  //     }
-  //   });
+  //     "simpleResponses": [
+  //       {
+  //         "textToSpeech": "Registered",
+  //         "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" + requestObj.queryResult.parameters.phone + "<say-as> with your email-Id, " + user.email +". Thank you!</speak>",
+  //         "displayText": "Hello"
+  //       }
+  //     ]
+  //   }
+  // ]
   // console.log(bResponse);
-  return
+  return {
+    "payload": {
+      "google": {
+        "expectUserResponse": false,
+        "richResponse": {
+          "items": [
+            {
+              "simpleResponse": {
+                "textToSpeech": "this is a simple response"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }
 
 //verify jwt for user information
