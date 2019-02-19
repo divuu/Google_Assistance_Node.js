@@ -13,6 +13,40 @@ let basicResponse = {
     }
   }
 }
+
+let simpleResponse = {
+  "fulfillmentText": "This is a text response",
+  "fulfillmentMessages": [
+    {
+      "card": {
+        "title": "card title",
+        "subtitle": "card text",
+        "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        "buttons": [
+          {
+            "text": "button text",
+            "postback": "https://assistant.google.com/"
+          }
+        ]
+      }
+    }
+  ],
+  "source": "example.com",
+  "payload": {
+    "google": {
+      "expectUserResponse": false,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "textToSpeech": "this is a simple response"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -22,14 +56,14 @@ router.post('/webhook', function (req, res, next) {
   // let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
   //checking data
   console.log("Request", req.body);
-  console.log("Payload", req.body.originalDetectIntentRequest.payload);
-  console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
+  // console.log("Payload", req.body.originalDetectIntentRequest.payload);
+  // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
   // console.log("User");
   // if (req.body.queryResult.action === "action_register") {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
   // } else {
-    res.json(basicResponse);
+    res.json(simpleResponse);
   // }
 });
 
