@@ -17,7 +17,7 @@ let basicResponse = {
   }
 }
 
-let reqs=req.user.userID;
+let reqs=req.body.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -39,7 +39,7 @@ let simpleResponse = {
   "source": "example.com",
   "payload": {
     "google": {
-      "expectUserResponse": true,
+      "expectUserResponse": false,
       "richResponse": {
         "items": [
           {
