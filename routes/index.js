@@ -17,7 +17,7 @@ let basicResponse = {
   }
 }
 
-let reqs=req.body.user.userID;
+// let reqs=req.body.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -44,7 +44,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": reqs
+              "textToSpeech": "Today is not a holiday."
             }
           }
         ]
@@ -84,24 +84,24 @@ router.get('/responses', function(req, res, next){
 
 // handles registration process
 // adds in the data base
-function register(bResponse, requestObj, user) {
-  //to do logic to add to db
-  bResponse.payload.google.richResponse.items.push(
-    {
-      "simpleResponse": {
-        // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +  + "<say-as> with your email-Id, " +  +". Thank you!</speak>"
-        // "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
-      }
-    }
-  );
-  return bResponse;
-}
+// function register(bResponse, requestObj, user) {
+//   //to do logic to add to db
+//   bResponse.payload.google.richResponse.items.push(
+//     {
+//       "simpleResponse": {
+//         // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +  + "<say-as> with your email-Id, " +  +". Thank you!</speak>"
+//         // "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
+//       }
+//     }
+//   );
+//   return bResponse;
+// }
 
-//verify jwt for user information
-function verifyJWT(token, cert) {
-  return jwt.verify(token, cert, {
-    audience: keys.CLIENT_ID,
-    issuer: "https://accounts.google.com"
-  });
-}
+// //verify jwt for user information
+// function verifyJWT(token, cert) {
+//   return jwt.verify(token, cert, {
+//     audience: keys.CLIENT_ID,
+//     issuer: "https://accounts.google.com"
+//   });
+// }
 module.exports = router;
