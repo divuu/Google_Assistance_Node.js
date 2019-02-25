@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let responses = [];
 let responseNumber = 0;
-//let localvariable ="Hi i am new variable in the node.js";
+let localvariable ="Hi i am new variable in the node.js";
 let basicResponse = {
   "payload": {
     "google": {
@@ -44,7 +44,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": reqs
+              "textToSpeech": localvariable
             }
           }
         ]
@@ -55,6 +55,7 @@ let simpleResponse = {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
+  reqs.render('index',{title:'Express'});
 });
 
 router.post('/webhook', function (req, res, next) {
