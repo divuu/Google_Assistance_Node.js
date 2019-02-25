@@ -17,7 +17,7 @@ let basicResponse = {
   }
 }
 
-//let reqs=req.body.user.userID;
+let reqs=req.body.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -44,7 +44,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": localvariable
+              "textToSpeech": reqs
             }
           }
         ]
