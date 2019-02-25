@@ -79,7 +79,7 @@ router.post('/webhook', function (req, res, next) {
 });
 
 router.get('/responses', function(req, res, next){
-  req.json(responses);
+  res.json(responses);
 })
 
 // handles registration process
