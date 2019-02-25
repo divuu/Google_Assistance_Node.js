@@ -73,6 +73,12 @@ router.post('/webhook', function (req, res, next) {
       "response_number": responseNumber++,
       "payload": req.body
     })
+
+    if( req.body.queryResult.action == "action_holidays"){
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = "You can have whatever here that you want."
+    }else{
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = "I am not configured for this intent that was fired."
+    }
     res.json(simpleResponse);
     //req.json();
   // }
