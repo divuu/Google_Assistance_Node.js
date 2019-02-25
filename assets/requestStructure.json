@@ -1,0 +1,152 @@
+[
+    {},
+    {},
+    {
+        "response_number": 2,
+        "payload": {
+            "responseId": "c9e9e8b9-300b-467a-8730-31d70d418bb5",
+            "queryResult": {
+                "queryText": "my home work dairy",
+                "parameters": {
+                    "date": ""
+                },
+                "allRequiredParamsPresent": true,
+                "fulfillmentText": "here are some todays home work",
+                "fulfillmentMessages": [
+                    {
+                        "platform": "ACTIONS_ON_GOOGLE",
+                        "simpleResponses": {
+                            "simpleResponses": [
+                                {
+                                    "textToSpeech": "here are some todays home work"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "platform": "ACTIONS_ON_GOOGLE",
+                        "suggestions": {
+                            "suggestions": [
+                                {
+                                    "title": "Hindi Homework"
+                                },
+                                {
+                                    "title": "Science Homework"
+                                },
+                                {
+                                    "title": "Maths Homework"
+                                },
+                                {
+                                    "title": "English Homework"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": {
+                            "text": [
+                                "here are some todays home work"
+                            ]
+                        }
+                    }
+                ],
+                "outputContexts": [
+                    {
+                        "name": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4/contexts/actions_capability_screen_output",
+                        "parameters": {
+                            "date": "",
+                            "date.original": ""
+                        }
+                    },
+                    {
+                        "name": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4/contexts/actions_capability_audio_output",
+                        "parameters": {
+                            "date": "",
+                            "date.original": ""
+                        }
+                    },
+                    {
+                        "name": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4/contexts/google_assistant_input_type_keyboard",
+                        "parameters": {
+                            "date": "",
+                            "date.original": ""
+                        }
+                    },
+                    {
+                        "name": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4/contexts/actions_capability_media_response_audio",
+                        "parameters": {
+                            "date": "",
+                            "date.original": ""
+                        }
+                    },
+                    {
+                        "name": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4/contexts/actions_capability_web_browser",
+                        "parameters": {
+                            "date": "",
+                            "date.original": ""
+                        }
+                    }
+                ],
+                "intent": {
+                    "name": "projects/school-management-ai/agent/intents/a7ff28d4-106e-4562-b8a3-a750aebe9194",
+                    "displayName": "homework diary"
+                },
+                "intentDetectionConfidence": 0.94,
+                "languageCode": "en-us"
+            },
+            "originalDetectIntentRequest": {
+                "source": "google",
+                "version": "2",
+                "payload": {
+                    "isInSandbox": true,
+                    "surface": {
+                        "capabilities": [
+                            {
+                                "name": "actions.capability.AUDIO_OUTPUT"
+                            },
+                            {
+                                "name": "actions.capability.MEDIA_RESPONSE_AUDIO"
+                            },
+                            {
+                                "name": "actions.capability.WEB_BROWSER"
+                            },
+                            {
+                                "name": "actions.capability.SCREEN_OUTPUT"
+                            }
+                        ]
+                    },
+                    "requestType": "SIMULATOR",
+                    "inputs": [
+                        {
+                            "rawInputs": [
+                                {
+                                    "query": "my home work dairy",
+                                    "inputType": "KEYBOARD"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "rawText": "my home work dairy",
+                                    "textValue": "my home work dairy",
+                                    "name": "text"
+                                }
+                            ],
+                            "intent": "actions.intent.TEXT"
+                        }
+                    ],
+                    "user": {
+                        "lastSeen": "2019-02-25T05:22:19Z",
+                        "locale": "en-US",
+                        "userId": "ABwppHFK2Wiyew5A2Op72NUQHZnN1_2DTvxto6XV5zQfEJwQljlrABuX2kNlWDl65DLh0o5nIOiGo9QkDgo9nj29n70"
+                    },
+                    "conversation": {
+                        "conversationId": "ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4",
+                        "type": "ACTIVE",
+                        "conversationToken": "[]"
+                    }
+                }
+            },
+            "session": "projects/school-management-ai/agent/sessions/ABwppHGu9NYPTtJeT-BAZLesRIwEHjRB0_fAGLPaJCZslD_y6LuBW84ngSCETpoltg7fSxrUA6PplI18whxGi4IbqN4"
+        }
+    }
+]
