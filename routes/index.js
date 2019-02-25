@@ -17,7 +17,7 @@ let basicResponse = {
   }
 }
 
-let reqs=req.body.user.userID;
+//let reqs=req.body.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -55,7 +55,7 @@ let simpleResponse = {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
-  req.render('index',{title:'Express'});
+  //req.render('index',{title:'Express'});
 });
 
 router.post('/webhook', function (req, res, next) {
@@ -74,7 +74,7 @@ router.post('/webhook', function (req, res, next) {
       "payload": req.body
     })
     res.json(simpleResponse);
-    req.json();
+    //req.json();
   // }
 });
 
