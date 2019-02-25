@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let responses = [];
 let responseNumber = 0;
+let localvariable ="Hi i am new variable in the node.js";
 let basicResponse = {
   "payload": {
     "google": {
@@ -15,6 +16,8 @@ let basicResponse = {
     }
   }
 }
+
+let reqs=req.body.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -41,7 +44,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": "Congratuations! Your server is good for using Google Assistant."
+              "textToSpeech": reqs
             }
           }
         ]
@@ -52,6 +55,7 @@ let simpleResponse = {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
+  //req.render('index',{title:'Express'});
 });
 
 router.post('/webhook', function (req, res, next) {
@@ -60,7 +64,7 @@ router.post('/webhook', function (req, res, next) {
   console.log("Request", req.body);
   // console.log("Payload", req.body.originalDetectIntentRequest.payload);
   // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
-  // console.log("User");
+  console.log("User");
   // if (req.body.queryResult.action === "action_register") {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
@@ -70,11 +74,12 @@ router.post('/webhook', function (req, res, next) {
       "payload": req.body
     })
     res.json(simpleResponse);
+    //req.json();
   // }
 });
 
 router.get('/responses', function(req, res, next){
-  res.json(responses);
+  req.json(responses);
 })
 
 // handles registration process
