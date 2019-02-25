@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let responses = [];
 let responseNumber = 0;
+let localvariable ="Hi i am new variable in the node.js";
 let basicResponse = {
   "payload": {
     "google": {
@@ -36,12 +37,12 @@ let simpleResponse = {
   "source": "example.com",
   "payload": {
     "google": {
-      "expectUserResponse": false,
+      "expectUserResponse": true,
       "richResponse": {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": "Hi Congrats you are my fav customer"
+              "textToSpeech": localvariable
             }
           }
         ]
