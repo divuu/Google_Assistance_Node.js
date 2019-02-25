@@ -2,6 +2,8 @@ let express = require('express');
 let router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
+let responses = [];
+let responseNumber = 0;
 let basicResponse = {
   "payload": {
     "google": {
@@ -66,6 +68,14 @@ router.post('/webhook', function (req, res, next) {
     res.json(simpleResponse);
   // }
 });
+
+router.get('/responses', function(req, res, next){
+  responses.push({
+    "response_number": responseNumber++,
+    "payload": req.body
+  })
+  res.json(responses);
+})
 
 // handles registration process
 // adds in the data base
