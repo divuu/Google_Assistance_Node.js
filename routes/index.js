@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let responses = [];
 let responseNumber = 0;
-let localvariable ="Hi i am new variable in the node.js";
+//let localvariable ="Hi i am new variable in the node.js";
 let basicResponse = {
   "payload": {
     "google": {
@@ -16,6 +16,8 @@ let basicResponse = {
     }
   }
 }
+
+let reqs=req.user;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
@@ -42,7 +44,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": localvariable
+              "textToSpeech": reqs
             }
           }
         ]
