@@ -17,7 +17,7 @@ let basicResponse = {
   }
 }
 
-let reqs=req.user;
+let reqs=req.user.userID;
 
 let simpleResponse = {
   "fulfillmentText": "This is a text response",
