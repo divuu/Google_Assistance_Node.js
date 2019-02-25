@@ -41,7 +41,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": "Congratuations! Your server is good for using Google Assistant."
+              "textToSpeech": "Hi Congrats you are my fav customer"
             }
           }
         ]
