@@ -60,7 +60,7 @@ router.post('/webhook', function (req, res, next) {
   console.log("Request", req.body);
   // console.log("Payload", req.body.originalDetectIntentRequest.payload);
   // console.log("Token", req.body.originalDetectIntentRequest.payload.user.idToken);
-  // console.log("User");
+  console.log("User");
   // if (req.body.queryResult.action === "action_register") {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
