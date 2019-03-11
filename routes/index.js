@@ -90,7 +90,7 @@ router.get('/responses', function(req, res, next){
 })
 
 router.get('/mysql', function(req, res){
-  db.query('SELECT * FROM city', function(err, results, fields){
+  db.query('SELECT * FROM holidays', function(err, results, fields){
     if (err) throw err;
     console.log("Results", results)
     console.log("Fields", fields);
