@@ -1,3 +1,4 @@
+var db = require('../connection');
 let express = require('express');
 let router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -86,6 +87,15 @@ router.post('/webhook', function (req, res, next) {
 
 router.get('/responses', function(req, res, next){
   res.json(responses);
+})
+
+router.get('/mysql', function(req, res){
+  db.query('SELECT * FROM city', function(err, results, fields){
+    if (err) throw err;
+    console.log("Results", results)
+    console.log("Fields", fields);
+    res.json(results)
+  })
 })
 
 // handles registration process
