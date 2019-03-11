@@ -4,6 +4,7 @@ let router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require("../assets/keys.json");
 let responses = [];
+let test = [];
 let responseNumber = 0;
 let localvariable ="Hi i am new variable in the node.js";
 let basicResponse = {
@@ -76,7 +77,17 @@ router.post('/webhook', function (req, res, next) {
     })
 
     if( req.body.queryResult.action == "action_holidays"){
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = "You can have whatever here that you want."
+      db.query('SELECT * FROM holidays', function(err, results, fields){
+        if (err) throw err;
+        console.log("Results", results)
+        console.log("Fields", fields);
+        test.push({
+          "results": results,
+          "fields": fields
+        })
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Next holiday is ${results[0].description}`
+      })
+
     }else{
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = "I am not configured for this intent that was fired."
     }
@@ -89,6 +100,9 @@ router.get('/responses', function(req, res, next){
   res.json(responses);
 })
 
+router.get('/test', function(req, res, next){
+  res.json(test);
+})
 router.get('/mysql', function(req, res){
   db.query('SELECT * FROM holidays', function(err, results, fields){
     if (err) throw err;
