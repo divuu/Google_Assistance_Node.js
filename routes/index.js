@@ -1,66 +1,67 @@
-var db = require('../connection');
-let express = require('express');
+var db = require("../connection");
+let express = require("express");
 let router = express.Router();
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
 let responses = [];
 let test = [];
 let responseNumber = 0;
-let localvariable ="Hi i am new variable in the node.js";
+let localvariable = "Hi i am new variable in the node.js";
 let basicResponse = {
-  "payload": {
-    "google": {
-      "expectUserResponse": false,
-      "textToSpeech": "Congratulations! Your server is ready for Google Assistant"
+  payload: {
+    google: {
+      expectUserResponse: false,
+      textToSpeech: "Congratulations! Your server is ready for Google Assistant"
       // "richResponse": {
       //   "items": []
       // }
     }
   }
-}
+};
 
 // let reqs=req.body.user.userID;
 
 let simpleResponse = {
-  "fulfillmentText": "This is a text response",
-  "fulfillmentMessages": [
+  fulfillmentText: "This is a text response",
+  fulfillmentMessages: [
     {
-      "card": {
-        "title": "card title",
-        "subtitle": "card text",
-        "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
-        "buttons": [
+      card: {
+        title: "card title",
+        subtitle: "card text",
+        imageUri:
+          "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        buttons: [
           {
-            "text": "button text",
-            "postback": "https://assistant.google.com/"
+            text: "button text",
+            postback: "https://assistant.google.com/"
           }
         ]
       }
     }
   ],
-  "source": "example.com",
-  "payload": {
-    "google": {
-      "expectUserResponse": false,
-      "richResponse": {
-        "items": [
+  source: "example.com",
+  payload: {
+    google: {
+      expectUserResponse: false,
+      richResponse: {
+        items: [
           {
-            "simpleResponse": {
-              "textToSpeech": "Are You Gone Mad.Today is not a holiday."
+            simpleResponse: {
+              textToSpeech: "Are You Gone Mad.Today is not a holiday."
             }
           }
         ]
       }
     }
   }
-}
+};
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Express" });
   //req.render('index',{title:'Express'});
 });
 
-router.post('/webhook', function (req, res, next) {
+router.post("/webhook", function(req, res, next) {
   // let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
   //checking data
   console.log("Request", req.body);
@@ -71,46 +72,48 @@ router.post('/webhook', function (req, res, next) {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
   // } else {
-    responses.push({
-      "response_number": responseNumber++,
-      "payload": req.body
-    })
+  responses.push({
+    response_number: responseNumber++,
+    payload: req.body
+  });
 
-    if( req.body.queryResult.action == "action_holidays"){
-      db.query('SELECT * FROM holidays', function(err, results, fields){
-        if (err) throw err;
-        console.log("Results", results)
-        console.log("Fields", fields);
-        test.push({
-          "results": results,
-          "fields": fields
-        })
-        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Next holiday is ${results[0].description}`
-      })
-
-    }else{
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = "I am not configured for this intent that was fired."
-    }
-    res.json(simpleResponse);
-    //req.json();
+  if (req.body.queryResult.action == "action_holidays") {
+    db.query("SELECT * FROM holidays", function(err, results, fields) {
+      if (err) throw err;
+      console.log("Results", results);
+      console.log("Fields", fields);
+      test.push({
+        results: results,
+        fields: fields
+      });
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Next holiday is ${
+        results[0].description
+      }`;
+    });
+  } else {
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+      "I am not configured for this intent that was fired.";
+  }
+  res.json(simpleResponse);
+  //req.json();
   // }
 });
 
-router.get('/responses', function(req, res, next){
+router.get("/responses", function(req, res, next) {
   res.json(responses);
-})
+});
 
-router.get('/test', function(req, res, next){
+router.get("/test", function(req, res, next) {
   res.json(test);
-})
-router.get('/mysql', function(req, res){
-  db.query('SELECT * FROM holidays', function(err, results, fields){
+});
+router.get("/mysql", function(req, res) {
+  db.query("SELECT * FROM holidays", function(err, results, fields) {
     if (err) throw err;
-    console.log("Results", results)
+    console.log("Results", results);
     console.log("Fields", fields);
-    res.json(results)
-  })
-})
+    res.json(results);
+  });
+});
 
 // handles registration process
 // adds in the data base
