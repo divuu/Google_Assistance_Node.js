@@ -46,7 +46,7 @@ let simpleResponse = {
         "items": [
           {
             "simpleResponse": {
-              "textToSpeech": "Today is not a holiday."
+              "textToSpeech": "Are You Gone Mad.Today is not a holiday."
             }
           }
         ]
