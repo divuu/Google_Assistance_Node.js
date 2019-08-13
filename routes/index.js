@@ -78,7 +78,11 @@ router.post("/webhook", function(req, res, next) {
   });
 
   if (req.body.queryResult.action == "Action_Holidays") {
-    db.query("SELECT * FROM holidays", function(err, results, fields) {
+    db.query("SELECT * FROM prescription_details", function(
+      err,
+      results,
+      fields
+    ) {
       if (err) throw err;
       console.log("Results", results);
       console.log("Fields", fields);
@@ -107,7 +111,11 @@ router.get("/test", function(req, res, next) {
   res.json(test);
 });
 router.get("/mysql", function(req, res) {
-  db.query("SELECT * FROM holidays", function(err, results, fields) {
+  db.query("SELECT * FROM prescription_details", function(
+    err,
+    results,
+    fields
+  ) {
     if (err) throw err;
     console.log("Results", results);
     console.log("Fields", fields);
