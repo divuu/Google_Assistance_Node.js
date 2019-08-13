@@ -86,9 +86,7 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Next holiday is ${
-        results[0]
-      }`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Next holiday is ${results}`;
     });
   } else {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
