@@ -77,7 +77,7 @@ router.post("/webhook", function(req, res, next) {
     payload: req.body
   });
 
-  if (req.body.queryResult.action == "action_holidays") {
+  if (req.body.queryResult.action == "Action_Holidays") {
     db.query("SELECT * FROM holidays", function(err, results, fields) {
       if (err) throw err;
       console.log("Results", results);
@@ -92,7 +92,7 @@ router.post("/webhook", function(req, res, next) {
     });
   } else {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-      "I am not configured for this intent that was fired.";
+      "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
   res.json(simpleResponse);
   //req.json();
