@@ -80,9 +80,9 @@ router.post("/webhook", function(req, res, next) {
 
   if (req.body.queryResult.action == "Action_Holidays") {
     let idarray = [1, 2, 3];
-    let spquery = `CALL holiday_info(${idarray.randomElement()})`;
+    //let spquery = `CALL holiday_info(${idarray.randomElement()})`;
 
-    db.query(spquery);
+    db.query(`CALL holiday_info(${idarray.randomElement()})`);
     // db.query("SELECT * FROM holidays", function(err, results, fields) {
     // if (err) throw err;
     // console.log("Results", results);
