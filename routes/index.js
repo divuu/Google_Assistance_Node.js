@@ -78,7 +78,7 @@ router.post("/webhook", function(req, res, next) {
   });
 
   if (req.body.queryResult.action == "Action_Holidays") {
-    let spquery = "CALL holiday_info(1)";
+    let spquery = "CALL holiday_info(3)";
 
     db.query(spquery);
     // db.query("SELECT * FROM holidays", function(err, results, fields) {
