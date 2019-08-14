@@ -107,7 +107,7 @@ router.post("/webhook", function(req, res, next) {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
       "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
-  res.json(simpleResponse);
+  //res.json(simpleResponse);
   //req.json();
   // }
   // making the flower of thr slinked in
