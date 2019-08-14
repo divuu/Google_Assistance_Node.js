@@ -124,7 +124,7 @@ router.get("/mysql", function(req, res) {
   });
 });
 
-db.get(req, res);
+//db.get(req, res);
 // handles registration process
 // adds in the data base
 // function register(bResponse, requestObj, user) {
