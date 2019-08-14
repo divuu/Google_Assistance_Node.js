@@ -47,7 +47,7 @@ let simpleResponse = {
         items: [
           {
             simpleResponse: {
-              textToSpeech: "Are You Gone Mad.Today is not a holiday."
+              textToSpeech: "Today is not a holiday."
             }
           }
         ]
@@ -62,6 +62,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/webhook", function(req, res, next) {
+  //var newresponse = "";
   // let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
   //checking data
   console.log("Request", req.body);
@@ -98,6 +99,7 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
+      //res.json(
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
         results[results.length - 1].holiday_name
       }`;
@@ -107,7 +109,7 @@ router.post("/webhook", function(req, res, next) {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
       "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
-  //res.json(simpleResponse);
+  res.json(simpleResponse);
   //req.json();
   // }
   // making the flower of thr slinked in
