@@ -80,8 +80,17 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Holidays") {
     let spquery = "CALL holiday_info(1)";
 
-    db.query(spquery, function(err, results, fields) {
-      // db.query("SELECT * FROM holidays", function(err, results, fields) {
+    db.query(spquery);
+    // db.query("SELECT * FROM holidays", function(err, results, fields) {
+    // if (err) throw err;
+    // console.log("Results", results);
+    // console.log("Fields", fields);
+    // test.push({
+    //   results: results,
+    //   fields: fields
+    // });
+
+    db.query("SELECT * FROM temph", function(err, results, fields) {
       if (err) throw err;
       console.log("Results", results);
       console.log("Fields", fields);
@@ -89,14 +98,11 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
-
-      db.query("SELECT * FROM temph", function(err, results, fields) {
-        if (err) throw err;
-        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-          results[length - 1].holiday_name
-        }`;
-      });
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
+        results[length - 1].holiday_name
+      }`;
     });
+    // });
   } else {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
       "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
