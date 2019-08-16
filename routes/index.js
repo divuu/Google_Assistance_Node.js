@@ -70,10 +70,6 @@ router.get("/", function(req, res, next) {
 
 //actions.intent.TEXT
 
-// Intent that starts the account linking flow.
-app.intent("Start Signin", conv => {
-  conv.ask(new SignIn("To get your account details"));
-});
 // Create a Dialogflow intent with the `actions_intent_SIGN_IN` event.
 app.intent("Get Signin", (conv, params, signin) => {
   if (signin.status === "OK") {
@@ -118,6 +114,13 @@ router.post("/webhook", function(req, res, next) {
     response_number: responseNumber++,
     payload: req.body
   });
+
+  if (req.body.queryResult.action == "Register_Action") {
+    // Intent that starts the account linking flow.
+    app.intent("Start Signin", conv => {
+      conv.ask(new SignIn("To get your account details"));
+    });
+  }
 
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
