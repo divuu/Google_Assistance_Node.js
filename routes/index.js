@@ -1,5 +1,12 @@
 var db = require("../connection");
 let express = require("express");
+const { Permission } = require("actions-on-google");
+const { dialogflow, SignIn } = require("actions-on-google");
+const app = dialogflow({
+  // REPLACE THE PLACEHOLDER WITH THE CLIENT_ID OF YOUR ACTIONS PROJECT
+  clientId:
+    114329969606 - m3t49hjn7vf5gdb6s3nq1ldrk2gjsl9e.apps.googleusercontent.com
+});
 let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
@@ -59,6 +66,40 @@ let simpleResponse = {
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
   //req.render('index',{title:'Express'});
+});
+
+//actions.intent.TEXT
+
+// Intent that starts the account linking flow.
+app.intent("Start Signin", conv => {
+  conv.ask(new SignIn("To get your account details"));
+});
+// Create a Dialogflow intent with the `actions_intent_SIGN_IN` event.
+app.intent("Get Signin", (conv, params, signin) => {
+  if (signin.status === "OK") {
+    const payload = conv.user.profile.payload;
+    conv.ask(
+      `I got your account details, ${
+        payload.name
+      }. What do you want to do next?`
+    );
+  } else {
+    conv.ask(
+      `I won't be able to save your data, but what do you want to do next?`
+    );
+  }
+});
+
+const { Permission } = require("actions-on-google");
+app.intent("ask_for_permissions_detailed", conv => {
+  // Choose one or more supported permissions to request:
+  // NAME, DEVICE_PRECISE_LOCATION, DEVICE_COARSE_LOCATION
+  const options = {
+    context: "To address you by name and know your location",
+    // Ask for more than one permission. User can authorize all or none.
+    permissions: ["NAME", "DEVICE_PRECISE_LOCATION"]
+  };
+  conv.ask(new Permission(options));
 });
 
 router.post("/webhook", function(req, res, next) {
