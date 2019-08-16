@@ -1,7 +1,7 @@
 var db = require("../connection");
 let express = require("express");
-const { Permission } = require("actions-on-google");
-const { dialogflow, SignIn } = require("actions-on-google");
+//const { Permission } = require("actions-on-google");
+const { dialogflow, SignIn, Permission } = require("actions-on-google");
 const app = dialogflow({
   // REPLACE THE PLACEHOLDER WITH THE CLIENT_ID OF YOUR ACTIONS PROJECT
   clientId:
