@@ -91,6 +91,7 @@ router.post("/webhook", function(req, res, next) {
     //   results: results,
     //   fields: fields
     // });
+    //Where is
 
     db.query("SELECT * FROM temph", function(err, results, fields) {
       if (err) throw err;
