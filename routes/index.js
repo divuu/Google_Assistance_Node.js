@@ -2,6 +2,7 @@ var db = require("../connection");
 let express = require("express");
 //const { Permission } = require("actions-on-google");
 //const { dialogflow, SignIn, Permission } = require("actions-on-google");
+var jwtDecode = require("jwt-decode");
 let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
@@ -75,6 +76,12 @@ router.post("/webhook", function(req, res, next) {
     "Token",
     req.body.originalDetectIntentRequest.payload.user.idToken
   );
+  // Decoding the JWT Token from the Google #not verifying Only decoding
+  var decoded = jwt_decode(
+    req.body.originalDetectIntentRequest.payload.user.idToken
+  );
+  console.log(decoded);
+
   let user = verifyJWT(
     req.body.originalDetectIntentRequest.payload.user.idToken,
     keys.CERTIFICATE
