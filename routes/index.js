@@ -90,7 +90,7 @@ app.intent("Get Signin", (conv, params, signin) => {
   }
 });
 
-const { Permission } = require("actions-on-google");
+//const { Permission } = require("actions-on-google");
 app.intent("ask_for_permissions_detailed", conv => {
   // Choose one or more supported permissions to request:
   // NAME, DEVICE_PRECISE_LOCATION, DEVICE_COARSE_LOCATION
