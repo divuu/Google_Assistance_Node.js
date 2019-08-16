@@ -77,7 +77,7 @@ router.post("/webhook", function(req, res, next) {
     req.body.originalDetectIntentRequest.payload.user.idToken
   );
   // Decoding the JWT Token from the Google #not verifying Only decoding
-  var decoded = jwt_decode(
+  var decoded = jwtDecode(
     req.body.originalDetectIntentRequest.payload.user.idToken
   );
   console.log(decoded);
