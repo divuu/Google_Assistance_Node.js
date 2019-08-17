@@ -124,11 +124,11 @@ router.post("/webhook", function(req, res, next) {
   // });
 
   if (req.body.queryResult.action == "Action_Holidays") {
-    res.json(basicResponse);
+    //res.json(basicResponse);
     //let idarray = [1, 2, 3];
-    // let spquery = "CALL holiday_info(2)";
-    //console.log("spquery Is fired", spquery);
-    // db.query(spquery);
+    let spquery = "CALL holiday_info(2)";
+    console.log("spquery Is fired", spquery);
+    db.query(spquery);
     // db.query("SELECT * FROM holidays", function(err, results, fields) {
     // if (err) throw err;
     // console.log("Results", results);
@@ -139,19 +139,19 @@ router.post("/webhook", function(req, res, next) {
     // });
     //Where is
 
-    // db.query("SELECT * FROM temph", function(err, results, fields) {
-    //   if (err) throw err;
-    //   console.log("Results", results);
-    //   console.log("Fields", fields);
-    //   test.push({
-    //     results: results,
-    //     fields: fields
-    //   });
-    //              //res.json(
-    //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-    //     results[results.length - 1].holiday_name
-    //   }.`;
-    // });
+    db.query("SELECT * FROM temph", function(err, results, fields) {
+      if (err) throw err;
+      console.log("Results", results);
+      console.log("Fields", fields);
+      test.push({
+        results: results,
+        fields: fields
+      });
+      //res.json(
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
+        results[results.length - 1].holiday_name
+      }.`;
+    });
     //});
   } else {
     simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
