@@ -137,22 +137,20 @@ router.post("/webhook", function(req, res, next) {
       }`;
     });
     // });
+  } else {
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+      "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
-  // } else {
-  //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-  //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
-  // }
 
   if (req.body.queryResult.action == "action_register") {
     Console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
     res.json(register(thisResponse, req.body, decoded));
+  } else {
+    res.json(simpleResponse);
+    Console.log("HELLO I'M IN Action REGISTER END");
+    //res.json(resp);
   }
-  // } else {
-  //   res.json(simpleResponse);
-  //   Console.log("HELLO I'M IN Action REGISTER END");
-  //   //res.json(resp);
-  // }
   //req.json();
   // }
 });
@@ -190,9 +188,10 @@ function register(bResponse, requestObj, decoded) {
       //   "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
       //   +"<say-as> with your email-Id, " +
       //   +". Thank you!</speak>"
-      ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
-        requestObj.queryResult.parameters.phone
-      }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
+      // ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
+      //   requestObj.queryResult.parameters.phone
+      // }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
+      ssml: `<speak>Hi! Good to have you with us.`
     }
   });
   return bResponse;
