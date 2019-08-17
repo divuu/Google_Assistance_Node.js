@@ -111,7 +111,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
     let spquery = "CALL holiday_info(2)";
-    // console.log("spquery", spquery);
+    console.log("spquery Is fired", spquery);
     db.query(spquery);
     // db.query("SELECT * FROM holidays", function(err, results, fields) {
     // if (err) throw err;
@@ -131,11 +131,10 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
-      res.json(
-        (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-          results[results.length - 1].holiday_name
-        }`)
-      );
+      //res.json(
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
+        results[results.length - 1].holiday_name
+      }.`;
     });
     //});
   } else {
@@ -152,6 +151,7 @@ router.post("/webhook", function(req, res, next) {
     Console.log("HELLO I'M IN Action REGISTER END");
     //res.json(resp);
   }
+  res.json(simpleResponse);
   //req.json();
   // }
 });
