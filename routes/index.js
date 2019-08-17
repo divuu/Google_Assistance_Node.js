@@ -194,7 +194,7 @@ router.get("/mysql", function(req, res) {
 function register(bResponse, requestObj, decoded) {
   //to do logic to add to db
   let spquery =
-    `CALL sp_assistant_user(` +
+    `CALL sp_assistant_user(22,` +
     requestObj.queryResult.parameters.MobileNo +
     "," +
     decoded.name +
