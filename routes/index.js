@@ -7,10 +7,10 @@ let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
 let responses = [];
-let request = [];
+//let request = [];
 let test = [];
-let responseNumber = 0;
-let localvariable = "Hi i am new variable in the node.js";
+//let responseNumber = 0;
+//let localvariable = "Hi i am new variable in the node.js";
 let basicResponse = {
   payload: {
     google: {
@@ -83,11 +83,11 @@ router.post("/webhook", function(req, res, next) {
   );
   console.log(decoded);
 
-  let user = verifyJWT(
-    req.body.originalDetectIntentRequest.payload.user.idToken,
-    keys.CERTIFICATE
-  );
-  console.log("User");
+  // let user = verifyJWT(
+  //   req.body.originalDetectIntentRequest.payload.user.idToken,
+  //   keys.CERTIFICATE
+  // );
+  // console.log("User");
   // if (req.body.queryResult.action === "action_register") {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
