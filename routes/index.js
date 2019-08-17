@@ -110,10 +110,10 @@ router.post("/webhook", function(req, res, next) {
   //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, user));
   // } else {
-  resp.push({
-    response_number: responseNumber++,
-    payload: req.body
-  });
+  // resp.push({
+  //   response_number: responseNumber++,
+  //   payload: req.body
+  // });
 
   // resp.push({
   //   incoming_payload: req.body,
