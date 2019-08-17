@@ -116,13 +116,13 @@ router.post("/webhook", function(req, res, next) {
   //   payload: req.body
   // });
 
-  // resp.push({
-  //   incoming_payload: req.body,
-  //   number: count++,
-  //   //user: user,
-  //   decoded: decoded,
-  //   token: req.body.originalDetectIntentRequest.payload.user.idToken
-  // });
+  resp.push({
+    incoming_payload: req.body,
+    number: count++,
+    //user: user,
+    decoded: decoded,
+    token: req.body.originalDetectIntentRequest.payload.user.idToken
+  });
 
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
@@ -160,8 +160,8 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "action_register") {
     console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    res.json(basicResponse);
-    //res.json(register(thisResponse, req.body, decoded));
+    //res.json(basicResponse);
+    res.json(register(thisResponse, req.body, decoded));
   } else {
     console.log("HELLO I'M IN Action REGISTER END");
     //res.json(resp);
@@ -173,7 +173,7 @@ router.post("/webhook", function(req, res, next) {
 });
 
 router.get("/responses", function(req, res, next) {
-  res.json(responses);
+  res.json(resp);
 });
 
 router.get("/test", function(req, res, next) {
