@@ -140,7 +140,7 @@ router.post("/webhook", function(req, res, next) {
     //Where is
 
     db.query("SELECT * FROM temph", function(err, results, fields) {
-      if (err) throw err;
+      // if (err) throw err;
       console.log("Results", results);
       console.log("Fields", fields);
       test.push({
@@ -148,24 +148,24 @@ router.post("/webhook", function(req, res, next) {
         fields: fields
       });
       //res.json(
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-        results[results.length - 1].holiday_name
-      }.`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on 
+      ${results[results.length - 1].holiday_name}.`;
+      // else {
+      //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+      //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
+      // }
     });
-    //});
-  } else {
-    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-      "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
 
   if (req.body.queryResult.action == "action_register") {
-    Console.log("HELLO I'M IN Action REGISTER Start");
+    console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
     res.json(basicResponse);
     //res.json(register(thisResponse, req.body, decoded));
   } else {
-    Console.log("HELLO I'M IN Action REGISTER END");
-    //   //res.json(resp);
+    console.log("HELLO I'M IN Action REGISTER END");
+    //res.json(resp);
+    res.json(simpleResponse);
   }
   //req.json();
   // }
