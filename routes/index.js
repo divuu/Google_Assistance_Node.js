@@ -20,10 +20,7 @@ let basicResponse = {
         items: [
           {
             simpleResponse: {
-              // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +  + "<say-as> with your email-Id, " +  +". Thank you!</speak>"
-              // "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
-              textToSpeech: "Successful!",
-              text: "Successful!"
+              textToSpeech: "Today is not a holiday. finally success."
             }
           }
         ]
