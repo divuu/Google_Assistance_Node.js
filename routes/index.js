@@ -103,7 +103,7 @@ router.post("/webhook", function(req, res, next) {
   responses.push({
     incoming_payload: req.body,
     number: count++,
-    user: user,
+    //user: user,
     decoded: decoded,
     token: req.body.originalDetectIntentRequest.payload.user.idToken
   });
