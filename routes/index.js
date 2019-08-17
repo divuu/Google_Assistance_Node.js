@@ -169,7 +169,7 @@ router.post("/webhook", function(req, res, next) {
   }
   //req.json();
   // }
-  res.json(simpleResponse);
+  //res.json(simpleResponse);
 });
 
 router.get("/responses", function(req, res, next) {
@@ -202,7 +202,7 @@ function register(bResponse, requestObj, decoded) {
       //   +"<say-as> with your email-Id, " +
       //   +". Thank you!</speak>"
       ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
-        requestObj.queryResult.parameters.phone
+        requestObj.queryResult.parameters.MobileNo
       }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
       //ssml: `<speak>Hi! Good to have you with us.`
     }
