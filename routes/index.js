@@ -11,17 +11,38 @@ let responses = [];
 let test = [];
 //let responseNumber = 0;
 //let localvariable = "Hi i am new variable in the node.js";
+
 let basicResponse = {
   payload: {
     google: {
       expectUserResponse: false,
-      textToSpeech: "Congratulations! Your server is ready for Google Assistant"
-      // "richResponse": {
-      //   "items": []
-      // }
+      richResponse: {
+        items: [
+          {
+            simpleResponse: {
+              // "ssml": "<speak>Hi " + user.name + "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +  + "<say-as> with your email-Id, " +  +". Thank you!</speak>"
+              // "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
+              textToSpeech: "Successful!",
+              text: "Successful!"
+            }
+          }
+        ]
+      }
     }
   }
 };
+
+// let basicResponse = {
+//   payload: {
+//     google: {
+//       expectUserResponse: false,
+//       textToSpeech: "Congratulations! Your server is ready for Google Assistant"
+//       // "richResponse": {
+//       //   "items": []
+//       // }
+//     }
+//   }
+// };
 
 // let reqs=req.body.user.userID;
 
