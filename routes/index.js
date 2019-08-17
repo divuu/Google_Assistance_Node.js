@@ -124,7 +124,6 @@ router.post("/webhook", function(req, res, next) {
   // });
 
   if (req.body.queryResult.action == "Action_Holidays") {
-    //res.json(basicResponse);
     //let idarray = [1, 2, 3];
     let spquery = "CALL holiday_info(2)";
     console.log("spquery Is fired", spquery);
@@ -158,18 +157,17 @@ router.post("/webhook", function(req, res, next) {
       "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
 
-  // temporary comment
-  // if (req.body.queryResult.action == "action_register") {
-  //   Console.log("HELLO I'M IN Action REGISTER Start");
-  //   let thisResponse = JSON.parse(JSON.stringify(basicResponse));
-  //   res.json(register(thisResponse, req.body, decoded));
-  // } else {
-  res.json(simpleResponse);
-  //   Console.log("HELLO I'M IN Action REGISTER END");
-  //   //res.json(resp);
-  // }
+  if (req.body.queryResult.action == "action_register") {
+    Console.log("HELLO I'M IN Action REGISTER Start");
+    let thisResponse = JSON.parse(JSON.stringify(basicResponse));
+    res.json(register(thisResponse, req.body, decoded));
+  } else {
+    Console.log("HELLO I'M IN Action REGISTER END");
+    //   //res.json(resp);
+  }
   //req.json();
   // }
+  res.json(simpleResponse);
 });
 
 router.get("/responses", function(req, res, next) {
@@ -201,10 +199,10 @@ function register(bResponse, requestObj, decoded) {
       //   "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
       //   +"<say-as> with your email-Id, " +
       //   +". Thank you!</speak>"
-      // ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
-      //   requestObj.queryResult.parameters.phone
-      // }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
-      ssml: `<speak>Hi! Good to have you with us.`
+      ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
+        requestObj.queryResult.parameters.phone
+      }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
+      //ssml: `<speak>Hi! Good to have you with us.`
     }
   });
   return bResponse;
