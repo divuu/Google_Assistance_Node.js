@@ -170,7 +170,7 @@ router.post("/webhook", function(req, res, next) {
   }
   //req.json();
   // }
-  //res.json(simpleResponse);
+  res.json(simpleResponse);
 });
 
 router.get("/responses", function(req, res, next) {
