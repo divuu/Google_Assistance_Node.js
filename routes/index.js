@@ -147,11 +147,10 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
-      res.json(
-        (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-          results[results.length - 1].holiday_name
-        }.`)
-      );
+      //res.json(
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
+        results[results.length - 1].holiday_name
+      }.`;
     });
     //});
   } else {
