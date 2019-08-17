@@ -107,7 +107,8 @@ router.post("/webhook", function(req, res, next) {
     decoded: decoded,
     token: req.body.originalDetectIntentRequest.payload.user.idToken
   });
-  res.json(simpleResponse);
+  res.json(basicResponse);
+  //res.json(simpleResponse);
   // if (req.body.queryResult.action == "Action_Holidays") {
   //   //let idarray = [1, 2, 3];
   //   let spquery = "CALL holiday_info(2)";
