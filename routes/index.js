@@ -6,7 +6,7 @@ var jwtDecode = require("jwt-decode");
 let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
-let responses = [];
+let resp = [];
 //let request = [];
 let test = [];
 //let responseNumber = 0;
@@ -118,7 +118,7 @@ router.post("/webhook", function(req, res, next) {
 
   // });
 
-  responses.push({
+  resp.push({
     incoming_payload: req.body,
     number: count++,
     //user: user,
