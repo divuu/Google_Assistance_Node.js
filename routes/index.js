@@ -193,15 +193,14 @@ router.get("/mysql", function(req, res) {
 // adds in the data base
 function register(bResponse, requestObj, decoded) {
   //to do logic to add to db
-  let spquery =
-    `CALL sp_assistant_user(22,` +
-    requestObj.queryResult.parameters.MobileNo +
-    "," +
-    decoded.name +
-    "," +
-    decoded.email +
-    `)`;
-  db.query(spquery);
+  let spquery = "CALL sp_assistant_user(1)";
+  db.query(spquery, true, (error, results, fields) => {
+    if (error) {
+      return console.log(error.message);
+    }
+    console.log(results[0]);
+    console.log(fields);
+  });
   bResponse.payload.google.richResponse.items.push({
     simpleResponse: {
       // ssml:
