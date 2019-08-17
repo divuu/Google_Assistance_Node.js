@@ -104,6 +104,7 @@ router.post("/webhook", function(req, res, next) {
     incoming_payload: req.body,
     number: count++,
     user: user,
+    decoded: decoded,
     token: req.body.originalDetectIntentRequest.payload.user.idToken
   });
 
@@ -145,7 +146,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "action_register") {
     Console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    res.json(register(thisResponse, req.body, user));
+    res.json(register(thisResponse, req.body, decoded));
   }
   // } else {
   //   res.json(simpleResponse);
@@ -179,7 +180,7 @@ router.get("/mysql", function(req, res) {
 
 // handles registration process
 // adds in the data base
-function register(bResponse, requestObj, user) {
+function register(bResponse, requestObj, decoded) {
   //to do logic to add to db
   bResponse.payload.google.richResponse.items.push({
     simpleResponse: {
@@ -191,7 +192,7 @@ function register(bResponse, requestObj, user) {
       //   +". Thank you!</speak>"
       ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
         requestObj.queryResult.parameters.phone
-      }</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
+      }</say-as> with your email-Id, ${decoded.email}. Thank you!</speak>`
     }
   });
   return bResponse;
