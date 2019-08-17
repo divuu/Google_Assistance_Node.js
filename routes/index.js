@@ -118,13 +118,13 @@ router.post("/webhook", function(req, res, next) {
 
   // });
 
-  // responses.push({
-  //   incoming_payload: req.body,
-  //   number: count++,
-  //   //user: user,
-  //   decoded: decoded,
-  //   token: req.body.originalDetectIntentRequest.payload.user.idToken
-  // });
+  responses.push({
+    incoming_payload: req.body,
+    number: count++,
+    //user: user,
+    decoded: decoded,
+    token: req.body.originalDetectIntentRequest.payload.user.idToken
+  });
 
   if (req.body.queryResult.action == "Action_Holidays") {
     res.json(basicResponse);
