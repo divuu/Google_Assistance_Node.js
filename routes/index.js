@@ -7,6 +7,7 @@ let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
 let responses = [];
+let request = [];
 let test = [];
 let responseNumber = 0;
 let localvariable = "Hi i am new variable in the node.js";
@@ -95,6 +96,9 @@ router.post("/webhook", function(req, res, next) {
   //   response_number: responseNumber++,
   //   payload: req.body
   // });
+  // request.push({
+
+  // });
 
   responses.push({
     incoming_payload: req.body,
@@ -138,16 +142,22 @@ router.post("/webhook", function(req, res, next) {
   }
 
   if (req.body.queryResult.action == "action_register") {
+    Console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
     res.json(register(thisResponse, req.body, user));
   } else {
     res.json(simpleResponse);
+    Console.log("HELLO I'M IN Action REGISTER END");
     //res.json(resp);
   }
   //req.json();
   // }
   // making the flower of thr slinked in
 });
+
+// router.get("/requests", function(req, res, next) {
+//   res.json(requests);
+// });
 
 router.get("/responses", function(req, res, next) {
   res.json(responses);
@@ -172,13 +182,15 @@ function register(bResponse, requestObj, user) {
   //to do logic to add to db
   bResponse.payload.google.richResponse.items.push({
     simpleResponse: {
-      ssml:
-        "<speak>Hi " +
-        user.name +
-        "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
-        +"<say-as> with your email-Id, " +
-        +". Thank you!</speak>"
-      // "ssml": `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${requestObj.queryResult.parameters.phone}</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
+      // ssml:
+      //   "<speak>Hi " +
+      //   user.name +
+      //   "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
+      //   +"<say-as> with your email-Id, " +
+      //   +". Thank you!</speak>"
+      ssml: `<speak>Hi! Good to have you with us. I have registered your number <say-as interpret-as=\"characters\">${
+        requestObj.queryResult.parameters.phone
+      }</say-as> with your email-Id, ${user.email}. Thank you!</speak>`
     }
   });
   return bResponse;
