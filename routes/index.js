@@ -118,13 +118,13 @@ router.post("/webhook", function(req, res, next) {
 
   // });
 
-  responses.push({
-    incoming_payload: req.body,
-    number: count++,
-    //user: user,
-    decoded: decoded,
-    token: req.body.originalDetectIntentRequest.payload.user.idToken
-  });
+  // responses.push({
+  //   incoming_payload: req.body,
+  //   number: count++,
+  //   //user: user,
+  //   decoded: decoded,
+  //   token: req.body.originalDetectIntentRequest.payload.user.idToken
+  // });
 
   if (req.body.queryResult.action == "Action_Holidays") {
     res.json(basicResponse);
@@ -167,18 +167,13 @@ router.post("/webhook", function(req, res, next) {
   //   let thisResponse = JSON.parse(JSON.stringify(basicResponse));
   //   res.json(register(thisResponse, req.body, decoded));
   // } else {
-  //   res.json(simpleResponse);
+  res.json(simpleResponse);
   //   Console.log("HELLO I'M IN Action REGISTER END");
   //   //res.json(resp);
   // }
-
   //req.json();
   // }
 });
-
-// router.get("/requests", function(req, res, next) {
-//   res.json(requests);
-// });
 
 router.get("/responses", function(req, res, next) {
   res.json(responses);
