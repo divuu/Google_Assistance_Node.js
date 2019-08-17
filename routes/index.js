@@ -136,23 +136,24 @@ router.post("/webhook", function(req, res, next) {
       }`;
     });
     // });
-  } else {
-    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-      "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
   }
+  // } else {
+  //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+  //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
+  // }
 
   if (req.body.queryResult.action == "action_register") {
     Console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
     res.json(register(thisResponse, req.body, user));
-  } else {
-    res.json(simpleResponse);
-    Console.log("HELLO I'M IN Action REGISTER END");
-    //res.json(resp);
   }
+  // } else {
+  //   res.json(simpleResponse);
+  //   Console.log("HELLO I'M IN Action REGISTER END");
+  //   //res.json(resp);
+  // }
   //req.json();
   // }
-  // making the flower of thr slinked in
 });
 
 // router.get("/requests", function(req, res, next) {
