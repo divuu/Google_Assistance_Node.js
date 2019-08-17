@@ -20,7 +20,8 @@ let basicResponse = {
         items: [
           {
             simpleResponse: {
-              textToSpeech: "Today is not a holiday. finally success."
+              textToSpeech:
+                "Today is not a holiday. From Register intent. finally success."
             }
           }
         ]
@@ -125,7 +126,7 @@ router.post("/webhook", function(req, res, next) {
 
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
-    let spquery = "CALL holiday_info(2)";
+    let spquery = "CALL holiday_info(3)";
     console.log("spquery Is fired", spquery);
     db.query(spquery);
     // db.query("SELECT * FROM holidays", function(err, results, fields) {
@@ -146,10 +147,11 @@ router.post("/webhook", function(req, res, next) {
         results: results,
         fields: fields
       });
-      //res.json(
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
-        results[results.length - 1].holiday_name
-      }.`;
+      res.json(
+        (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on ${
+          results[results.length - 1].holiday_name
+        }.`)
+      );
     });
     //});
   } else {
@@ -160,14 +162,15 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "action_register") {
     Console.log("HELLO I'M IN Action REGISTER Start");
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    res.json(register(thisResponse, req.body, decoded));
+    res.json(basicResponse);
+    //res.json(register(thisResponse, req.body, decoded));
   } else {
     Console.log("HELLO I'M IN Action REGISTER END");
     //   //res.json(resp);
   }
   //req.json();
   // }
-  res.json(simpleResponse);
+  //res.json(simpleResponse);
 });
 
 router.get("/responses", function(req, res, next) {
