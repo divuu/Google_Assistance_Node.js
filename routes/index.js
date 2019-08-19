@@ -173,7 +173,10 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Bus_Route") {
     console.log("HELLO I'M IN Action Bus Route Start");
     //to do logic to add to db
-    let spquery = "CALL sp_assistant_address(3)";
+    var RouteNo = req.body.queryResult.RouteNo;
+    console.log(RouteNo);
+    let spquery = "CALL sp_assistant_address(" + RouteNo + ")";
+    console.log(spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
         return console.log(error.message);
@@ -189,20 +192,7 @@ router.post("/webhook", function(req, res, next) {
       console.log("Actual Address", json[0].address);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near
         ${json[0].address}`;
-
       res.json(simpleResponse);
-      // push({
-      //   simpleResponse: {
-      //     ssml: `<speak>Whooo!! I found you Bus. The Bus is near:- ${
-      //       json[0].address
-      //     }.</speak>`
-      //   }
-      // });
-      // res.json(
-      //   (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near:- ${
-      //     json[0].address
-      //   }`)
-      // );
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
