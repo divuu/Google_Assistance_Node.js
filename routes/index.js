@@ -185,7 +185,15 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].address);
-      res.json(simpleResponse);
+      res.json(
+        basicResponse.payload.google.richResponse.items.push({
+          simpleResponse: {
+            ssml: `<speak>Whooo!! I found you Bus. The Bus is near:- ${
+              json[0].address
+            }.</speak>`
+          }
+        })
+      );
       // res.json(
       //   (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near:- ${
       //     json[0].address
