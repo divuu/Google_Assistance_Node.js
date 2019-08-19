@@ -173,7 +173,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Bus_Route") {
     console.log("HELLO I'M IN Action Bus Route Start");
     //to do logic to add to db
-    var RouteNo = req.body.queryResult.RouteNo;
+    var RouteNo = req.body.queryResult.parameters.RouteNo;
     console.log(RouteNo);
     let spquery = "CALL sp_assistant_address(" + RouteNo + ")";
     console.log(spquery);
