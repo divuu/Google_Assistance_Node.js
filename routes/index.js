@@ -172,12 +172,12 @@ router.post("/webhook", function(req, res, next) {
     console.log("HELLO I'M IN Action Bus Route Start");
     //to do logic to add to db
     let spquery = "CALL sp_assistant_address(2)";
-    db.query(spquery, (error, results, fields) => {
+    db.query(spquery, true, (error, results, fields) => {
       if (error) {
         return console.log(error.message);
       }
-      console.log(results[0]);
-      var address = console.log(results[0].RowDataPacket.address);
+      console.log(results);
+      var address = console.log(results.RowDataPacket.address);
       console.log(fields);
       //res.json(simpleResponse);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- 
