@@ -150,6 +150,8 @@ router.post("/webhook", function(req, res, next) {
       //res.json(
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on 
       ${results[results.length - 1].holiday_name}.`;
+
+      res.json(simpleResponse);
       // else {
       //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
       //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
@@ -185,15 +187,17 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].address);
-      res.json(
-        basicResponse.payload.google.richResponse.items.push({
-          simpleResponse: {
-            ssml: `<speak>Whooo!! I found you Bus. The Bus is near:- ${
-              json[0].address
-            }.</speak>`
-          }
-        })
-      );
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+        json[0].address;
+
+      res.json(simpleResponse);
+      // push({
+      //   simpleResponse: {
+      //     ssml: `<speak>Whooo!! I found you Bus. The Bus is near:- ${
+      //       json[0].address
+      //     }.</speak>`
+      //   }
+      // });
       // res.json(
       //   (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near:- ${
       //     json[0].address
@@ -202,7 +206,9 @@ router.post("/webhook", function(req, res, next) {
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
-    //res.json(simpleResponse);
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+      "Failed";
+    res.json(simpleResponse);
   }
 });
 
