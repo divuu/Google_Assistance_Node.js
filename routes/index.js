@@ -165,7 +165,7 @@ router.post("/webhook", function(req, res, next) {
   } else {
     console.log("HELLO I'M IN Action REGISTER END");
     //res.json(resp);
-    res.json(simpleResponse);
+    //res.json(simpleResponse);
   }
 
   if (req.body.queryResult.action == "Action_Bus_Route") {
@@ -180,11 +180,11 @@ router.post("/webhook", function(req, res, next) {
       console.log(fields);
       //res.json(simpleResponse);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- 
-      ${results[0].address}.`;
+      ${results[0].RowDataPacket.address}.`;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
-    res.json(simpleResponse);
+    //res.json(simpleResponse);
   }
 });
 
