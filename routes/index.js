@@ -177,7 +177,7 @@ router.post("/webhook", function(req, res, next) {
         return console.log(error.message);
       }
       console.log(results[0]);
-      var address = results[0].RowDataPacket.address;
+      var address = results.RowDataPacket.address;
       console.log(fields);
       console.log(address);
       //res.json(simpleResponse);
