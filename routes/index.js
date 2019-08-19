@@ -177,10 +177,11 @@ router.post("/webhook", function(req, res, next) {
         return console.log(error.message);
       }
       console.log(results[0]);
+      var address = console.log(results[0].RowDataPacket.address);
       console.log(fields);
       //res.json(simpleResponse);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- 
-      ${results[0].RowDataPacket.address}.`;
+      ${address}.`;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
