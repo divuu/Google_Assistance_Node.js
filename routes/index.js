@@ -184,6 +184,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(fields);
       console.log(address);
       console.log(json);
+      console.log("Actual Address", json[0].address);
       //res.json(simpleResponse);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- ${
         json[0].address
