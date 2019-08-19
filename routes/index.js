@@ -176,12 +176,11 @@ router.post("/webhook", function(req, res, next) {
       if (error) {
         return console.log(error.message);
       }
-      console.log(results);
-      var address = console.log(results.RowDataPacket.address);
+      console.log(results[0]);
+      var address = console.log(results[0].RowDataPacket.address);
       console.log(fields);
       //res.json(simpleResponse);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- 
-      ${address}.`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
