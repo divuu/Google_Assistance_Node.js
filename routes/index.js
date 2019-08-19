@@ -185,7 +185,9 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       //res.json(simpleResponse);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- ${
+        json[0].address
+      }`;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
