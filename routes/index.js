@@ -171,16 +171,29 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Bus_Route") {
     console.log("HELLO I'M IN Action Bus Route Start");
     //to do logic to add to db
-    let spquery = "CALL sp_assistant_address(2)";
+    let spquery = "CALL sp_assistant_address(3)";
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
         return console.log(error.message);
       }
       console.log(results[0]);
-      var address = console.log(results[0].RowDataPacket.address);
+      var address = results[0].RowDataPacket.address;
       console.log(fields);
+      console.log(address);
       //res.json(simpleResponse);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
+      bResponse.payload.google.richResponse.items.push({
+        simpleResponse: {
+          // ssml:
+          //   "<speak>Hi " +
+          //   user.name +
+          //   "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
+          //   +"<say-as> with your email-Id, " +
+          //   +". Thank you!</speak>"
+          ssml: `<speak>Whooo!! I found you Bus. Bus is near:-${address}. Thank you!</speak>`
+          //ssml: `<speak>Hi! Good to have you with us.`
+        }
+      });
+      //simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
