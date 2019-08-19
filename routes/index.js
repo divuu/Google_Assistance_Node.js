@@ -179,11 +179,11 @@ router.post("/webhook", function(req, res, next) {
       console.log("Result", results);
       console.log("Result[0]", results[0]);
       // var address = results.RowDataPacket.address;
-      var address = results[0];
+      var address = results[0].split();
       console.log(fields);
       console.log(address);
       //res.json(simpleResponse);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- ${address}`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
