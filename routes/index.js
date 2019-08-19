@@ -185,12 +185,12 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].address);
-      //res.json(simpleResponse);
-      res.json(
-        (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near:- ${
-          json[0].address
-        }`)
-      );
+      res.json(simpleResponse);
+      // res.json(
+      //   (simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near:- ${
+      //     json[0].address
+      //   }`)
+      // );
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
