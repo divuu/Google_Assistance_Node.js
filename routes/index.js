@@ -167,9 +167,25 @@ router.post("/webhook", function(req, res, next) {
     //res.json(resp);
     res.json(simpleResponse);
   }
-  //req.json();
-  // }
-  //res.json(simpleResponse);
+
+  if (req.body.queryResult.action == "Action_Bus_Route") {
+    console.log("HELLO I'M IN Action Bus Route Start");
+    //to do logic to add to db
+    let spquery = "CALL sp_assistant_address(2)";
+    db.query(spquery, (error, results, fields) => {
+      if (error) {
+        return console.log(error.message);
+      }
+      console.log(results[0]);
+      console.log(fields);
+      //res.json(simpleResponse);
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- 
+      ${results[0].address}.`;
+    });
+  } else {
+    console.log("HELLO I'M IN Action Bus Route END");
+    res.json(simpleResponse);
+  }
 });
 
 router.get("/responses", function(req, res, next) {
