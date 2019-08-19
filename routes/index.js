@@ -183,19 +183,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(fields);
       console.log(address);
       //res.json(simpleResponse);
-      bResponse.payload.google.richResponse.items.push({
-        simpleResponse: {
-          // ssml:
-          //   "<speak>Hi " +
-          //   user.name +
-          //   "! Good to have you with us. I have registered your number <say-as interpret-as='telephone'>" +
-          //   +"<say-as> with your email-Id, " +
-          //   +". Thank you!</speak>"
-          ssml: `<speak>Whooo!! I found you Bus. Bus is near:-${address}. Thank you!</speak>`
-          //ssml: `<speak>Hi! Good to have you with us.`
-        }
-      });
-      //simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- `;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. Bus is near:- ${address}`;
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
