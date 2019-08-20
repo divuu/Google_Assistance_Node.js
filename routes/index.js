@@ -200,7 +200,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].stop_name);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Yes !! I found your Bus. The Bus is near
         ${json[0].stop_name}`;
       res.json(simpleResponse);
     });
