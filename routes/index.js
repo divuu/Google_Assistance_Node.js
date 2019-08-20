@@ -176,7 +176,10 @@ router.post("/webhook", function(req, res, next) {
     //res.json(simpleResponse);
   }
 
-  if (req.body.queryResult.action == "Action_Bus_Route") {
+  if (
+    req.body.queryResult.action == "Action_Bus_Route" ||
+    "DefaultWelcomeIntent.DefaultWelcomeIntent-yes"
+  ) {
     console.log("HELLO I'M IN Action Bus Route Start");
     //to do logic to add to db
     var RouteNo = req.body.queryResult.parameters.RouteNo;
