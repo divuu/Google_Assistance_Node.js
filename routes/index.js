@@ -189,9 +189,9 @@ router.post("/webhook", function(req, res, next) {
       console.log(fields);
       console.log(address);
       console.log(json);
-      console.log("Actual Address", json[0].address);
+      console.log("Actual Address", json[0].stop_name);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Whooo!! I found you Bus. The Bus is near
-        ${json[0].address}`;
+        ${json[0].stop_name}`;
       res.json(simpleResponse);
     });
   } else {
