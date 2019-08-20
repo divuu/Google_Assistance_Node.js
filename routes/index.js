@@ -85,9 +85,10 @@ let simpleResponse = {
               },
               buttons: [
                 {
-                  title: "This is a button",
+                  title: "Show in Map",
                   openUrlAction: {
-                    url: "https://assistant.google.com/"
+                    url:
+                      "https://www.google.com/search?q=26.103816666666667,91.71967333333333&z=16"
                   }
                 }
               ],
@@ -222,9 +223,8 @@ router.post("/webhook", function(req, res, next) {
       console.log(json);
       console.log("Actual Address", json[0].stop_name);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok !! I found your Bus. The Bus is near
-        ${json[0].stop_name}. Location:- ${
-        json[0].location
-      } Any thing else i can help you ?`;
+        ${json[0].stop_name}. Any thing else i can help you ?`;
+      //simpleResponse.payload.google.richResponse.items[0].
       res.json(simpleResponse);
     });
   } else {
