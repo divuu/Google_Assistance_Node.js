@@ -175,7 +175,8 @@ router.post("/webhook", function(req, res, next) {
     //to do logic to add to db
     var RouteNo = req.body.queryResult.parameters.RouteNo;
     console.log(RouteNo);
-    let spquery = "CALL sp_assistant_address(" + RouteNo + ")";
+    //let spquery = "CALL sp_assistant_address(" + RouteNo + ")";
+    let spquery = "CAll sp_assistant_stop(23727)";
     console.log(spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
@@ -183,7 +184,6 @@ router.post("/webhook", function(req, res, next) {
       }
       console.log("Result", results);
       console.log("Result[0]", results[0]);
-      // var address = results.RowDataPacket.address;
       var address = JSON.stringify(results[0]);
       var json = JSON.parse(address);
       console.log(fields);
