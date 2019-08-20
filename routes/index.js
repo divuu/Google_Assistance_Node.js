@@ -176,8 +176,9 @@ router.post("/webhook", function(req, res, next) {
     //res.json(simpleResponse);
   }
 
+  //if (req.body.queryResult.action == "Action_Bus_Route" || "DefaultWelcomeIntent.DefaultWelcomeIntent-yes") {
   if (
-    req.body.queryResult.action == "Action_Bus_Route" ||
+    req.body.queryResult.action ==
     "DefaultWelcomeIntent.DefaultWelcomeIntent-yes"
   ) {
     console.log("HELLO I'M IN Action Bus Route Start");
