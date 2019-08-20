@@ -124,6 +124,12 @@ router.post("/webhook", function(req, res, next) {
   //   token: req.body.originalDetectIntentRequest.payload.user.idToken
   // });
 
+  if (req.body.queryResult.action == "action_welcome") {
+    var username = decoded.name;
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hello!! ${username}. Do you want to know the location of your School Bus ?`;
+    res.json(simpleResponse);
+  }
+
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
     let spquery = "CALL holiday_info(3)";
