@@ -65,7 +65,7 @@ let simpleResponse = {
   source: "example.com",
   payload: {
     google: {
-      expectUserResponse: false,
+      expectUserResponse: true,
       richResponse: {
         items: [
           {
