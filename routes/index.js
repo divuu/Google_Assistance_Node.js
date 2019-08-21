@@ -88,7 +88,7 @@ let simpleResponse = {
                   title: "Show in Map",
                   openUrlAction: {
                     url:
-                      "https://www.google.com/search?q=26.103816666666667,91.71967333333333&z=16"
+                      "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
                   }
                 }
               ],
