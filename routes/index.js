@@ -209,7 +209,7 @@ router.post("/webhook", function(req, res, next) {
       simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = `${
         json[0].address
       }`;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons.openUrlAction = `http://maps.google.com/maps?daddr=${
+      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
         json[0].location
       }&amp;ll=`;
 
