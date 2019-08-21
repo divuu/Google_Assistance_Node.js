@@ -15,7 +15,7 @@ let test = [];
 let basicResponse = {
   payload: {
     google: {
-      expectUserResponse: false,
+      expectUserResponse: true,
       richResponse: {
         items: [
           {
@@ -136,7 +136,6 @@ router.post("/webhook", function(req, res, next) {
 
   if (req.body.queryResult.action == "action_welcome") {
     var username = decoded.name;
-    basicResponse.payload.google.expectUserResponse = "true";
     basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hello!! ${username}. Do you want to know the location of your School Bus ?`;
     res.json(basicResponse);
   }
