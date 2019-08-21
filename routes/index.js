@@ -66,11 +66,6 @@ let simpleResponse = {
               title: "51 Min (13.8 Km)",
               subtitle: "Via swamy Vivekananda road",
               formattedText: "Via swamy Vivekananda road",
-              // image: {
-              //   url:
-              //     "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll=",
-              //   accessibilityText: "Image alternate text"
-              // },
               buttons: [
                 {
                   title: "Show in Map",
@@ -195,8 +190,8 @@ router.post("/webhook", function(req, res, next) {
     //to do logic to add to db
     var RouteNo = req.body.queryResult.parameters.RouteNo;
     console.log(RouteNo);
-    //let spquery = "CALL sp_assistant_address(" + RouteNo + ")";
-    let spquery = "CAll sp_assistant_stop(23727)";
+    let spquery = "CALL sp_assistant_address(23727)";
+    //let spquery = "CAll sp_assistant_stop(23727)";
     console.log(spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
@@ -209,11 +204,15 @@ router.post("/webhook", function(req, res, next) {
       console.log(fields);
       console.log(address);
       console.log(json);
-      console.log("Actual Address", json[0].stop_name);
+      console.log("Actual Address", json[0].address);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok !! I found your Bus. The Bus is near
-        ${json[0].stop_name}. Any thing else i can help you ?`;
+        ${json[0].address}.`;
       //simpleResponse.payload.google.richResponse.items[0].
       res.json(simpleResponse);
+      var alertMsg = (basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+        "Anything else i can help you ?");
+      setTimeout(alertMsg, 2000);
+      res.json(basicResponse);
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
