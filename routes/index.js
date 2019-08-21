@@ -30,18 +30,6 @@ let basicResponse = {
   }
 };
 
-// let basicResponse = {
-//   payload: {
-//     google: {
-//       expectUserResponse: false,
-//       textToSpeech: "Congratulations! Your server is ready for Google Assistant"
-//       // "richResponse": {
-//       //   "items": []
-//       // }
-//     }
-//   }
-// };
-
 // let reqs=req.body.user.userID;
 
 let simpleResponse = {
@@ -148,8 +136,8 @@ router.post("/webhook", function(req, res, next) {
 
   if (req.body.queryResult.action == "action_welcome") {
     var username = decoded.name;
-    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hello!! ${username}. Do you want to know the location of your School Bus ?`;
-    res.json(simpleResponse);
+    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hello!! ${username}. Do you want to know the location of your School Bus ?`;
+    res.json(basicResponse);
   }
 
   if (req.body.queryResult.action == "Action_Holidays") {
