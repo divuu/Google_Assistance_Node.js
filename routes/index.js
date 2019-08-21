@@ -53,7 +53,7 @@ let simpleResponse = {
   source: "example.com",
   payload: {
     google: {
-      expectUserResponse: true,
+      expectUserResponse: false,
       richResponse: {
         items: [
           {
@@ -63,12 +63,11 @@ let simpleResponse = {
           },
           {
             basicCard: {
-              title: "51 Min (13.8 Km)",
-              subtitle: "Via swamy Vivekananda road",
+              title: "Bus Is Near :- ",
               formattedText: "Via swamy Vivekananda road",
               buttons: [
                 {
-                  title: "Show in Map",
+                  title: "View in Map",
                   openUrlAction: {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
@@ -207,12 +206,14 @@ router.post("/webhook", function(req, res, next) {
       console.log("Actual Address", json[0].address);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok !! I found your Bus. The Bus is near
         ${json[0].address}.`;
-      //simpleResponse.payload.google.richResponse.items[0].
+      simpleResponse.payload.google.richResponse.items[0].basicCard.formattedText = `${
+        json[0].address
+      }`;
+      simpleResponse.payload.google.richResponse.items[0].basicCard.buttons.openUrlAction = `http://maps.google.com/maps?daddr=${
+        json[0].location
+      }&amp;ll=`;
+
       res.json(simpleResponse);
-      var alertMsg = (basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-        "Anything else i can help you ?");
-      setTimeout(alertMsg, 2000);
-      res.json(basicResponse);
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
