@@ -206,10 +206,10 @@ router.post("/webhook", function(req, res, next) {
       console.log("Actual Address", json[0].address);
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok !! I found your Bus. The Bus is near
         ${json[0].address}.`;
-      simpleResponse.payload.google.richResponse.items[0].basicCard.formattedText = `${
+      simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = `${
         json[0].address
       }`;
-      simpleResponse.payload.google.richResponse.items[0].basicCard.buttons.openUrlAction = `http://maps.google.com/maps?daddr=${
+      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons.openUrlAction = `http://maps.google.com/maps?daddr=${
         json[0].location
       }&amp;ll=`;
 
