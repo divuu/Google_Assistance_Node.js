@@ -78,11 +78,11 @@ let simpleResponse = {
               title: "51 Min (13.8 Km)",
               subtitle: "Via swamy Vivekananda road",
               formattedText: "Via swamy Vivekananda road",
-              image: {
-                url:
-                  "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll=",
-                accessibilityText: "Image alternate text"
-              },
+              // image: {
+              //   url:
+              //     "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll=",
+              //   accessibilityText: "Image alternate text"
+              // },
               buttons: [
                 {
                   title: "Show in Map",
