@@ -75,12 +75,12 @@ let simpleResponse = {
           },
           {
             basicCard: {
-              title: "Title: this is a title",
-              subtitle: "This is a subtitle",
-              formattedText:
-                'This is a basic card.  Text in a basic card can include "quotes" and\n        most other unicode characters including emoji 📱.  Basic cards also support\n        some markdown formatting like *emphasis* or _italics_, **strong** or\n        __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other\n        things like line  \nbreaks',
+              title: "51 Min (13.8 Km)",
+              subtitle: "Via swamy Vivekananda road",
+              formattedText: "Via swamy Vivekananda road",
               image: {
-                url: "https://example.com/image.png",
+                url:
+                  "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll=",
                 accessibilityText: "Image alternate text"
               },
               buttons: [
