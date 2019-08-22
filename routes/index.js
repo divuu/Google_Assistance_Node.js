@@ -93,9 +93,12 @@ router.get("/", function(req, res, next) {
 
 router.post("/webhook", function(req, res, next) {
   //var newresponse = "";
-  // let user = verifyJWT(req.body.originalDetectIntentRequest.payload.user.idToken, keys.CERTIFICATE);
+  let user = verifyJWT(
+    req.body.originalDetectIntentRequest.payload.user.idToken,
+    keys.CERTIFICATE
+  );
   //checking data
-  //console.log("Request", req.body);
+  console.log("USER", user);
   console.log("Request", req.body);
   console.log("Payload", req.body.originalDetectIntentRequest.payload);
   console.log(
@@ -273,6 +276,7 @@ function register(bResponse, requestObj, decoded) {
 // Verify
 //verify jwt for user information
 function verifyJWT(token, cert) {
+  console.log("VerifyJWT", token, "CERT", cert);
   return jwt.verify(token, cert, {
     audience: keys.CLIENT_ID,
     issuer: "https://accounts.google.com"
