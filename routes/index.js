@@ -277,7 +277,13 @@ function register(bResponse, requestObj, decoded) {
 //verify jwt for user information
 function verifyJWT(token, cert) {
   console.log("VerifyJWT", token, "CERT", cert);
-  return jwt.verify(token, cert);
+  return jwt.verify(token, cert, function(err, pass) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(pass);
+    }
+  });
 }
 module.exports = router;
 
