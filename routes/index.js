@@ -63,7 +63,9 @@ let simpleResponse = {
           },
           {
             basicCard: {
-              title: "Bus Is Near :- ",
+              title: "Bus Details:- ",
+              subtitle:
+                "MPS Transport Manager :- Avinash Tiwari \n Mobile Number :- 5678643522 \n Registration Number :- AS 64 GF3426",
               formattedText: "Via swamy Vivekananda road",
               buttons: [
                 {
@@ -130,7 +132,7 @@ router.post("/webhook", function(req, res, next) {
 
   if (req.body.queryResult.action == "action_welcome") {
     var username = decoded.name;
-    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hello!! ${username}. Do you want to know the location of your School Bus ?`;
+    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${username}! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
     res.json(basicResponse);
   }
 
@@ -204,8 +206,10 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].address);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok !! I found your Bus. The Bus is near
-        ${json[0].address}.`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was seen near
+        ${
+          json[0].address
+        }. 2 Min Ago. Please Click the Link below to view in map.`;
       simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = `${
         json[0].address
       }`;
