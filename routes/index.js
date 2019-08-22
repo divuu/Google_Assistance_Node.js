@@ -277,9 +277,11 @@ function register(bResponse, requestObj, decoded) {
 //verify jwt for user information
 function verifyJWT(token, cert) {
   console.log("VerifyJWT", token, "CERT", cert);
-  return jwt.verify(token, cert, {
-    audience: keys.CLIENT_ID,
-    issuer: "https://accounts.google.com"
-  });
+  return jwt.verify(token, cert);
 }
 module.exports = router;
+
+// , {
+//   audience: keys.CLIENT_ID,
+//   issuer: "https://accounts.google.com"
+// }
