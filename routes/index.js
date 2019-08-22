@@ -270,7 +270,7 @@ function register(bResponse, requestObj, decoded) {
   });
   return bResponse;
 }
-
+// Verify
 //verify jwt for user information
 function verifyJWT(token, cert) {
   return jwt.verify(token, cert, {
