@@ -65,7 +65,7 @@ let simpleResponse = {
             basicCard: {
               title: "Bus Details:- ",
               subtitle:
-                "MPS Transport Manager :- Avinash Tiwari \n Mobile Number :- 5678643522 \n Registration Number :- AS 64 GF3426",
+                "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nRegistration Number :- AS 64 GF3426",
               formattedText: "Via swamy Vivekananda road",
               buttons: [
                 {
@@ -209,10 +209,10 @@ router.post("/webhook", function(req, res, next) {
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was seen near
         ${
           json[0].address
-        }. 2 Min Ago. Please Click the Link below to view in map.`;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = `${
+        } 2 Min Ago. Please Click the Link below to view in map.`;
+      simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
         json[0].address
-      }`;
+      } `;
       simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
         json[0].location
       }&amp;ll=`;
