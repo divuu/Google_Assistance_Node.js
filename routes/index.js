@@ -108,13 +108,13 @@ router.post("/webhook", function(req, res, next) {
   );
   console.log(decoded);
 
-  resp.push({
-    incoming_payload: req.body,
-    number: count++
-    //user: user,
-    // decoded: decoded,
-    // token: req.body.originalDetectIntentRequest.payload.user.idToken
-  });
+  // resp.push({
+  //   incoming_payload: req.body,
+  //   number: count++
+  //   //user: user,
+  //   // decoded: decoded,
+  //   // token: req.body.originalDetectIntentRequest.payload.user.idToken
+  // });
 
   // let user = verifyJWT(
   //   req.body.originalDetectIntentRequest.payload.user.idToken,
