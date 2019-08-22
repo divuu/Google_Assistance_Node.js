@@ -78,7 +78,7 @@ let simpleResponse = {
                 {
                   title: "Share Bus location",
                   openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text=Hi"
+                    url: "https://api.whatsapp.com/send?text="
                   }
                 }
               ],
@@ -223,6 +223,9 @@ router.post("/webhook", function(req, res, next) {
       simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
         json[0].location
       }&amp;ll=`;
+      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+        json[0].address
+      }. https://maps.google.com/?q=-37.866963,144.980615`;
 
       res.json(simpleResponse);
     });
