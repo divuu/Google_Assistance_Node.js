@@ -74,6 +74,12 @@ let simpleResponse = {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
                   }
+                },
+                {
+                  title: "Share location",
+                  openUrlAction: {
+                    url: "http://whatsapp://send?text=School Bus location!"
+                  }
                 }
               ],
               imageDisplayOptions: "CROPPED"
