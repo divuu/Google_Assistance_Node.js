@@ -76,9 +76,9 @@ let simpleResponse = {
                   }
                 },
                 {
-                  title: "Share location",
+                  title: "Share Bus location",
                   openUrlAction: {
-                    url: "http://whatsapp://send?text=School Bus location!"
+                    url: "https://api.whatsapp.com/send?text=Hi"
                   }
                 }
               ],
