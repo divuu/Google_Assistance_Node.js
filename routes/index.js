@@ -122,13 +122,13 @@ router.post("/webhook", function(req, res, next) {
   //   payload: req.body
   // });
 
-  // resp.push({
-  //   incoming_payload: req.body,
-  //   number: count++,
-  //   //user: user,
-  //   decoded: decoded,
-  //   token: req.body.originalDetectIntentRequest.payload.user.idToken
-  // });
+  resp.push({
+    incoming_payload: req.body,
+    number: count++,
+    //user: user,
+    decoded: decoded,
+    token: req.body.originalDetectIntentRequest.payload.user.idToken
+  });
 
   if (req.body.queryResult.action == "action_welcome") {
     var username = decoded.name;
