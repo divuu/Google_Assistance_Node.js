@@ -206,10 +206,8 @@ router.post("/webhook", function(req, res, next) {
       console.log(address);
       console.log(json);
       console.log("Actual Address", json[0].address);
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was seen near
-        ${
-          json[0].address
-        } 2 Min Ago. Please Click the Link below to view in map.`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+        ${json[0].address}. Please Click the Link below to view in map.`;
       simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
         json[0].address
       } `;
