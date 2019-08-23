@@ -182,7 +182,7 @@ router.post("/webhook", function(req, res, next) {
       console.log("Result[0]", results[0]);
       var tabledata = JSON.stringify(results[0]);
       var json = JSON.parse(tabledata);
-      console.log(fields);
+      //console.log(fields);
       console.log(tabledata);
       console.log(json);
       console.log("Actual Name of sysuser", json[0].name);
@@ -286,9 +286,9 @@ router.post("/webhook", function(req, res, next) {
     });
   } else {
     console.log("HELLO I'M IN Action Bus Route END");
-    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-      "Failed";
-    res.json(simpleResponse);
+    // simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+    //   "Failed";
+    // res.json(simpleResponse);
   }
 });
 
