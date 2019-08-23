@@ -170,10 +170,18 @@ router.post("/webhook", function(req, res, next) {
   // });
 
   if (req.body.queryResult.action == "action_welcome") {
-    var username = decoded.name;
-    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${username}! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
+    var PID = req.body.queryResult.parameters.PID;
+    //var username = decoded.name;
+    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${PID}! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
     res.json(basicResponse);
   }
+
+  //Temporary Disabled enable for parent
+  // if (req.body.queryResult.action == "action_welcome") {
+  //   var username = decoded.name;
+  //   basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${username}! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
+  //   res.json(basicResponse);
+  // }
 
   if (req.body.queryResult.action == "Action_Holidays") {
     //let idarray = [1, 2, 3];
