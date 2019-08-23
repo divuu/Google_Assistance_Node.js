@@ -67,17 +67,17 @@ let simpleResponse = {
               subtitle:
                 "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
               formattedText: "Via swamy Vivekananda road",
+              image: {
+                url:
+                  "https://www.gstatic.com/images/icons/material/system_gm/1x/share_location_gm_blue_18dp.png",
+                accessibilityText: "Image alternate text"
+              },
               buttons: [
                 {
                   title: "View in Map",
                   openUrlAction: {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
-                  },
-                  image: {
-                    url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    accessibilityText: "Image alternate text"
                   }
                 },
                 {
@@ -87,7 +87,7 @@ let simpleResponse = {
                   },
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                      "http://www.gstatic.com/images/icons/material/system_gm/1x/share_gm_blue_18dp.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
