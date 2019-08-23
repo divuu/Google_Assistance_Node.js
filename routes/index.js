@@ -73,18 +73,33 @@ let simpleResponse = {
                   openUrlAction: {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
+                  },
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                    accessibilityText: "Image alternate text"
                   }
                 },
                 {
                   title: "Share Bus location",
                   openUrlAction: {
                     url: "https://api.whatsapp.com/send?text="
+                  },
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                    accessibilityText: "Image alternate text"
                   }
                 },
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
                     url: "tel:09066841400"
+                  },
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                    accessibilityText: "Image alternate text"
                   }
                 }
               ],
@@ -230,8 +245,8 @@ router.post("/webhook", function(req, res, next) {
         json[0].location
       }&amp;ll=`;
       simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-        json[0].address
-      }. https://maps.google.com/?q=-37.866963,144.980615`;
+        json[0].location
+      }`;
 
       res.json(simpleResponse);
     });
