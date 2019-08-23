@@ -188,7 +188,7 @@ router.post("/webhook", function(req, res, next) {
       console.log("Actual Name of sysuser", json[0].name);
       basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
         json[0].name
-      }! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
+      }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
       res.json(basicResponse);
     });
   }
