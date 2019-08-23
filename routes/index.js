@@ -80,6 +80,12 @@ let simpleResponse = {
                   openUrlAction: {
                     url: "https://api.whatsapp.com/send?text="
                   }
+                },
+                {
+                  title: "Call RouteAlert",
+                  openUrlAction: {
+                    url: "tel:09066841400"
+                  }
                 }
               ],
               imageDisplayOptions: "CROPPED"
