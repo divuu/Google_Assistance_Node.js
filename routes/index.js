@@ -86,7 +86,7 @@ let simpleResponse = {
                     url: "https://api.whatsapp.com/send?text="
                   },
                   image: {
-                    url:
+                    src:
                       "http://www.gstatic.com/images/icons/material/system_gm/1x/share_gm_blue_18dp.png",
                     imageDisplayOptions: "CROPPED"
                   },
@@ -112,8 +112,7 @@ let simpleResponse = {
                       "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png"
                   }
                 }
-              ],
-              imageDisplayOptions: "CROPPED"
+              ]
             }
           }
         ]
