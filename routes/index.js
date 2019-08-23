@@ -172,8 +172,25 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "action_welcome") {
     var PID = req.body.queryResult.parameters.PID;
     //var username = decoded.name;
-    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${PID}! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
-    res.json(basicResponse);
+    let spquery = "CALL holiday_info(" + PID + ")";
+    console.log("spquery", spquery);
+    db.query(spquery, true, (error, results, fields) => {
+      if (error) {
+        return console.log(error.message);
+      }
+      console.log("Result", results);
+      console.log("Result[0]", results[0]);
+      var tabledata = JSON.stringify(results[0]);
+      var json = JSON.parse(tabledata);
+      console.log(fields);
+      console.log(tabledata);
+      console.log(json);
+      console.log("Actual Name of sysuser", json[0].name);
+      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+        json[0].name
+      }! Welcome to Route Alert. Do you want to know the location of your School Bus ?`;
+      res.json(basicResponse);
+    });
   }
 
   //Temporary Disabled enable for parent
