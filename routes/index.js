@@ -172,7 +172,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "action_welcome") {
     var PID = req.body.queryResult.parameters.PID;
     //var username = decoded.name;
-    let spquery = "CALL holiday_info(" + PID + ")";
+    let spquery = "CALL sp_sysuser_info(" + PID + ")";
     console.log("spquery", spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
