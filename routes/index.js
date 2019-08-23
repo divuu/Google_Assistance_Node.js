@@ -75,8 +75,7 @@ let simpleResponse = {
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
                   },
                   image: {
-                    url:
-                      "https://www.gstatic.com/images/icons/material/system_gm/1x/share_location_gm_blue_18dp.png",
+                    src: "images/google map.jpg",
                     imageDisplayOptions: "CROPPED"
                   },
                   imageDisplayOptions: "CROPPED"
@@ -97,6 +96,17 @@ let simpleResponse = {
                   title: "Call RouteAlert",
                   openUrlAction: {
                     url: "tel:09066841400"
+                  },
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png"
+                  }
+                },
+                {
+                  title: "FeedBack Us",
+                  openUrlAction: {
+                    url:
+                      "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
                   },
                   image: {
                     url:
