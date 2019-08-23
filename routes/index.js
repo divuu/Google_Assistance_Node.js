@@ -98,18 +98,17 @@ let simpleResponse = {
                     url: "tel:09066841400"
                   },
                   image: {
-                    url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png"
+                    url: "images/call2.png"
                   }
                 },
                 {
-                  title: "FeedBack Us",
+                  title: "FeedBack",
                   openUrlAction: {
                     url:
                       "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
                   },
                   image: {
-                    url:
+                    src:
                       "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png"
                   }
                 }
