@@ -69,7 +69,7 @@ let simpleResponse = {
               formattedText: "Via swamy Vivekananda road",
               buttons: [
                 {
-                  title: `https://www.gstatic.com/images/icons/material/system_gm/1x/share_location_gm_blue_18dp.png`,
+                  title: "View In Map",
                   openUrlAction: {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
@@ -77,8 +77,9 @@ let simpleResponse = {
                   image: {
                     url:
                       "https://www.gstatic.com/images/icons/material/system_gm/1x/share_location_gm_blue_18dp.png",
-                    accessibilityText: "Image alternate text"
-                  }
+                    imageDisplayOptions: "CROPPED"
+                  },
+                  imageDisplayOptions: "CROPPED"
                 },
                 {
                   title: "Share Bus location",
@@ -88,8 +89,9 @@ let simpleResponse = {
                   image: {
                     url:
                       "http://www.gstatic.com/images/icons/material/system_gm/1x/share_gm_blue_18dp.png",
-                    accessibilityText: "Image alternate text"
-                  }
+                    imageDisplayOptions: "CROPPED"
+                  },
+                  imageDisplayOptions: "CROPPED"
                 },
                 {
                   title: "Call RouteAlert",
@@ -98,8 +100,7 @@ let simpleResponse = {
                   },
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    accessibilityText: "Image alternate text"
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png"
                   }
                 }
               ],
