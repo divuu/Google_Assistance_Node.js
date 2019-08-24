@@ -201,14 +201,14 @@ router.post("/webhook", function(req, res, next) {
     console.log("BusRouteID", busRouteID);
     let prefix = "STG Route";
     if (typeof busRouteID == "number") {
-      let finalStr = prefix + "" + busRouteID;
+      let finalStr = prefix + " " + busRouteID;
       console.log("Bus String", finalStr);
     } else {
       let strafter = busRouteID.replace(/[A-Za-z$-]/g, "");
-      let finalStr = prefix + "" + strafter;
+      let finalStr = prefix + " " + strafter;
       console.log("Bus String", finalStr);
     }
-    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
+    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus.`;
     res.json(basicResponse);
   }
 
