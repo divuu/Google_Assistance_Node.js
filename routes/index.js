@@ -170,9 +170,9 @@ router.post("/webhook", function(req, res, next) {
   // });
 
   if (req.body.queryResult.action == "action_welcome") {
-    var PID = req.body.queryResult.parameters.PID;
+    var PIN = req.body.queryResult.parameters.PIN;
     //var username = decoded.name;
-    let spquery = "CALL sp_sysuser_info(" + PID + ")";
+    let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
     console.log("spquery", spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
