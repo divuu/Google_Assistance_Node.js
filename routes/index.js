@@ -201,7 +201,7 @@ router.post("/webhook", function(req, res, next) {
     console.log("BusRouteID", busRouteID);
     busprefix = "STG Route";
     strbefore = busRouteID.replace(/[A-Za-z$-]/g, "");
-    busRouteStr = "busprefix" + strbefore;
+    busRouteStr = busprefix + strbefore;
     console.log("Bus String", busRouteStr);
     basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${busRouteStr}.`;
     res.json(basicResponse);
