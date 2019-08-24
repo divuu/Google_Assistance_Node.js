@@ -200,8 +200,6 @@ router.post("/webhook", function(req, res, next) {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
     res.json(basicResponse);
-  } else {
-    console.log("From Sysuser School bus info EnD");
   }
 
   //Temporary Disabled enable for parent
