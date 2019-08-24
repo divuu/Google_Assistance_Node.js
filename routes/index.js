@@ -199,6 +199,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
+    res.json(basicResponse);
   } else {
     console.log("From Sysuser School bus info EnD");
   }
