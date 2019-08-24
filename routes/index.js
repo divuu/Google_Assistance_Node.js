@@ -193,6 +193,16 @@ router.post("/webhook", function(req, res, next) {
     });
   }
 
+  // For SysUser School Bus Info
+  // Send Parameters :- take Bus Number.
+  // Receive Parameters :- give back the Bus Details.
+  if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
+    var busRouteID = req.body.queryResult.parameters.BusRouteID;
+    console.log("BusRouteID", busRouteID);
+  } else {
+    console.log("From Sysuser School bus info EnD");
+  }
+
   //Temporary Disabled enable for parent
   // if (req.body.queryResult.action == "action_welcome") {
   //   var username = decoded.name;
