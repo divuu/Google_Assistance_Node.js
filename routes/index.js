@@ -199,10 +199,15 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
-    var prefix = "STG Route";
-    var strafter = busRouteID.replace(/[A-Za-z$-]/g, "");
-    var finalStr = prefix.concat(strafter);
-    console.log("Bus String", finalStr);
+    let prefix = "STG Route";
+    if (typeof busRouteID == "number") {
+      let finalStr = prefix + "" + busRouteID;
+      console.log("Bus String", finalStr);
+    } else {
+      let strafter = busRouteID.replace(/[A-Za-z$-]/g, "");
+      let finalStr = prefix + "" + strafter;
+      console.log("Bus String", finalStr);
+    }
     basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     res.json(basicResponse);
   }
