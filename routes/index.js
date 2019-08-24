@@ -199,6 +199,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
+    basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${busRouteID}.`;
     res.json(basicResponse);
   }
 
