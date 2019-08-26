@@ -7,6 +7,7 @@ let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
 let resp = [];
+let sysuserdataArray = [];
 //let request = [];
 let test = [];
 //let responseNumber = 0;
@@ -181,13 +182,17 @@ router.post("/webhook", function(req, res, next) {
       console.log("Result", results);
       console.log("Result[0]", results[0]);
       var tabledata = JSON.stringify(results[0]);
-      var json = JSON.parse(tabledata);
+      var tabledata_json = JSON.parse(tabledata);
       //console.log(fields);
+      sysuserdataArray.push({
+        response_number: responseNumber++,
+        payload: tabledata_json
+      });
       console.log(tabledata);
-      console.log(json);
-      console.log("Actual Name of sysuser", json[0].name);
+      console.log(tabledata_json);
+      console.log("Actual Name of sysuser", tabledata_json[0].name);
       basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-        json[0].name
+        tabledata_json[0].name
       }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
       res.json(basicResponse);
     });
@@ -199,7 +204,7 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
-    let prefix = "STG Route";
+    let prefix = 
     let finalStr;
     if (typeof busRouteID == "number") {
       finalStr = prefix + " " + busRouteID;
@@ -313,7 +318,8 @@ router.post("/webhook", function(req, res, next) {
 });
 
 router.get("/responses", function(req, res, next) {
-  res.json(resp);
+  //res.json(resp);
+  res.json(sysuserdataArray);
 });
 
 router.get("/test", function(req, res, next) {
