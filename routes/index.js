@@ -220,7 +220,8 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
     var busRouteID = req.body.queryResult.parameters.BusRouteID;
     console.log("BusRouteID", busRouteID);
-    let prefix = [];
+
+    let prefix = ["MPS Route"];
     let finalStr;
     if (typeof busRouteID == "number") {
       finalStr = prefix + " " + busRouteID;
@@ -230,6 +231,10 @@ router.post("/webhook", function(req, res, next) {
       finalStr = prefix + " " + strafter;
       console.log("Bus String", finalStr);
     }
+
+    // let spquery = "CALL sp_assistant_stop_for_sysuser(" + PIN + ")";
+    // console.log("spquery", spquery);
+
     basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     res.json(basicResponse);
   }
