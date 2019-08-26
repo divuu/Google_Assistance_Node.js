@@ -197,7 +197,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual Name of sysuser", tabledata_json[0].name);
 
-      if (sysuserdataArray.length === 41) {
+      if (sysuserdataArray.length > 0) {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
           tabledata_json[0].name
         }! Welcome to Route Alert. Ok it Seems You have Multiple School. Which school do you want to log in?`;
