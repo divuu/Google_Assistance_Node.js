@@ -170,6 +170,9 @@ router.post("/webhook", function(req, res, next) {
   //   payload: req.body
   // });
 
+  // Intent For Verification of sysuser and Parents
+  // Send Parameters :- take PIN from parents/sysuser.
+  // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
     var PIN = req.body.queryResult.parameters.PIN;
     //var username = decoded.name;
@@ -200,7 +203,7 @@ router.post("/webhook", function(req, res, next) {
       if (sysuserdataArray.length > 0) {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
           tabledata_json[0].name
-        }! Welcome to Route Alert. Ok it Seems You have Multiple School. Which school do you want to log in?`;
+        }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
         res.json(basicResponse);
       } else {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
