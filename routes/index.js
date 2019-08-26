@@ -187,18 +187,10 @@ router.post("/webhook", function(req, res, next) {
       //console.log(fields);
       sysuserdataArray.push({
         response_number: responseNumber++,
+        length: tabledata_json.length,
         payload: tabledata_json
       });
-      var objlen = sysuserdataArray.payload.length();
 
-      // objlen = 0;
-      // for (var count in sysuserdataArray.payload) {
-      //   if (sysuserdataArray.payload.hasOwnProperty(count)) {
-      //     objlen++;
-      //   }
-      // }
-
-      console.log("Length of the Object", objlen);
       console.log(tabledata);
       console.log(tabledata_json);
       console.log("Actual Name of sysuser", tabledata_json[0].name);
