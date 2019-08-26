@@ -189,13 +189,14 @@ router.post("/webhook", function(req, res, next) {
         response_number: responseNumber++,
         payload: tabledata_json
       });
+      var objlen = sysuserdataArray.payload.length();
 
-      objlen = 0;
-      for (var count in sysuserdataArray.payload) {
-        if (sysuserdataArray.payload.hasOwnProperty(count)) {
-          objlen++;
-        }
-      }
+      // objlen = 0;
+      // for (var count in sysuserdataArray.payload) {
+      //   if (sysuserdataArray.payload.hasOwnProperty(count)) {
+      //     objlen++;
+      //   }
+      // }
 
       console.log("Length of the Object", objlen);
       console.log(tabledata);
