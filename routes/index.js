@@ -232,7 +232,7 @@ router.post("/webhook", function(req, res, next) {
       console.log("Bus String", finalStr);
     }
 
-    let spquery = "CALL sp_assistant_stop_for_sysuser(" + finalStr + ")";
+    let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
     console.log("spquery", spquery);
 
     db.query(spquery, true, (error, results, fields) => {
