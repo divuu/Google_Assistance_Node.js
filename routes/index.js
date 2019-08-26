@@ -182,8 +182,10 @@ router.post("/webhook", function(req, res, next) {
 
       console.log("Result", results);
       console.log("Result[0]", results[0]);
+
       var tabledata = JSON.stringify(results[0]);
       var tabledata_json = JSON.parse(tabledata);
+
       //console.log(fields);
       sysuserdataArray.push({
         response_number: responseNumber++,
@@ -194,10 +196,17 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata);
       console.log(tabledata_json);
       console.log("Actual Name of sysuser", tabledata_json[0].name);
-      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-        tabledata_json[0].name
-      }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
-      res.json(basicResponse);
+      if (sysuserdataArray.length == 41) {
+        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+          tabledata_json[0].name
+        }! Welcome to Route Alert. Ok it Seems You have Multiple School. Which school do you want to log in?`;
+        res.json(basicResponse);
+      } else {
+        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+          tabledata_json[0].name
+        }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
+        res.json(basicResponse);
+      }
     });
   }
 
