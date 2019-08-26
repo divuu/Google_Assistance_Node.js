@@ -232,7 +232,7 @@ router.post("/webhook", function(req, res, next) {
       console.log("Bus String", finalStr);
     }
 
-    let spquery = "CALL sp_assistant_stop_for_sysuser(" + PIN + ")";
+    let spquery = "CALL sp_assistant_stop_for_sysuser(" + finalStr + ")";
     console.log("spquery", spquery);
 
     db.query(spquery, true, (error, results, fields) => {
@@ -255,13 +255,13 @@ router.post("/webhook", function(req, res, next) {
       simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
         json[0].stop_name
       } `;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-        json[0].location
-      }&amp;ll=`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
+      //   json[0].location
+      // }&amp;ll=`;
 
-      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-        json[0].location
-      }`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+      //   json[0].location
+      // }`;
 
       res.json(simpleResponse);
     });
