@@ -10,7 +10,7 @@ let resp = [];
 let sysuserdataArray = [];
 //let request = [];
 let test = [];
-//let responseNumber = 0;
+let responseNumber = 0;
 //let localvariable = "Hi i am new variable in the node.js";
 
 let basicResponse = {
