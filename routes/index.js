@@ -95,12 +95,36 @@ let simpleResponse = {
                 //       "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
                 //   }
                 // }
-              ],
-              buttons: [
+              ]
+            }
+          },
+          {
+            carouselBrowse: {
+              items: [
                 {
-                  title: "Share Bus location",
+                  title: "Title of item 1",
                   openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text="
+                    url: "https://example.com"
+                  },
+                  description: "Description of item 1",
+                  footer: "Item 1 footer",
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                },
+                {
+                  title: "Title of item 2",
+                  openUrlAction: {
+                    url: "https://example.com"
+                  },
+                  description: "Description of item 2",
+                  footer: "Item 2 footer",
+                  image: {
+                    url:
+                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                    accessibilityText: "Image alternate text"
                   }
                 }
               ]
