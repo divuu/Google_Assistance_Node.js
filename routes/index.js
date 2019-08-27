@@ -232,11 +232,11 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual address", tabledata_json[0].stop_name);
 
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-      ${json[0].stop_name}. Please Click the Link below to view in map.`;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-        json[0].stop_name
-      }`;
+      // simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+      // ${json[0].stop_name}. Please Click the Link below to view in map.`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
+      //   json[0].stop_name
+      // }`;
       // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
       //   json[0].location
       // }&amp;ll=`;
