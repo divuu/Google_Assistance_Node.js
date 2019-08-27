@@ -79,7 +79,7 @@ let simpleResponse = {
                   description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/share1_wb10kg.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map_ytz35l.jpg",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -91,7 +91,7 @@ let simpleResponse = {
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/share_kaakme.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
