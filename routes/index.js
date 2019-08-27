@@ -79,21 +79,31 @@ let simpleResponse = {
                   description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call_e6w5rk.png",
-                    accessibilityText: "Image alternate text",
-                    height: 128,
-                    width: 128
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
+                    accessibilityText: "Image alternate text"
                   }
                 },
                 {
                   title: "Share Bus Location",
                   openUrlAction: {
-                    url: "https://example.com"
+                    url: "https://api.whatsapp.com/send?text="
                   },
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
                       "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                },
+                {
+                  title: "Call RouteAlert",
+                  openUrlAction: {
+                    url: "https://example.com"
+                  },
+                  description: "Call RouteAlert Support Team For Any Help !",
+                  image: {
+                    url:
+                      "https://res.cloudinary.com/techmky/image/upload/v1566898327/telephone_b5ccnd.jpg",
                     accessibilityText: "Image alternate text"
                   }
                 }
