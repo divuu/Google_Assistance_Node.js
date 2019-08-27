@@ -63,11 +63,14 @@ let simpleResponse = {
             }
           },
           {
-            // basicCard: {
-            // title: "Bus Details",
-            // subtitle:
-            //   "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-            // formattedText: "Via swamy Vivekananda road",
+            basicCard: {
+              title: "Bus Details",
+              subtitle:
+                "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+              formattedText: "Via swamy Vivekananda road"
+            }
+          },
+          {
             carouselBrowse: {
               items: [
                 {
@@ -86,7 +89,7 @@ let simpleResponse = {
                 {
                   title: "Share Bus Location",
                   openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text="
+                    url: "https://api.whatsapp.com/send?text=hi"
                   },
                   description: "Share Bus Live location on WhatsApp",
                   image: {
@@ -98,7 +101,7 @@ let simpleResponse = {
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "https://example.com"
+                    url: "tel:09066841400"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
@@ -109,42 +112,12 @@ let simpleResponse = {
                 }
               ]
             }
-            // buttons: [
-            //   {
-            //     title: "View In Map",
-            //     openUrlAction: {
-            //       url:
-            //         "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
-            //     }
-            //   }
-            // {
-            //   title: "Share Bus location",
-            //   openUrlAction: {
-            //     url: "https://api.whatsapp.com/send?text="
-            //   }
-            // },
-            // {
-            //   title: "Call RouteAlert",
-            //   openUrlAction: {
-            //     url: "tel:09066841400"
-            //   }
-            // },
-            // {
-            //   title: "FeedBack",
-            //   openUrlAction: {
-            //     url:
-            //       "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
-            //   }
-            // }
-            //]
           }
         ]
       }
     }
   }
 };
-//   }
-// };
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
