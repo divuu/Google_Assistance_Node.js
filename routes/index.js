@@ -71,28 +71,27 @@ let simpleResponse = {
             carouselBrowse: {
               items: [
                 {
-                  title: "Title of item 1",
+                  title: "View In Map",
                   openUrlAction: {
-                    url: "https://example.com"
+                    url:
+                      "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
                   },
-                  description: "Description of item 1",
-                  footer: "Item 1 footer",
+                  description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/share1_wb10kg.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
                 {
-                  title: "Title of item 2",
+                  title: "Share Bus Location",
                   openUrlAction: {
                     url: "https://example.com"
                   },
-                  description: "Description of item 2",
-                  footer: "Item 2 footer",
+                  description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/share_kaakme.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
