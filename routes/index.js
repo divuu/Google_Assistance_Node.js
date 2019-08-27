@@ -79,42 +79,72 @@ let simpleResponse = {
                   description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call_e6w5rk.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
                 {
                   title: "Share Bus Location",
                   openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text=hi"
+                    url: "https://api.whatsapp.com/send?text="
                   },
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "tel:09066841400"
+                    url: "https://example.com"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566906021/call_resized_isstvt.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
               ]
             }
+            // buttons: [
+            //   {
+            //     title: "View In Map",
+            //     openUrlAction: {
+            //       url:
+            //         "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
+            //     }
+            //   }
+            // {
+            //   title: "Share Bus location",
+            //   openUrlAction: {
+            //     url: "https://api.whatsapp.com/send?text="
+            //   }
+            // },
+            // {
+            //   title: "Call RouteAlert",
+            //   openUrlAction: {
+            //     url: "tel:09066841400"
+            //   }
+            // },
+            // {
+            //   title: "FeedBack",
+            //   openUrlAction: {
+            //     url:
+            //       "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
+            //   }
+            // }
+            //]
           }
         ]
       }
     }
   }
 };
+//   }
+// };
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
