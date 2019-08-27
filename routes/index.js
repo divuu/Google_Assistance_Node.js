@@ -34,6 +34,23 @@ let basicResponse = {
 // let reqs=req.body.user.userID;
 
 let simpleResponse = {
+  fulfillmentText: "This is a text response",
+  fulfillmentMessages: [
+    {
+      card: {
+        title: "card title",
+        subtitle: "card text",
+        imageUri:
+          "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        buttons: [
+          {
+            text: "button text",
+            postback: "https://assistant.google.com/"
+          }
+        ]
+      }
+    }
+  ],
   source: "example.com",
   payload: {
     google: {
@@ -43,6 +60,14 @@ let simpleResponse = {
           {
             simpleResponse: {
               textToSpeech: "Today is not a holiday."
+            }
+          },
+          {
+            basicCard: {
+              title: "Bus Details",
+              subtitle:
+                "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+              formattedText: "Via swamy Vivekananda road"
             }
           },
           {
@@ -238,7 +263,7 @@ router.post("/webhook", function(req, res, next) {
       // }`;
 
       res.json(simpleResponse);
-      //res.json(essentialLinks);
+      //res.json(basicResponse);
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
