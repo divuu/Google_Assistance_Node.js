@@ -236,7 +236,7 @@ router.post("/webhook", function(req, res, next) {
       ${json[0].stop_name}. Please Click the Link below to view in map.`;
       simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
         json[0].stop_name
-      } `;
+      }`;
       // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
       //   json[0].location
       // }&amp;ll=`;
@@ -245,7 +245,8 @@ router.post("/webhook", function(req, res, next) {
       //   json[0].location
       // }`;
 
-      res.json(simpleResponse);
+      //res.json(simpleResponse);
+      res.json(basicResponse);
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
