@@ -66,6 +66,20 @@ let simpleResponse = {
             carouselBrowse: {
               items: [
                 {
+                  title: "Bus Details",
+                  openUrlAction: {
+                    url: "https://example.com"
+                  },
+                  description:
+                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+                  footer: "The Bus is Near KV kahanapara location near assam",
+                  image: {
+                    url:
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                },
+                {
                   title: "View In Map",
                   openUrlAction: {
                     url:
@@ -255,10 +269,7 @@ router.post("/webhook", function(req, res, next) {
       // }`;
 
       res.json(simpleResponse);
-      //res.json(basicResponse);
     });
-    // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
-    // res.json(basicResponse);
   }
 
   //Temporary Disabled enable for parent
