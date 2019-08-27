@@ -71,6 +71,12 @@ let simpleResponse = {
             carouselBrowse: {
               items: [
                 {
+                  title: "Bus Details",
+                  description:
+                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+                  footer: "Bus Is near Via swamy Vivekananda road"
+                },
+                {
                   title: "View In Map",
                   openUrlAction: {
                     url:
