@@ -75,24 +75,32 @@ let simpleResponse = {
                     url:
                       "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
                   }
-                },
+                }
+                // {
+                //   title: "Share Bus location",
+                //   openUrlAction: {
+                //     url: "https://api.whatsapp.com/send?text="
+                //   }
+                // },
+                // {
+                //   title: "Call RouteAlert",
+                //   openUrlAction: {
+                //     url: "tel:09066841400"
+                //   }
+                // },
+                // {
+                //   title: "FeedBack",
+                //   openUrlAction: {
+                //     url:
+                //       "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
+                //   }
+                // }
+              ],
+              buttons: [
                 {
                   title: "Share Bus location",
                   openUrlAction: {
                     url: "https://api.whatsapp.com/send?text="
-                  }
-                },
-                {
-                  title: "Call RouteAlert",
-                  openUrlAction: {
-                    url: "tel:09066841400"
-                  }
-                },
-                {
-                  title: "FeedBack",
-                  openUrlAction: {
-                    url:
-                      "https://www.google.com/search?hl=en-IN&ei=i4lfXdXvMcTSz7sP_vOjwA8&q=RouteAlert&kgmid=/g/11f0kx2f8h&ved=2ahUKEwiV4abEsJjkAhVE6XMBHf75CPgQkssBMAB6BAgAEAE#lkt=LocalPoiReviews&trex=m_t:lcl_akp,rc_f:nav,rc_ludocids:13239510625775536486,rc_q:RouteAlert,ru_q:RouteAlert"
                   }
                 }
               ]
@@ -236,16 +244,16 @@ router.post("/webhook", function(req, res, next) {
       ${
         tabledata_json[0].stop_name
       }. Please Click the Link below to view in map.`;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-        tabledata_json[0].stop_name
-      }`;
-      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-        tabledata_json[0].location
-      }&amp;ll=`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
+      //   tabledata_json[0].stop_name
+      // }`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
+      //   tabledata_json[0].location
+      // }&amp;ll=`;
 
-      simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-        tabledata_json[0].location
-      }`;
+      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+      //   tabledata_json[0].location
+      // }`;
 
       res.json(simpleResponse);
       //res.json(basicResponse);
