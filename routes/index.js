@@ -62,14 +62,6 @@ let simpleResponse = {
               textToSpeech: "Today is not a holiday."
             }
           },
-          // {
-          //   basicCard: {
-          //     title: "Bus Details",
-          //     subtitle:
-          //       "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-          //     formattedText: "Via swamy Vivekananda road"
-          //   }
-          // },
           {
             carouselBrowse: {
               items: [
@@ -111,6 +103,14 @@ let simpleResponse = {
                   }
                 }
               ]
+            }
+          },
+          {
+            basicCard: {
+              title: "Bus Details",
+              subtitle:
+                "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+              formattedText: "Via swamy Vivekananda road"
             }
           }
         ]
