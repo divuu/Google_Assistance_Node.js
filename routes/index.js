@@ -91,7 +91,7 @@ let simpleResponse = {
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -100,7 +100,7 @@ let simpleResponse = {
                   openUrlAction: {
                     url: "https://example.com"
                   },
-                  description: "Call RouteAlert Support Team For Any Help !",
+                  description: "Call RouteAlert Support Team",
                   image: {
                     url:
                       "https://res.cloudinary.com/techmky/image/upload/v1566898327/telephone_b5ccnd.jpg",
