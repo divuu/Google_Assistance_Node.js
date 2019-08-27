@@ -61,6 +61,49 @@ let simpleResponse = {
             simpleResponse: {
               textToSpeech: "Today is not a holiday."
             }
+          },
+          {
+            carouselBrowse: {
+              items: [
+                {
+                  title: "View In Map",
+                  openUrlAction: {
+                    url:
+                      "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
+                  },
+                  description: "View the live location in Google Map",
+                  image: {
+                    url:
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                },
+                {
+                  title: "Share Bus Location",
+                  openUrlAction: {
+                    url: "https://api.whatsapp.com/send?text=hi"
+                  },
+                  description: "Share Bus Live location on WhatsApp",
+                  image: {
+                    url:
+                      "https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                },
+                {
+                  title: "Call RouteAlert",
+                  openUrlAction: {
+                    url: "tel:09066841400"
+                  },
+                  description: "Call RouteAlert Support Team For Any Help !",
+                  image: {
+                    url:
+                      "https://res.cloudinary.com/techmky/image/upload/v1566906021/call_resized_isstvt.png",
+                    accessibilityText: "Image alternate text"
+                  }
+                }
+              ]
+            }
           }
         ]
       }
@@ -196,7 +239,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual address", tabledata_json[0].stop_name);
 
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near
       ${
         tabledata_json[0].stop_name
       }. Please Click the Link below to view in map.`;
