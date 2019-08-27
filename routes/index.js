@@ -67,7 +67,37 @@ let simpleResponse = {
               title: "Bus Details",
               subtitle:
                 "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-              formattedText: "Via swamy Vivekananda road"
+              formattedText: "Via swamy Vivekananda road",
+              carouselBrowse: {
+                items: [
+                  {
+                    title: "Title of item 1",
+                    openUrlAction: {
+                      url: "https://example.com"
+                    },
+                    description: "Description of item 1",
+                    footer: "Item 1 footer",
+                    image: {
+                      url:
+                        "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                      accessibilityText: "Image alternate text"
+                    }
+                  },
+                  {
+                    title: "Title of item 2",
+                    openUrlAction: {
+                      url: "https://example.com"
+                    },
+                    description: "Description of item 2",
+                    footer: "Item 2 footer",
+                    image: {
+                      url:
+                        "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                      accessibilityText: "Image alternate text"
+                    }
+                  }
+                ]
+              }
               // buttons: [
               //   {
               //     title: "View In Map",
@@ -96,38 +126,6 @@ let simpleResponse = {
               //   }
               // }
               //]
-            }
-          },
-          {
-            carouselBrowse: {
-              items: [
-                {
-                  title: "Title of item 1",
-                  openUrlAction: {
-                    url: "https://example.com"
-                  },
-                  description: "Description of item 1",
-                  footer: "Item 1 footer",
-                  image: {
-                    url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                },
-                {
-                  title: "Title of item 2",
-                  openUrlAction: {
-                    url: "https://example.com"
-                  },
-                  description: "Description of item 2",
-                  footer: "Item 2 footer",
-                  image: {
-                    url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                }
-              ]
             }
           }
         ]
