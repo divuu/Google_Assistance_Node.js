@@ -65,20 +65,20 @@ let simpleResponse = {
           {
             carouselBrowse: {
               items: [
-                {
-                  title: "Bus Details",
-                  openUrlAction: {
-                    url: "https://example.com"
-                  },
-                  description:
-                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-                  footer: "The Bus is Near KV kahanapara location near assam",
-                  image: {
-                    url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                },
+                // {
+                //   title: "Bus Details",
+                //   openUrlAction: {
+                //     url: "https://example.com"
+                //   },
+                //   description:
+                //     "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+                //   footer: "The Bus is Near KV kahanapara location near assam",
+                //   image: {
+                //     url:
+                //       "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                //     accessibilityText: "Image alternate text"
+                //   }
+                // },
                 {
                   title: "View In Map",
                   openUrlAction: {
@@ -269,7 +269,6 @@ router.post("/webhook", function(req, res, next) {
       // }`;
 
       res.json(simpleResponse);
-      //res.json(essentialLinks);
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
