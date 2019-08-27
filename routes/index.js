@@ -79,7 +79,7 @@ let simpleResponse = {
                   description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call_e6w5rk.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -91,7 +91,7 @@ let simpleResponse = {
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -103,7 +103,7 @@ let simpleResponse = {
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566906021/call_resized_isstvt.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
