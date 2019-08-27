@@ -255,6 +255,7 @@ router.post("/webhook", function(req, res, next) {
       // }`;
 
       res.json(simpleResponse);
+      //res.json(essentialLinks);
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
