@@ -63,89 +63,14 @@ let simpleResponse = {
             }
           },
           {
-            basicCard: {
-              title: "Bus Details",
-              subtitle:
-                "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-              formattedText: "Via swamy Vivekananda road"
-            }
-          },
-          {
             carouselBrowse: {
               items: [
                 {
-                  title: "View In Map",
-                  openUrlAction: {
-                    url:
-                      "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
-                  },
-                  description: "View the live location in Google Map",
-                  image: {
-                    url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
-                    accessibilityText: "Image alternate text"
-                  }
+                  title: "Bus Details",
+                  description:
+                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+                  footer: "The Bus is Near KV kahanapara location near assam"
                 },
-                {
-                  title: "Share Bus Location",
-                  openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text=hi"
-                  },
-                  description: "Share Bus Live location on WhatsApp",
-                  image: {
-                    url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                },
-                {
-                  title: "Call RouteAlert",
-                  openUrlAction: {
-                    url: "tel:09066841400"
-                  },
-                  description: "Call RouteAlert Support Team For Any Help !",
-                  image: {
-                    url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566906021/call_resized_isstvt.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  }
-};
-
-let essentialLinks = {
-  fulfillmentText: "This is a text response",
-  fulfillmentMessages: [
-    {
-      card: {
-        title: "card title",
-        subtitle: "card text",
-        imageUri:
-          "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
-        buttons: [
-          {
-            text: "button text",
-            postback: "https://assistant.google.com/"
-          }
-        ]
-      }
-    }
-  ],
-  source: "example.com",
-  payload: {
-    google: {
-      expectUserResponse: false,
-      richResponse: {
-        items: [
-          {
-            carouselBrowse: {
-              items: [
                 {
                   title: "View In Map",
                   openUrlAction: {
