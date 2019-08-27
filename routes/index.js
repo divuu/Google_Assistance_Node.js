@@ -63,22 +63,13 @@ let simpleResponse = {
             }
           },
           {
+            // basicCard: {
+            // title: "Bus Details",
+            // subtitle:
+            //   "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
+            // formattedText: "Via swamy Vivekananda road",
             carouselBrowse: {
               items: [
-                {
-                  title: "Bus Details",
-                  openUrlAction: {
-                    url: "https://example.com"
-                  },
-                  description:
-                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-                  footer: "The Bus is Near KV kahanapara location near assam",
-                  image: {
-                    url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
-                    accessibilityText: "Image alternate text"
-                  }
-                },
                 {
                   title: "View In Map",
                   openUrlAction: {
@@ -253,7 +244,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual address", tabledata_json[0].stop_name);
 
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
       ${
         tabledata_json[0].stop_name
       }. Please Click the Link below to view in map.`;
@@ -269,7 +260,10 @@ router.post("/webhook", function(req, res, next) {
       // }`;
 
       res.json(simpleResponse);
+      //res.json(basicResponse);
     });
+    // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
+    // res.json(basicResponse);
   }
 
   //Temporary Disabled enable for parent
