@@ -103,7 +103,7 @@ let simpleResponse = {
                   description: "Call RouteAlert Support Team",
                   image: {
                     url:
-                      "https://res.cloudinary.com/techmky/image/upload/v1566898327/telephone_b5ccnd.jpg",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566899750/call_gnxr3m.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
