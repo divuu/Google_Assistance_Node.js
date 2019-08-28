@@ -216,27 +216,26 @@ router.post("/webhook", function(req, res, next) {
         return console.log(error.message);
       }
 
+      console.log("Result", results);
+      console.log("Result[0]", results[0]);
+
+      var tabledata = JSON.stringify(results[0]);
+      var tabledata_json = JSON.parse(tabledata);
+
+      //console.log(fields);
+      sysuserdataArray.push({
+        response_number: responseNumber++,
+        length: tabledata_json.length,
+        payload: tabledata_json
+      });
+
+      console.log(tabledata);
+      console.log(tabledata_json);
+      //console.log("Actual Name of sysuser", tabledata_json[0].name);
       if (tabledata_json.length == 0) {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `! It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
         res.json(basicResponse);
       } else {
-        console.log("Result", results);
-        console.log("Result[0]", results[0]);
-
-        var tabledata = JSON.stringify(results[0]);
-        var tabledata_json = JSON.parse(tabledata);
-
-        //console.log(fields);
-        sysuserdataArray.push({
-          response_number: responseNumber++,
-          length: tabledata_json.length,
-          payload: tabledata_json
-        });
-
-        console.log(tabledata);
-        console.log(tabledata_json);
-        //console.log("Actual Name of sysuser", tabledata_json[0].name);
-
         // Check data values for sysuser or Parent
         if (tabledata[0].passenger_id) {
           console.log("PIN from Parent master");
