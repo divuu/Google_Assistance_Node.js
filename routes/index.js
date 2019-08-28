@@ -205,7 +205,8 @@ router.post("/webhook", function(req, res, next) {
   // Send Parameters :- take PIN from parents/sysuser.
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
-    console.log("DUMP:", req);
+    console.log("req:", req);
+    dumpIntoDatabase(req.body.queryResult.action, req, "");
 
     var PIN = req.body.queryResult.parameters.PIN;
     //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
@@ -486,13 +487,15 @@ function dumpIntoDatabase(intentName, request, resposnse) {
     request +
     "," +
     resposnse +
-    ",finalComments)";
+    ",'' )";
+  console.log(logquery);
   db.query(logquery, true, error => {
     if (error) {
       return console.log(error.message);
-    }
+    } else console.log("------------------------->>>>>> DB Write successful");
   });
 }
+
 module.exports = router;
 
 // , {
