@@ -205,8 +205,8 @@ router.post("/webhook", function(req, res, next) {
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
     var PIN = req.body.queryResult.parameters.PIN;
-    //var username = decoded.name;
-    let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
+    //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
+    let spquery = "CALL sp_rga_pin_verification('" + PIN + "')";
     console.log("spquery", spquery);
     db.query(spquery, true, (error, results, fields) => {
       if (error) {
@@ -228,7 +228,7 @@ router.post("/webhook", function(req, res, next) {
 
       console.log(tabledata);
       console.log(tabledata_json);
-      console.log("Actual Name of sysuser", tabledata_json[0].name);
+      //console.log("Actual Name of sysuser", tabledata_json[0].name);
 
       if (tabledata_json.length == 0) {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `!It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
