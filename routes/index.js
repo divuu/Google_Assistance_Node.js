@@ -159,6 +159,9 @@ router.get("/", function(req, res, next) {
 });
 
 router.post("/webhook", function(req, res, next) {
+  console.log("REQUEST", JSON.stringify(req));
+  console.log("REQUEST BODY", JSON.stringify(req.body));
+
   // google fires any intent
 
   let user = verifyJWT(
