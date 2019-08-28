@@ -258,7 +258,12 @@ router.post("/webhook", function(req, res, next) {
           }
         }
       }
-      dumpIntoDatabase(req.body.queryResult.action, req, res, finalcomment);
+      dumpIntoDatabase(
+        req.body.queryResult.action,
+        JSON.stringify(req),
+        JSON.stringify(res),
+        "Test"
+      );
     });
   }
 
@@ -481,13 +486,13 @@ function verifyJWT(token, cert) {
 
 function dumpIntoDatabase(intentName, request, resposnse, final) {
   let logquery =
-    "CALL sp_google_log('" +
+    "CALL sp_google_log(" +
     intentName +
-    "','" +
+    "," +
     request +
-    "','" +
+    "," +
     resposnse +
-    "','" +
+    "," +
     final +
     ")";
   console.log(logquery);
