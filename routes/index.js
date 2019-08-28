@@ -231,21 +231,26 @@ router.post("/webhook", function(req, res, next) {
       //console.log("Actual Name of sysuser", tabledata_json[0].name);
 
       if (tabledata_json.length == 0) {
-        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `!It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
+        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `!   It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
         res.json(basicResponse);
       } else {
-        //Check for sysUser Organization
-        if (sysuserdataArray.length > 1) {
-          basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-            tabledata_json[0].name
-          }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
-          res.json(basicResponse);
+        // Check data values for sysuser or Parent
+        if (tabledata[0].passenger_id) {
+          console.log("FROM Parent master");
         } else {
-          //if (sysuserdataArray.length == 1) {
-          basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-            tabledata_json[0].name
-          }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
-          res.json(basicResponse);
+          //Check for sysUser Organization
+          if (sysuserdataArray.length > 1) {
+            basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+              tabledata_json[0].name
+            }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
+            res.json(basicResponse);
+          } else {
+            //if (sysuserdataArray.length == 1) {
+            basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+              tabledata_json[0].name
+            }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
+            res.json(basicResponse);
+          }
         }
       }
     });
