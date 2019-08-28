@@ -206,7 +206,7 @@ router.post("/webhook", function(req, res, next) {
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
     console.log("req:", req);
-    dumpIntoDatabase(req.body.queryResult.action, req, "");
+    dumpIntoDatabase("dummy", "dummy", "dummy", "comments");
 
     var PIN = req.body.queryResult.parameters.PIN;
     //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
@@ -479,7 +479,7 @@ function verifyJWT(token, cert) {
   });
 }
 
-function dumpIntoDatabase(intentName, request, resposnse) {
+function dumpIntoDatabase(intentName, request, resposnse, final) {
   let logquery =
     "CALL sp_google_log(" +
     intentName +
@@ -487,7 +487,9 @@ function dumpIntoDatabase(intentName, request, resposnse) {
     request +
     "," +
     resposnse +
-    ",'' )";
+    "," +
+    final +
+    ")";
   console.log(logquery);
   db.query(logquery, true, error => {
     if (error) {
