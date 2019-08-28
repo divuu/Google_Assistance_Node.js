@@ -230,22 +230,23 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual Name of sysuser", tabledata_json[0].name);
 
-      //Check for sysUser Organization
-      if (sysuserdataArray.length > 0) {
-        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-          tabledata_json[0].name
-        }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
-        res.json(basicResponse);
-      }
-      if (sysuserdataArray.length == 0) {
-        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
-          tabledata_json[0].name
-        }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
-        res.json(basicResponse);
-      }
-      if (sysuserdataArray == null) {
+      if (tabledata_json.length == 0) {
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `!It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
         res.json(basicResponse);
+      } else {
+        //Check for sysUser Organization
+        if (sysuserdataArray.length > 1) {
+          basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+            tabledata_json[0].name
+          }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
+          res.json(basicResponse);
+        }
+        else (sysuserdataArray.length == 1) {
+          basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
+            tabledata_json[0].name
+          }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
+          res.json(basicResponse);
+        }
       }
     });
   }
