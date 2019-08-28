@@ -258,20 +258,7 @@ router.post("/webhook", function(req, res, next) {
           }
         }
       }
-      //dumpIntoDatabase(req.body.queryResult.action, req, res);
-      let logquery =
-        "CALL sp_google_log(" +
-        req.body.queryResult.action +
-        "," +
-        req +
-        "," +
-        res +
-        ",finalComments)";
-      db.query(logquery, true, error => {
-        if (error) {
-          return console.log(error.message);
-        }
-      });
+      dumpIntoDatabase(req.body.queryResult.action, req, res, final);
     });
   }
 
@@ -478,6 +465,22 @@ function register(bResponse, requestObj, decoded) {
     }
   });
   return bResponse;
+}
+
+dumpIntoDatabase(intentName,request,resposnse,final){
+  let logquery =
+  "CALL sp_google_log(" +
+  intentName +
+  "," +
+  request +
+  "," +
+  resposnse +
+  ",finalComments)";
+db.query(logquery, true, error => {
+  if (error) {
+    return console.log(error.message);
+  }
+});
 }
 // Verify
 //verify jwt for user information
