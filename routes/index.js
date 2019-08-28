@@ -152,14 +152,15 @@ let simpleResponse = {
 //   }
 // };
 
-/* GET home page. */
+/* GET home page. Used to check whether the server is running or not */
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
   //req.render('index',{title:'Express'});
 });
 
 router.post("/webhook", function(req, res, next) {
-  //var newresponse = "";
+  // google fires any intent
+
   let user = verifyJWT(
     req.body.originalDetectIntentRequest.payload.user.idToken,
     keys.CERTIFICATE
@@ -204,6 +205,8 @@ router.post("/webhook", function(req, res, next) {
   // Send Parameters :- take PIN from parents/sysuser.
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
+    console.log("DUMP:", req);
+
     var PIN = req.body.queryResult.parameters.PIN;
     //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
     let spquery = "CALL sp_rga_pin_verification('" + PIN + "')";
@@ -213,36 +216,38 @@ router.post("/webhook", function(req, res, next) {
         return console.log(error.message);
       }
 
-      console.log("Result", results);
-      console.log("Result[0]", results[0]);
-
-      var tabledata = JSON.stringify(results[0]);
-      var tabledata_json = JSON.parse(tabledata);
-
-      //console.log(fields);
-      sysuserdataArray.push({
-        response_number: responseNumber++,
-        length: tabledata_json.length,
-        payload: tabledata_json
-      });
-
-      console.log(tabledata);
-      console.log(tabledata_json);
-      //console.log("Actual Name of sysuser", tabledata_json[0].name);
-
       if (tabledata_json.length == 0) {
-        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `!   It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
+        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `! It Seems your PIN is Incorrect Or You are Not Authorised For This Service. Kindly Contact RouteAlert Support Team.`;
         res.json(basicResponse);
       } else {
+        console.log("Result", results);
+        console.log("Result[0]", results[0]);
+
+        var tabledata = JSON.stringify(results[0]);
+        var tabledata_json = JSON.parse(tabledata);
+
+        //console.log(fields);
+        sysuserdataArray.push({
+          response_number: responseNumber++,
+          length: tabledata_json.length,
+          payload: tabledata_json
+        });
+
+        console.log(tabledata);
+        console.log(tabledata_json);
+        //console.log("Actual Name of sysuser", tabledata_json[0].name);
+
         // Check data values for sysuser or Parent
         if (tabledata[0].passenger_id) {
-          console.log("FROM Parent master");
+          console.log("PIN from Parent master");
         } else {
+          console.log("PIN FROM Sys User");
+
           //Check for sysUser Organization
           if (sysuserdataArray.length > 1) {
             basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
               tabledata_json[0].name
-            }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
+            }! Welcome to Route Alert. Which school do you want to check in to?`;
             res.json(basicResponse);
           } else {
             //if (sysuserdataArray.length == 1) {
@@ -253,6 +258,20 @@ router.post("/webhook", function(req, res, next) {
           }
         }
       }
+      //dumpIntoDatabase(req.body.queryResult.action, req, res);
+      let logquery =
+        "CALL sp_google_log(" +
+        req.body.queryResult.action +
+        "," +
+        req +
+        "," +
+        res +
+        ",finalComments)";
+      db.query(logquery, true, error => {
+        if (error) {
+          return console.log(error.message);
+        }
+      });
     });
   }
 
@@ -312,6 +331,7 @@ router.post("/webhook", function(req, res, next) {
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
+    dumpIntoDatabase(req.body.queryResult.action, req, res);
   }
 
   //Temporary Disabled enable for parent
