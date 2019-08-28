@@ -318,7 +318,7 @@ router.post("/webhook", function(req, res, next) {
     });
     // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
     // res.json(basicResponse);
-    dumpIntoDatabase(req.body.queryResult.action, req, res);
+    //dumpIntoDatabase(req.body.queryResult.action, req, res);
   }
 
   //Temporary Disabled enable for parent
@@ -466,22 +466,6 @@ function register(bResponse, requestObj, decoded) {
   });
   return bResponse;
 }
-
-dumpIntoDatabase(intentName,request,resposnse,final){
-  let logquery =
-  "CALL sp_google_log(" +
-  intentName +
-  "," +
-  request +
-  "," +
-  resposnse +
-  ",finalComments)";
-db.query(logquery, true, error => {
-  if (error) {
-    return console.log(error.message);
-  }
-});
-}
 // Verify
 //verify jwt for user information
 function verifyJWT(token, cert) {
@@ -491,6 +475,22 @@ function verifyJWT(token, cert) {
       console.log(err);
     } else {
       console.log(pass);
+    }
+  });
+}
+
+function dumpIntoDatabase(intentName, request, resposnse, finalComments) {
+  let logquery =
+    "CALL sp_google_log(" +
+    intentName +
+    "," +
+    request +
+    "," +
+    resposnse +
+    ",finalComments)";
+  db.query(logquery, true, error => {
+    if (error) {
+      console.log(error.message);
     }
   });
 }
