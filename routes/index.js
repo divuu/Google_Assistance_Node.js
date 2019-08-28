@@ -157,11 +157,14 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
   //req.render('index',{title:'Express'});
 });
-
 router.post("/webhook", function(req, res, next) {
   console.log("REQUEST", JSON.stringify(req));
   console.log("REQUEST BODY", JSON.stringify(req.body));
 
+  res.json(basicResponse);
+});
+/*
+router.post("/webhook", function(req, res, next) {
   // google fires any intent
 
   let user = verifyJWT(
@@ -427,7 +430,7 @@ router.post("/webhook", function(req, res, next) {
     // res.json(simpleResponse);
   }
 });
-
+*/
 router.get("/responses", function(req, res, next) {
   //res.json(resp);
   res.json(sysuserdataArray);
