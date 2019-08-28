@@ -157,12 +157,12 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
   //req.render('index',{title:'Express'});
 });
-router.post("/webhook", function(req, res, next) {
-  console.log("REQUEST BODY", JSON.stringify(req.body));
+// router.post("/webhook", function(req, res, next) {
+//   console.log("REQUEST BODY", JSON.stringify(req.body));
 
-  res.json(basicResponse);
-});
-/*
+//   res.json(basicResponse);
+// });
+
 router.post("/webhook", function(req, res, next) {
   // google fires any intent
 
@@ -210,9 +210,6 @@ router.post("/webhook", function(req, res, next) {
   // Send Parameters :- take PIN from parents/sysuser.
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
-    console.log("req:", req);
-    dumpIntoDatabase("dummy", "dummy", "dummy", "FinalComment");
-
     var PIN = req.body.queryResult.parameters.PIN;
     //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
     let spquery = "CALL sp_rga_pin_verification('" + PIN + "')";
@@ -265,7 +262,7 @@ router.post("/webhook", function(req, res, next) {
       }
       dumpIntoDatabase(
         req.body.queryResult.action,
-        JSON.stringify(req),
+        JSON.stringify(req.body),
         JSON.stringify(res),
         "Test"
       );
@@ -276,59 +273,48 @@ router.post("/webhook", function(req, res, next) {
   // Send Parameters :- take Bus Number.
   // Receive Parameters :- give back the Bus Details.
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
-    var busRouteID = req.body.queryResult.parameters.BusRouteID;
-    console.log("BusRouteID", busRouteID);
-
-    let prefix = ["MPS Route"];
-    let finalStr;
-    if (typeof busRouteID == "number") {
-      finalStr = prefix + " " + busRouteID;
-      console.log("Bus String", finalStr);
-    } else {
-      let strafter = busRouteID.replace(/[A-Za-z$-]/g, "");
-      finalStr = prefix + " " + strafter;
-      console.log("Bus String", finalStr);
-    }
-
-    let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
-    console.log("spquery", spquery);
-
-    db.query(spquery, true, (error, results, fields) => {
-      if (error) {
-        return console.log(error.message);
-      }
-
-      console.log("Result", results);
-      console.log("Result[0]", results[0]);
-
-      var tabledata = JSON.stringify(results[0]);
-      var tabledata_json = JSON.parse(tabledata);
-
-      console.log(tabledata);
-      console.log(tabledata_json);
-      console.log("Actual address", tabledata_json[0].stop_name);
-
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-      ${
-        tabledata_json[0].stop_name
-      }. Please Click the Link below to view in map.`;
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-      //   tabledata_json[0].stop_name
-      // }`;
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-      //   tabledata_json[0].location
-      // }&amp;ll=`;
-
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-      //   tabledata_json[0].location
-      // }`;
-
-      res.json(simpleResponse);
-      //res.json(basicResponse);
-    });
-    // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Please wait i'm fetching the Current location of Bus ${finalStr}.`;
-    // res.json(basicResponse);
-    //dumpIntoDatabase(req.body.queryResult.action, req, res);
+    console.log("REQUEST BODY", JSON.stringify(req.body));
+    // var busRouteID = req.body.queryResult.parameters.BusRouteID;
+    // console.log("BusRouteID", busRouteID);
+    // let prefix = ["MPS Route"];
+    // let finalStr;
+    // if (typeof busRouteID == "number") {
+    //   finalStr = prefix + " " + busRouteID;
+    //   console.log("Bus String", finalStr);
+    // } else {
+    //   let strafter = busRouteID.replace(/[A-Za-z$-]/g, "");
+    //   finalStr = prefix + " " + strafter;
+    //   console.log("Bus String", finalStr);
+    // }
+    // let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
+    // console.log("spquery", spquery);
+    // db.query(spquery, true, (error, results, fields) => {
+    //   if (error) {
+    //     return console.log(error.message);
+    //   }
+    //   console.log("Result", results);
+    //   console.log("Result[0]", results[0]);
+    //   var tabledata = JSON.stringify(results[0]);
+    //   var tabledata_json = JSON.parse(tabledata);
+    //   console.log(tabledata);
+    //   console.log(tabledata_json);
+    //   console.log("Actual address", tabledata_json[0].stop_name);
+    //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+    //   ${
+    //     tabledata_json[0].stop_name
+    //   }. Please Click the Link below to view in map.`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
+    //   //   tabledata_json[0].stop_name
+    //   // }`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
+    //   //   tabledata_json[0].location
+    //   // }&amp;ll=`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+    //   //   tabledata_json[0].location
+    //   // }`;
+    //   res.json(simpleResponse);
+    //   //res.json(basicResponse);
+    // });
   }
 
   //Temporary Disabled enable for parent
@@ -429,7 +415,7 @@ router.post("/webhook", function(req, res, next) {
     // res.json(simpleResponse);
   }
 });
-*/
+
 router.get("/responses", function(req, res, next) {
   //res.json(resp);
   res.json(sysuserdataArray);
