@@ -158,7 +158,6 @@ router.get("/", function(req, res, next) {
   //req.render('index',{title:'Express'});
 });
 router.post("/webhook", function(req, res, next) {
-  console.log("REQUEST", JSON.stringify(req));
   console.log("REQUEST BODY", JSON.stringify(req.body));
 
   res.json(basicResponse);
