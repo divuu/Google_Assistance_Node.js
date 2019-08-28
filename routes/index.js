@@ -487,7 +487,11 @@ function dumpIntoDatabase(intentName, request, resposnse, finalComments) {
     "," +
     resposnse +
     ",finalComments)";
-  db.query(logquery);
+  db.query(logquery, error => {
+    if (error) {
+      return console.log(error.message);
+    }
+  });
 }
 module.exports = router;
 
