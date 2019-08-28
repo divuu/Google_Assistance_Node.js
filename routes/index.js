@@ -240,8 +240,8 @@ router.post("/webhook", function(req, res, next) {
             tabledata_json[0].name
           }! Welcome to Route Alert. As per my records it seems You have Multiple School. So, In Which school do you want to check in ?`;
           res.json(basicResponse);
-        }
-        if (sysuserdataArray.length == 1) {
+        } else {
+          //if (sysuserdataArray.length == 1) {
           basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${
             tabledata_json[0].name
           }! Welcome to Route Alert. Which School Bus location Do you want to know ?`;
