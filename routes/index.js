@@ -69,12 +69,6 @@ let simpleResponse = {
             carouselBrowse: {
               items: [
                 {
-                  title: "Bus Details",
-                  description:
-                    "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-                  footer: "Bus Is near Via swamy Vivekananda road"
-                },
-                {
                   title: "View In Map",
                   openUrlAction: {
                     url:
@@ -210,7 +204,6 @@ router.post("/webhook", function(req, res, next) {
   // Receive Parameters :- A welcome sentence will be fired.
   if (req.body.queryResult.action == "action_welcome") {
     var PIN = req.body.queryResult.parameters.PIN;
-    //let spquery = "CALL sp_sysuser_verification(" + PIN + ")";
     //Validation of pin()
     let spquery = "CALL sp_rga_pin_verification('" + PIN + "')";
     console.log("spquery", spquery);
