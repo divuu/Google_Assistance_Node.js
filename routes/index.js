@@ -265,7 +265,8 @@ router.post("/webhook", function(req, res, next) {
                 .conversationId,
               tabledata_json
             );
-            res.json(basicResponse);
+            res.json(sessionUserData);
+            //res.json(basicResponse);
           } else {
             if (tabledata_json.length == 1) {
               console.log("In Single School");
@@ -286,7 +287,71 @@ router.post("/webhook", function(req, res, next) {
     });
   }
 
-  // For SysUser School Bus Info
+  // For SysUser with Multiple School Bus Info
+  // Send Parameters :- input Bus Number eg:- Maria public School, Bus Number 1.
+  // Receive Parameters :- give back the Bus Details.
+  if (req.body.queryResult.action == "Action_sysuser_multiple_school") {
+    var schoolNameUser = req.body.queryResult.parameters.SchoolName; // School Name from the user
+    var busRouteNumber = req.body.queryResult.parameters.BusNumber; // Route 1 or Bus 1 or MPS Route 1... it will return 1 ( fetches the number )
+    console.log("BusRouteNumber", busRouteNumber);
+    console.log("SchoolName", schoolNameUser);
+
+    schoolarray = [];
+
+    let school =
+      sessionUserData[
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      ].payload;
+
+    console.log("School", school);
+    school.forEach(val => {
+      fullname = val.org_name;
+      shortname = val.short_name;
+      schoolarray.push(fullname, shortname);
+    });
+
+    console.log("schoolarray", schoolarray);
+
+    // let finalStr;
+    // if (typeof busRouteNumber == "number") {
+    //   finalStr = prefix + " " + "Route" + " " + busRouteNumber;
+    //   console.log("Bus String", finalStr);
+    // } else {
+    //   let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
+    //   finalStr = prefix + " " + "Route" + " " + strafter;
+    //   console.log("Bus String", finalStr);
+    // }
+    // let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
+    // console.log("spquery", spquery);
+    // db.query(spquery, true, (error, results, fields) => {
+    //   if (error) {
+    //     return console.log(error.message);
+    //   }
+    //   console.log("Result", results);
+    //   console.log("Result[0]", results[0]);
+    //   var tabledata = JSON.stringify(results[0]);
+    //   var tabledata_json = JSON.parse(tabledata);
+    //   console.log(tabledata);
+    //   console.log(tabledata_json);
+    //   console.log("Actual address", tabledata_json[0].stop_name);
+
+    //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+    //   ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
+    //   //   tabledata_json[0].stop_name
+    //   // }`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
+    //   //   tabledata_json[0].location
+    //   // }&amp;ll=`;
+    //   // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+    //   //   tabledata_json[0].location
+    //   // }`;
+    //   res.json(simpleResponse);
+    console.log("OK SUccess");
+    //});
+  }
+
+  // For SysUser with Single School Bus Info
   // Send Parameters :- input Bus Number eg:- MPS Route 1.
   // Receive Parameters :- give back the Bus Details.
   if (req.body.queryResult.action == "Action_Sysuser_schoolbusDetail") {
