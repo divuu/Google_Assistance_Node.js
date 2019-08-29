@@ -265,8 +265,8 @@ router.post("/webhook", function(req, res, next) {
                 .conversationId,
               tabledata_json
             );
-            res.json(sessionUserData);
-            //res.json(basicResponse);
+            //res.json(sessionUserData);
+            res.json(basicResponse);
           } else {
             if (tabledata_json.length == 1) {
               console.log("In Single School");
