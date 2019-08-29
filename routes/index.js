@@ -297,6 +297,7 @@ router.post("/webhook", function(req, res, next) {
     console.log("SchoolName", schoolNameUser);
 
     schoolarray = [];
+    operationArray = [];
 
     let school =
       sessionUserData[
@@ -305,12 +306,24 @@ router.post("/webhook", function(req, res, next) {
 
     console.log("School", school);
     school.forEach(val => {
-      fullname = val.org_name;
-      shortname = val.short_name;
-      schoolarray.push(fullname, shortname);
+      payload = {
+        fullname = val.org_name,
+        organization_id = val.organization_id
+      }
+      schoolarray.push(payload);
     });
 
     console.log("schoolarray", schoolarray);
+
+    schoolarray.forEach(val => {
+      if(val.fullname == schoolNameUser){
+        operationArray.push(val.organization_id);
+        console.log("Operation", operationArray);
+      }else{
+        console.log("NO Match");
+        //res.json(basicResponse);
+      }
+    });
 
     // let finalStr;
     // if (typeof busRouteNumber == "number") {
