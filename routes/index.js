@@ -14,7 +14,7 @@ var sessionUserData = {};
 let basicResponse = {
   payload: {
     google: {
-      expectUserResponse: false,
+      expectUserResponse: true,
       richResponse: {
         items: [
           {
