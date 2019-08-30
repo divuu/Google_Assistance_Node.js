@@ -332,6 +332,7 @@ router.post("/webhook", function(req, res, next) {
         count++;
       }
     });
+    console.log("Count", count);
     console.log("SchoolLen", School.length);
     console.log("schoolarray", schoolarray);
 
