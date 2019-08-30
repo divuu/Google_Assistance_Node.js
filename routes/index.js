@@ -6,7 +6,6 @@ var jwtDecode = require("jwt-decode");
 let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
-let sysuserdataArray = [];
 let test = [];
 let responseNumber = 0;
 var sessionUserData = {};
@@ -218,25 +217,18 @@ router.post("/webhook", function(req, res, next) {
       //console.log("Actual Name of sysuser", tabledata_json[0].name);
 
       if (results[0].length == 0) {
+        basicResponse.payload.google.expectUserResponse = "false";
         basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = ` Sorry, your PIN is invalid. We cant find the user in our records. Thank you for your interest in RouteAlert. `;
         res.json(basicResponse);
       } else {
         var tabledata = JSON.stringify(results[0]);
         var tabledata_json = JSON.parse(tabledata);
 
-        sysuserdataArray.push({
-          response_number: responseNumber++,
-          length: tabledata_json.length,
-          payload: tabledata_json
-        });
-
-        console.log("user data Array", sysuserdataArray);
         console.log("tabledat_json", tabledata_json);
 
         // Check data values for sysuser or Parent
         if (tabledata_json[0].passenger_id) {
           console.log("PIN Verfication Passenger master");
-
           basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `  Welcome ${tabledata_json[0].name} of ${tabledata_json[0].org_name}. Do you want to know the location of your school bus ? `;
           //Store User Data With Session
 
@@ -287,17 +279,14 @@ router.post("/webhook", function(req, res, next) {
     });
   }
 
-  // this intent will work for Parent School Bus Info
+  // this intent will work for Passenger School Bus Info
   // Send Parameters :- input Bus Number eg:- yes/Bus Number 1
   // Receive Parameters :- give back the Bus Details. from local only. it will not fetch the details from server.
-  if (
-    req.body.queryResult.action ==
-    "DefaultWelcomeIntent.DefaultWelcomeIntent-yes"
-  ) {
+  if (req.body.queryResult.action == "Action_passenger_bus_location") {
     let stop =
       sessionUserData[
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      ].stop_name;
+      ];
     let location =
       sessionUserData[
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
@@ -305,8 +294,10 @@ router.post("/webhook", function(req, res, next) {
 
     console.log("stop", stop);
     console.log("Location", location);
-    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-      ${stop}. Please Click the Link below to view in map.`;
+    console.log("Custom Name", custom_name);
+
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${custom_name} was Last seen 2 Min Ago near
+    ${stop}. Please Click the Link below to view in map.`;
 
     res.json(simpleResponse);
   }
@@ -468,10 +459,6 @@ router.post("/webhook", function(req, res, next) {
     let thisResponse = JSON.parse(JSON.stringify(basicResponse));
     //res.json(basicResponse);
     res.json(register(thisResponse, req.body, decoded));
-  } else {
-    console.log("HELLO I'M IN Action REGISTER END");
-    //res.json(resp);
-    //res.json(simpleResponse);
   }
 
   //if (req.body.queryResult.action == "Action_Bus_Route" || "DefaultWelcomeIntent.DefaultWelcomeIntent-yes") {
@@ -506,17 +493,11 @@ router.post("/webhook", function(req, res, next) {
 
       res.json(simpleResponse);
     });
-  } else {
-    console.log("HELLO I'M IN Action Bus Route END");
-    // simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-    //   "Failed";
-    // res.json(simpleResponse);
   }
 });
 
 router.get("/responses", function(req, res, next) {
-  //res.json(resp);
-  res.json(sysuserdataArray);
+  res.json(resp);
 });
 
 router.get("/test", function(req, res, next) {
