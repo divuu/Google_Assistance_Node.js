@@ -306,24 +306,15 @@ router.post("/webhook", function(req, res, next) {
 
     console.log("School", school);
     school.forEach(val => {
-      payload = {
-        fullname = val.org_name,
-        organization_id = val.organization_id
+      if (val.fullname == schoolNameUser) {
+        operationArray.push(val.organization_id);
+        console.log("Operation", operationArray);
+      } else {
+        console.log("NO Match");
       }
-      schoolarray.push(payload);
     });
 
     console.log("schoolarray", schoolarray);
-
-    schoolarray.forEach(val => {
-      if(val.fullname == schoolNameUser){
-        operationArray.push(val.organization_id);
-        console.log("Operation", operationArray);
-      }else{
-        console.log("NO Match");
-        //res.json(basicResponse);
-      }
-    });
 
     // let finalStr;
     // if (typeof busRouteNumber == "number") {
