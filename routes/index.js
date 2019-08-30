@@ -297,7 +297,7 @@ router.post("/webhook", function(req, res, next) {
     console.log("SchoolName", schoolNameUser);
 
     operationArray = [];
-
+    var count = 0;
     let school =
       sessionUserData[
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
@@ -307,52 +307,58 @@ router.post("/webhook", function(req, res, next) {
     school.forEach(val => {
       console.log("value in loop", val.org_name);
       if (val.org_name == schoolNameUser) {
-        operationArray.push(val.short_name);
+        operationArray.push({ short: val.short_name, full: val.org_name });
         console.log("Operation", operationArray);
       } else {
         console.log("NO Match");
+        count++;
       }
     });
-
     console.log("schoolarray", schoolarray);
 
-    let finalStr;
-    if (typeof busRouteNumber == "number") {
-      finalStr =
-        operationArray.short_name + " " + "Route" + " " + busRouteNumber;
-      console.log("Bus String", finalStr);
-    } else {
-      let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
-      finalStr = operationArray.short_name + " " + "Route" + " " + strafter;
-      console.log("Bus String", finalStr);
-    }
-    let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
-    console.log("spquery", spquery);
-    db.query(spquery, true, (error, results, fields) => {
-      if (error) {
-        return console.log(error.message);
+    if (count < school.length) {
+      let finalStr;
+      if (typeof busRouteNumber == "number") {
+        finalStr =
+          operationArray.short_name + " " + "Route" + " " + busRouteNumber;
+        console.log("Bus String", finalStr);
+      } else {
+        let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
+        finalStr = operationArray.short_name + " " + "Route" + " " + strafter;
+        console.log("Bus String", finalStr);
       }
-      console.log("Result", results);
-      console.log("Result[0]", results[0]);
-      var tabledata = JSON.stringify(results[0]);
-      var tabledata_json = JSON.parse(tabledata);
-      console.log(tabledata);
-      console.log(tabledata_json);
-      console.log("Actual address", tabledata_json[0].stop_name);
+      let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
+      console.log("spquery", spquery);
+      db.query(spquery, true, (error, results, fields) => {
+        if (error) {
+          return console.log(error.message);
+        }
+        console.log("Result", results);
+        console.log("Result[0]", results[0]);
+        var tabledata = JSON.stringify(results[0]);
+        var tabledata_json = JSON.parse(tabledata);
+        console.log(tabledata);
+        console.log(tabledata_json);
+        console.log("Actual address", tabledata_json[0].stop_name);
 
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-      ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-      //   tabledata_json[0].stop_name
-      // }`;
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-      //   tabledata_json[0].location
-      // }&amp;ll=`;
-      // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-      //   tabledata_json[0].location
-      // }`;
-      res.json(simpleResponse);
-    });
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+        ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
+        // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
+        //   tabledata_json[0].stop_name
+        // }`;
+        // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
+        //   tabledata_json[0].location
+        // }&amp;ll=`;
+        // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
+        //   tabledata_json[0].location
+        // }`;
+        res.json(simpleResponse);
+      });
+    } else {
+      basicResponse.payload.google.expectUserResponse = "false";
+      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
+      res.json(basicResponse);
+    }
   }
 
   // For SysUser with Single School Bus Info
