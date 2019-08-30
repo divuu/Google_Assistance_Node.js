@@ -242,7 +242,7 @@ router.post("/webhook", function(req, res, next) {
               );
             });
 
-          // res.json(sessionUserData);
+          //res.json(sessionUserData);
           res.json(basicResponse);
         } else {
           console.log("PIN Verfication SysUser Master");
@@ -284,11 +284,16 @@ router.post("/webhook", function(req, res, next) {
   // Receive Parameters :- give back the Bus Details. from local only. it will not fetch the details from server.
   if (req.body.queryResult.action == "Action_passenger_bus_location") {
     console.log("Passenger Bus Location");
-    let passData =
-      sessionUserData[
+    if (
+      sessionUserData.hasOwnProperty(
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      ];
-    if (passData.stop_name && passData.location) {
+      )
+    ) {
+      let passData =
+        sessionUserData[
+          req.body.originalDetectIntentRequest.payload.conversation
+            .conversationId
+        ];
       simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${passData.custom_name} was Last seen 2 Min Ago near
       ${passData.stop_name}. Please Click the Link below to view in map.`;
       res.json(simpleResponse);
