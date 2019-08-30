@@ -11,6 +11,24 @@ let test = [];
 let responseNumber = 0;
 var sessionUserData = {};
 
+let notFoundBus = {
+  payload: {
+    google: {
+      expectUserResponse: false,
+      richResponse: {
+        items: [
+          {
+            simpleResponse: {
+              textToSpeech:
+                "Today is not a holiday. From Register intent. finally success."
+            }
+          }
+        ]
+      }
+    }
+  }
+};
+
 let basicResponse = {
   payload: {
     google: {
@@ -315,8 +333,9 @@ router.post("/webhook", function(req, res, next) {
       }
     });
     console.log("schoolarray", schoolarray);
+    console.log("SchoolLen", School.length);
 
-    if (count < school.length) {
+    if (count == school.length) {
       let finalStr;
       if (typeof busRouteNumber == "number") {
         finalStr =
@@ -355,9 +374,8 @@ router.post("/webhook", function(req, res, next) {
         res.json(simpleResponse);
       });
     } else {
-      basicResponse.payload.google.expectUserResponse = "false,";
-      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
-      res.json(basicResponse);
+      notFoundBus.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
+      res.json(notFoundBus);
     }
   }
 
