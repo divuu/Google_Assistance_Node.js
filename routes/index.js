@@ -217,9 +217,13 @@ router.post("/webhook", function(req, res, next) {
       //console.log("Actual Name of sysuser", tabledata_json[0].name);
 
       if (results[0].length == 0) {
-        basicResponse.payload.google.expectUserResponse = "false";
-        basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = ` Sorry, your PIN is invalid. We cant find the user in our records. Thank you for your interest in RouteAlert. `;
-        res.json(basicResponse);
+        var textforresponse =
+          "Sorry, your PIN is invalid. We cant find the user in our records. Thank you for your interest in RouteAlert.";
+        var responseObj = createResponse(false, textforresponse);
+        //basicResponse.payload.google.expectUserResponse = "false";
+        //basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = ` `;
+        //res.json(basicResponse);
+        res.json(responseObj);
       } else {
         var tabledata = JSON.stringify(results[0]);
         var tabledata_json = JSON.parse(tabledata);
@@ -563,6 +567,26 @@ function userDataWithSession(conversationID, parameter) {
   } else {
     sessionUserData[conversationID] = Object.assign({}, parameter);
   }
+}
+
+// Create the dynamic reponse on the basis of Input paramets
+function createResponse(boolean, textToSpeech) {
+  return {
+    payload: {
+      google: {
+        expectUserResponse: `${boolean}`,
+        richResponse: {
+          items: [
+            {
+              simpleResponse: {
+                textToSpeech: `${textToSpeech}`
+              }
+            }
+          ]
+        }
+      }
+    }
+  };
 }
 
 module.exports = router;
