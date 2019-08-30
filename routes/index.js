@@ -220,9 +220,6 @@ router.post("/webhook", function(req, res, next) {
         var textforresponse =
           "Sorry, your PIN is invalid. We cant find the user in our records. Thank you for your interest in RouteAlert.";
         var responseObj = createResponse(false, textforresponse);
-        //basicResponse.payload.google.expectUserResponse = "false";
-        //basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = ` `;
-        //res.json(basicResponse);
         res.json(responseObj);
       } else {
         var tabledata = JSON.stringify(results[0]);
@@ -302,9 +299,9 @@ router.post("/webhook", function(req, res, next) {
       ${passData.stop_name}. Please Click the Link below to view in map.`;
       res.json(simpleResponse);
     } else {
-      basicResponse.payload.google.expectUserResponse = "false";
-      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = ` It Seems Your Bus is Not Moving. `;
-      res.json(basicResponse);
+      var textforresponse = "It Seems Your Bus is Not Moving.";
+      var responseObj = createResponse(false, textforresponse);
+      res.json(responseObj);
     }
   }
 
@@ -363,9 +360,13 @@ router.post("/webhook", function(req, res, next) {
         res.json(simpleResponse);
       });
     } else {
-      basicResponse.payload.google.expectUserResponse = "false";
-      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
-      res.json(basicResponse);
+      var textforresponse = `It seems ${schoolNameUser} is not in Your records`;
+      var responseObj = createResponse(false, textforresponse);
+      res.json(responseObj);
+
+      // basicResponse.payload.google.expectUserResponse = "false";
+      // basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
+      // res.json(basicResponse);
     }
   }
 
