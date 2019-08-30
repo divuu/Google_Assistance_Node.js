@@ -355,7 +355,7 @@ router.post("/webhook", function(req, res, next) {
         res.json(simpleResponse);
       });
     } else {
-      basicResponse.payload.google.expectUserResponse = "false";
+      basicResponse.payload.google.expectUserResponse = "false,";
       basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
       res.json(basicResponse);
     }
