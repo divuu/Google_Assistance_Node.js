@@ -11,24 +11,6 @@ let test = [];
 let responseNumber = 0;
 var sessionUserData = {};
 
-let notFoundBus = {
-  payload: {
-    google: {
-      expectUserResponse: false,
-      richResponse: {
-        items: [
-          {
-            simpleResponse: {
-              textToSpeech:
-                "Today is not a holiday. From Register intent. finally success."
-            }
-          }
-        ]
-      }
-    }
-  }
-};
-
 let basicResponse = {
   payload: {
     google: {
@@ -276,7 +258,7 @@ router.post("/webhook", function(req, res, next) {
           //Check for sysUser Organization
           if (tabledata_json.length > 1) {
             console.log("In multiple School");
-            basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].role_name}  ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School's information do you want to know about ?`;
+            basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School's information do you want to know about ?`;
             //Store User Data With Session
             userDataWithSession(
               req.body.originalDetectIntentRequest.payload.conversation
@@ -288,7 +270,7 @@ router.post("/webhook", function(req, res, next) {
           } else {
             if (tabledata_json.length == 1) {
               console.log("In Single School");
-              basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].role_name}  ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School Bus' location do you want to know about ?`;
+              basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School Bus' location do you want to know about ?`;
               //Store User Data With Session
               tabledata_json.forEach(val => {
                 userDataWithSession(
@@ -303,6 +285,30 @@ router.post("/webhook", function(req, res, next) {
         }
       }
     });
+  }
+
+  // this intent will work for Parent School Bus Info
+  // Send Parameters :- input Bus Number eg:- yes/Bus Number 1
+  // Receive Parameters :- give back the Bus Details. from local only. it will not fetch the details from server.
+  if (
+    req.body.queryResult.action ==
+    "DefaultWelcomeIntent.DefaultWelcomeIntent-yes"
+  ) {
+    let stop =
+      sessionUserData[
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      ].stop_name;
+    let location =
+      sessionUserData[
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      ].location;
+
+    console.log("stop", stop);
+    console.log("Location", location);
+    simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
+      ${stop}. Please Click the Link below to view in map.`;
+
+    res.json(simpleResponse);
   }
 
   // For SysUser with Multiple School Bus Info
@@ -326,8 +332,7 @@ router.post("/webhook", function(req, res, next) {
     if (sysUseData && sysUseData.org_name) {
       let finalStr;
       if (typeof busRouteNumber == "number") {
-        finalStr =
-        sysUseData.short_name + " " + "Route" + " " + busRouteNumber;
+        finalStr = sysUseData.short_name + " " + "Route" + " " + busRouteNumber;
         console.log("Bus String", finalStr);
       } else {
         let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
@@ -361,8 +366,9 @@ router.post("/webhook", function(req, res, next) {
         res.json(simpleResponse);
       });
     } else {
-      notFoundBus.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
-      res.json(notFoundBus);
+      basicResponse.payload.google.expectUserResponse = "false";
+      basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `It seems ${schoolNameUser} is not in Your records`;
+      res.json(basicResponse);
     }
   }
 
@@ -378,11 +384,11 @@ router.post("/webhook", function(req, res, next) {
       ].short_name;
     let finalStr;
     if (typeof busRouteNumber == "number") {
-      finalStr = prefix + " " + busRouteNumber;
+      finalStr = prefix + " " + "Route" + " " + busRouteNumber;
       console.log("Bus String", finalStr);
     } else {
       let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
-      finalStr = prefix + " " + strafter;
+      finalStr = prefix + " " + "Route" + " " + strafter;
       console.log("Bus String", finalStr);
     }
     let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
