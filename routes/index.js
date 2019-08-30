@@ -336,7 +336,7 @@ router.post("/webhook", function(req, res, next) {
     console.log("SchoolLen", School.length);
     console.log("schoolarray", schoolarray);
 
-    if (count == school.length) {
+    if (school.length > count) {
       let finalStr;
       if (typeof busRouteNumber == "number") {
         finalStr =
