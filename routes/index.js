@@ -306,6 +306,7 @@ router.post("/webhook", function(req, res, next) {
 
     console.log("School", school);
     school.forEach(val => {
+      console.log("value in loop", val.fullname);
       if (val.fullname == schoolNameUser) {
         operationArray.push(val.organization_id);
         console.log("Operation", operationArray);
