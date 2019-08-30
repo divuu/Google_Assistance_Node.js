@@ -311,40 +311,27 @@ router.post("/webhook", function(req, res, next) {
   if (req.body.queryResult.action == "Action_sysuser_multiple_school") {
     var schoolNameUser = req.body.queryResult.parameters.SchoolName; // School Name from the user
     var busRouteNumber = req.body.queryResult.parameters.BusNumber; // Route 1 or Bus 1 or MPS Route 1... it will return 1 ( fetches the number )
-    console.log("BusRouteNumber", busRouteNumber);
-    console.log("SchoolName", schoolNameUser);
+    let sysUseData = null;
+    sessionUserData[
+      req.body.originalDetectIntentRequest.payload.conversation.conversationId
+    ].payload
+      .filter(val => {
+        return val.org_name == schoolNameUser;
+      })
+      .forEach(val => {
+        sysUseData = Object.assign({}, val);
+      });
+    // console.log("schoolarray", schoolarray);
 
-    operationArray = [];
-    var count = 0;
-    let school =
-      sessionUserData[
-        req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      ].payload;
-
-    console.log("School", school);
-    school.forEach(val => {
-      console.log("value in loop", val.org_name);
-      if (val.org_name == schoolNameUser) {
-        operationArray.push({ short: val.short_name, full: val.org_name });
-        console.log("Operation", operationArray);
-      } else {
-        console.log("NO Match");
-        count++;
-      }
-    });
-    console.log("Count", count);
-    console.log("SchoolLen", School.length);
-    console.log("schoolarray", schoolarray);
-
-    if (school.length > count) {
+    if (sysUseData && sysUseData.org_name) {
       let finalStr;
       if (typeof busRouteNumber == "number") {
         finalStr =
-          operationArray.short_name + " " + "Route" + " " + busRouteNumber;
+        sysUseData.short_name + " " + "Route" + " " + busRouteNumber;
         console.log("Bus String", finalStr);
       } else {
         let strafter = busRouteNumber.replace(/[A-Za-z$-]/g, "");
-        finalStr = operationArray.short_name + " " + "Route" + " " + strafter;
+        finalStr = sysUseData.short_name + " " + "Route" + " " + strafter;
         console.log("Bus String", finalStr);
       }
       let spquery = "CALL sp_assistant_stop_for_sysuser('" + finalStr + "')";
@@ -359,7 +346,6 @@ router.post("/webhook", function(req, res, next) {
         var tabledata_json = JSON.parse(tabledata);
         console.log(tabledata);
         console.log(tabledata_json);
-        console.log("Actual address", tabledata_json[0].stop_name);
 
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
         ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
