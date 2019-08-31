@@ -83,7 +83,7 @@ let simpleResponse = {
                 {
                   title: "Share Bus Location",
                   openUrlAction: {
-                    url: "https://api.whatsapp.com/send?text=hi"
+                    url: "https://api.whatsapp.com/send?text="
                   },
                   description: "Share Bus Live location on WhatsApp",
                   image: {
