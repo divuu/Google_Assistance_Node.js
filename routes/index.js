@@ -383,8 +383,7 @@ router.post("/webhook", function(req, res, next) {
         console.log(tabledata);
         console.log(tabledata_json);
 
-        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-        ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
         // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
         //   tabledata_json[0].stop_name
         // }`;
@@ -440,8 +439,7 @@ router.post("/webhook", function(req, res, next) {
       console.log(tabledata_json);
       console.log("Actual address", tabledata_json[0].stop_name);
 
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near
-      ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
+      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus MPS Route 1 was Last seen 2 Min Ago near ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
       // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
       //   tabledata_json[0].stop_name
       // }`;
