@@ -463,6 +463,8 @@ router.post("/webhook", function(req, res, next) {
           // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
           //   tabledata_json[0].location
           // }`;
+
+          //many change
           res.json(simpleResponse);
         } else {
           console.log("Stop Name Not found");
