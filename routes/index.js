@@ -233,18 +233,23 @@ router.post("/webhook", function(req, res, next) {
           basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `  Welcome ${tabledata_json[0].name} of ${tabledata_json[0].org_name}. Do you want to know the location of your school bus ? `;
           //Store User Data With Session
 
-          tabledata_json
-            .filter(val => val.route_id == val.running_route_id)
-            .forEach(val => {
-              userDataWithSession(
-                req.body.originalDetectIntentRequest.payload.conversation
-                  .conversationId,
-                val
-              );
-            });
+          userDataWithSession(
+            req.body.originalDetectIntentRequest.payload.conversation
+              .conversationId,
+            tabledata_json
+          );
+          // tabledata_json
+          //   .filter(val => val.route_id == val.running_route_id)
+          //   .forEach(val => {
+          //     userDataWithSession(
+          //       req.body.originalDetectIntentRequest.payload.conversation
+          //         .conversationId,
+          //       val
+          //     );
+          //   });
 
-          //res.json(sessionUserData);
-          res.json(basicResponse);
+          res.json(sessionUserData);
+          //res.json(basicResponse);
         } else {
           console.log("PIN Verfication SysUser Master");
 
@@ -290,16 +295,48 @@ router.post("/webhook", function(req, res, next) {
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
       )
     ) {
-      let passData =
-        sessionUserData[
+      let passData = 0;
+      sessionUserData[
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      ].payload
+        .filter(val => val.running_route_id == 0)
+        .forEach(val => {
+          passData + val.running_route_id;
+          //console.log(passData);
+        });
+
+      console.log("passData", passData);
+
+      if (passData > 0) {
+        console.log("The Pass data Has value greater than 0");
+        let runningData = sessionUserData[
           req.body.originalDetectIntentRequest.payload.conversation
             .conversationId
-        ];
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${passData.custom_name} was Last seen 2 Min Ago near
-      ${passData.stop_name}. Please Click the Link below to view in map.`;
-      res.json(simpleResponse);
+        ]
+          .filter(val => val.route_id == val.running_route_id)
+          .forEach(val => {
+            userDataWithSession(
+              req.body.originalDetectIntentRequest.payload.conversation
+                .conversationId,
+              val
+            );
+          });
+
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
+        res.json(simpleResponse);
+      } else {
+        let stationaryData =
+          sessionUserData[
+            req.body.originalDetectIntentRequest.payload.conversation
+              .conversationId
+          ].payload;
+
+        console.log("MAin Data From else", stationaryData);
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${stationaryData[0].custom_name} was Last seen 2 Min Ago near ${stationaryData[0].stop_name}. Please Click the Link below to view in map.`;
+        res.json(simpleResponse);
+      }
     } else {
-      var textforresponse = "It Seems Your Bus is Not Moving.";
+      var textforresponse = "It Seems Your Bus is Not In Our Record.";
       var responseObj = createResponse(false, textforresponse);
       res.json(responseObj);
     }
