@@ -312,6 +312,10 @@ router.post("/webhook", function(req, res, next) {
 
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
         simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
+        console.log(
+          simpleResponse.payload.google.richResponse.items[0].carouselBrowse
+            .items[0].openUrlAction.url
+        );
         simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${runningData.location}`;
         res.json(simpleResponse);
       } else {
