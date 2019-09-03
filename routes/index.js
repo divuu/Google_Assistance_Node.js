@@ -638,7 +638,7 @@ router.post("/webhook", function(req, res, next) {
     //   results: results,
     //   fields: fields
     // });
-    //Where is
+    // this line is for git execution.
 
     db.query("SELECT * FROM temph", function(err, results, fields) {
       // if (err) throw err;
