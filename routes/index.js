@@ -122,7 +122,7 @@ let simpleResponse = {
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "https://example.com"
+                    uri: "tel:09066841400"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
@@ -343,7 +343,7 @@ router.post("/webhook", function(req, res, next) {
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
-            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[2].openUrlAction.url = `tel:09066841400`;
+            //simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[2].openUrlAction.url = `tel:09066841400`;
             res.json(simpleResponse);
           } else {
             console.log("Stop Name Not found");
