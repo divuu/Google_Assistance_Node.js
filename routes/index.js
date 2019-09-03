@@ -311,12 +311,8 @@ router.post("/webhook", function(req, res, next) {
           });
 
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
-        simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
-        console.log(
-          simpleResponse.payload.google.richResponse.items[0].carouselBrowse
-            .items[0].openUrlAction.url
-        );
-        simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${runningData.location}`;
+        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
+        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${runningData.location}`;
         res.json(simpleResponse);
       } else {
         let Buscustomname =
@@ -345,8 +341,8 @@ router.post("/webhook", function(req, res, next) {
           if (passengerstopdata_json[0].stop_id) {
             console.log("Stop Name found");
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
-            simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
-            simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
             res.json(simpleResponse);
           } else {
             console.log("Stop Name Not found");
@@ -367,14 +363,14 @@ router.post("/webhook", function(req, res, next) {
               if (passengeraddressdata_json.length > 0) {
                 console.log("IF address is there");
                 simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengeraddressdata_json[0].address}. Please Click the Link below to view in map.`;
-                simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[0].openUrlAction.url = `${passengeraddressdata_json[0].location}`;
-                simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengeraddressdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengeraddressdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengeraddressdata_json[0].location}`;
                 res.json(simpleResponse);
               } else {
                 console.log("Address not found");
                 simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
-                simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
-                simpleResponse.payload.google.richResponse.items[0].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
                 res.json(simpleResponse);
               }
             });
@@ -436,15 +432,8 @@ router.post("/webhook", function(req, res, next) {
         if (tabledata_json[0].stop_id) {
           console.log("Stop Name found");
           simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
-          // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-          //   tabledata_json[0].stop_name
-          // }`;
-          // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-          //   tabledata_json[0].location
-          // }&amp;ll=`;
-          // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-          //   tabledata_json[0].location
-          // }`;
+          simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${tabledata_json[0].location}`;
+          simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${tabledata_json[0].location}`;
           res.json(simpleResponse);
         } else {
           console.log("Stop Name Not found");
@@ -466,28 +455,14 @@ router.post("/webhook", function(req, res, next) {
             if (addressdata_json.length > 0) {
               console.log("IF address is there");
               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${addressdata_json[0].address}. Please Click the Link below to view in map.`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-              //   tabledata_json[0].stop_name
-              // }`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-              //   tabledata_json[0].location
-              // }&amp;ll=`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-              //   tabledata_json[0].location
-              // }`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${addressdata_json[0].location}`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${addressdata_json[0].location}`;
               res.json(simpleResponse);
             } else {
               console.log("Address not found");
               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-              //   tabledata_json[0].stop_name
-              // }`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-              //   tabledata_json[0].location
-              // }&amp;ll=`;
-              // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-              //   tabledata_json[0].location
-              // }`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${tabledata_json[0].location}`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${tabledata_json[0].location}`;
               res.json(simpleResponse);
             }
           });
@@ -532,28 +507,21 @@ router.post("/webhook", function(req, res, next) {
       console.log("Result", results);
       console.log("Result[0]", results[0]);
       var tabledata = JSON.stringify(results[0]);
-      var tabledata_json = JSON.parse(tabledata);
+      var singletabledata_json = JSON.parse(tabledata);
       console.log(tabledata);
-      console.log(tabledata_json);
-      console.log("Actual address", tabledata_json[0].stop_name);
+      console.log(singletabledata_json);
+      console.log("Actual address", singletabledata_json[0].stop_name);
 
-      if (tabledata_json[0].stop_id) {
+      if (singletabledata_json[0].stop_id) {
         console.log("Stop Name found");
-        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
-        // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-        //   tabledata_json[0].stop_name
-        // }`;
-        // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-        //   tabledata_json[0].location
-        // }&amp;ll=`;
-        // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-        //   tabledata_json[0].location
-        // }`;
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${singletabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
+        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${singletabledata_json[0].location}`;
+        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${singletabledata_json[0].location}`;
         res.json(simpleResponse);
       } else {
         console.log("Stop Name Not found");
-        var lat = tabledata_json[0].last_seen_latitude;
-        var long = tabledata_json[0].last_seen_longitude;
+        var lat = singletabledata_json[0].last_seen_latitude;
+        var long = singletabledata_json[0].last_seen_longitude;
         let spquery =
           "CALL sp_rga_location_nearby_address(" + lat + "," + long + ")";
         db.query(spquery, true, (error, results, fields) => {
@@ -570,27 +538,13 @@ router.post("/webhook", function(req, res, next) {
 
           if (saddressdata_json.length > 0) {
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your ${finalStr} was Last seen 2 Min Ago near ${saddressdata_json[0].address}. Please Click the Link below to view in map.`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-            //   tabledata_json[0].stop_name
-            // }`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-            //   tabledata_json[0].location
-            // }&amp;ll=`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-            //   tabledata_json[0].location
-            // }`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${saddressdata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${saddressdata_json[0].location}`;
             res.json(simpleResponse);
           } else {
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
-            //   tabledata_json[0].stop_name
-            // }`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[0].openUrlAction.url = `http://maps.google.com/maps?daddr=${
-            //   tabledata_json[0].location
-            // }&amp;ll=`;
-            // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
-            //   tabledata_json[0].location
-            // }`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${singletabledata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${singletabledata_json[0].location}`;
             res.json(simpleResponse);
           }
         });
