@@ -28,24 +28,26 @@ let basicResponse = {
   }
 };
 
+// let reqs=req.body.user.userID;
+
 let simpleResponse = {
-  // fulfillmentText: "This is a text response",
-  // fulfillmentMessages: [
-  //   {
-  //     card: {
-  //       title: "card title",
-  //       subtitle: "card text",
-  //       imageUri:
-  //         "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
-  //       buttons: [
-  //         {
-  //           text: "button text",
-  //           postback: "https://assistant.google.com/"
-  //         }
-  //       ]
-  //     }
-  //   }
-  // ],
+  fulfillmentText: "This is a text response",
+  fulfillmentMessages: [
+    {
+      card: {
+        title: "card title",
+        subtitle: "card text",
+        imageUri:
+          "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+        buttons: [
+          {
+            text: "button text",
+            postback: "https://assistant.google.com/"
+          }
+        ]
+      }
+    }
+  ],
   source: "example.com",
   payload: {
     google: {
@@ -55,9 +57,9 @@ let simpleResponse = {
           {
             simpleResponse: {
               textToSpeech: "Today is not a holiday."
-            },
-            //},
-            // {
+            }
+          },
+          {
             // basicCard: {
             // title: "Bus Details",
             // subtitle:
@@ -74,8 +76,7 @@ let simpleResponse = {
                   description: "View the live location in Google Map",
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    //url:"https://res.cloudinary.com/techmky/image/upload/v1566890723/google_map2_mnl6ns.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call_e6w5rk.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -87,8 +88,7 @@ let simpleResponse = {
                   description: "Share Bus Live location on WhatsApp",
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    //url:"https://res.cloudinary.com/techmky/image/upload/v1566899238/whatsapp_t9tj13.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
                     accessibilityText: "Image alternate text"
                   }
                 },
@@ -100,8 +100,7 @@ let simpleResponse = {
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
                     url:
-                      "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                    //url:"https://res.cloudinary.com/techmky/image/upload/v1566906021/call_resized_isstvt.png",
+                      "https://res.cloudinary.com/techmky/image/upload/v1566890722/call3_wmr7qk.png",
                     accessibilityText: "Image alternate text"
                   }
                 }
@@ -342,7 +341,7 @@ router.post("/webhook", function(req, res, next) {
 
           if (passengerstopdata_json[0].stop_id) {
             console.log("Stop Name found");
-            simpleResponse.payload.google.richResponse.items.simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
+            simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
             // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
             //   tabledata_json[0].stop_name
             // }`;
@@ -464,8 +463,6 @@ router.post("/webhook", function(req, res, next) {
           // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
           //   tabledata_json[0].location
           // }`;
-
-          //many change
           res.json(simpleResponse);
         } else {
           console.log("Stop Name Not found");
@@ -639,8 +636,7 @@ router.post("/webhook", function(req, res, next) {
     //   results: results,
     //   fields: fields
     // });
-    // this line is for git execution.
-    // This line is introduced for a changes in commit.
+    //Where is
 
     db.query("SELECT * FROM temph", function(err, results, fields) {
       // if (err) throw err;
