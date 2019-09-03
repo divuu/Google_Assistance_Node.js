@@ -55,9 +55,9 @@ let simpleResponse = {
           {
             simpleResponse: {
               textToSpeech: "Today is not a holiday."
-            }
-          },
-          {
+            },
+            //},
+            // {
             // basicCard: {
             // title: "Bus Details",
             // subtitle:
