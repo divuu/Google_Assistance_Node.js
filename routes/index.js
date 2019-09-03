@@ -28,6 +28,39 @@ let basicResponse = {
   }
 };
 
+let busdetailcard = {
+  payload: {
+    google: {
+      expectUserResponse: true,
+      richResponse: {
+        items: [
+          {
+            basicCard: {
+              title: "Title: this is a title",
+              subtitle: "This is a subtitle",
+              formattedText:
+                'This is a basic card.  Text in a basic card can include "quotes" and\n    most other unicode characters including emoji 📱.  Basic cards also support\n    some markdown formatting like *emphasis* or _italics_, **strong** or\n    __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other\n    things like line  \nbreaks',
+              image: {
+                url:
+                  "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
+                accessibilityText: "Image alternate text"
+              },
+              buttons: [
+                {
+                  title: "This is a button",
+                  openUrlAction: {
+                    url: "https://assistant.google.com/"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+};
+
 // let reqs=req.body.user.userID;
 
 let simpleResponse = {
@@ -57,27 +90,6 @@ let simpleResponse = {
           {
             simpleResponse: {
               textToSpeech: "Today is not a holiday."
-            }
-          },
-          {
-            basicCard: {
-              title: "Title: this is a title",
-              subtitle: "This is a subtitle",
-              formattedText:
-                'This is a basic card.  Text in a basic card can include "quotes" and\n    most other unicode characters including emoji 📱.  Basic cards also support\n    some markdown formatting like *emphasis* or _italics_, **strong** or\n    __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other\n    things like line  \nbreaks',
-              image: {
-                url:
-                  "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                accessibilityText: "Image alternate text"
-              },
-              buttons: [
-                {
-                  title: "This is a button",
-                  openUrlAction: {
-                    url: "https://assistant.google.com/"
-                  }
-                }
-              ]
             }
           },
           {
@@ -367,7 +379,7 @@ router.post("/webhook", function(req, res, next) {
             // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
             //   tabledata_json[0].location
             // }`;
-            res.json(simpleResponse);
+            res.json(busdetailcard, simpleResponse);
           } else {
             console.log("Stop Name Not found");
             var lat = passengerstopdata_json[0].last_seen_latitude;
@@ -396,7 +408,7 @@ router.post("/webhook", function(req, res, next) {
                 // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
                 //   tabledata_json[0].location
                 // }`;
-                res.json(simpleResponse);
+                res.json(busdetailcard, simpleResponse);
               } else {
                 console.log("Address not found");
                 simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
@@ -409,7 +421,7 @@ router.post("/webhook", function(req, res, next) {
                 // simpleResponse.payload.google.richResponse.items[1].basicCard.buttons[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${
                 //   tabledata_json[0].location
                 // }`;
-                res.json(simpleResponse);
+                res.json(busdetailcard, simpleResponse);
               }
             });
           }
