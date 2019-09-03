@@ -342,7 +342,7 @@ router.post("/webhook", function(req, res, next) {
 
           if (passengerstopdata_json[0].stop_id) {
             console.log("Stop Name found");
-            simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
+            simpleResponse.payload.google.richResponse.items.simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
             // simpleResponse.payload.google.richResponse.items[1].basicCard.formattedText = ` ${
             //   tabledata_json[0].stop_name
             // }`;
