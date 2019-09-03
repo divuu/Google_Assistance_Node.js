@@ -60,11 +60,6 @@ let simpleResponse = {
             }
           },
           {
-            // basicCard: {
-            // title: "Bus Details",
-            // subtitle:
-            //   "MPS Transport Manager :- Avinash Tiwari \nMobile Number :- 5678643522 \nBus Registration Number :- AS 64 GF3426",
-            // formattedText: "Via swamy Vivekananda road",
             carouselBrowse: {
               items: [
                 {
@@ -95,7 +90,7 @@ let simpleResponse = {
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "http://tel:09066841400"
+                    url: "https://example.com"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
