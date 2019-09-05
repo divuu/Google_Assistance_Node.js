@@ -98,7 +98,7 @@ let simpleResponse = {
                   title: "View In Map",
                   openUrlAction: {
                     url:
-                      "http://maps.google.com/maps?daddr=26.103816666666667,91.71967333333333&amp;ll="
+                      "https://maps.google.com/?q=26.103816666666667,91.71967333333333"
                   },
                   description: "View the live location in Google Map",
                   image: {
@@ -313,6 +313,10 @@ router.post("/webhook", function(req, res, next) {
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
         simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
         simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${runningData.location}`;
+        removesessionID(
+          req.body.originalDetectIntentRequest.payload.conversation
+            .conversationId
+        );
         res.json(simpleResponse);
       } else {
         let Buscustomname =
@@ -344,6 +348,10 @@ router.post("/webhook", function(req, res, next) {
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
             //simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[2].openUrlAction.url = `tel:09066841400`;
+            removesessionID(
+              req.body.originalDetectIntentRequest.payload.conversation
+                .conversationId
+            );
             res.json(simpleResponse);
           } else {
             console.log("Stop Name Not found");
@@ -364,14 +372,22 @@ router.post("/webhook", function(req, res, next) {
               if (passengeraddressdata_json.length > 0) {
                 console.log("IF address is there");
                 simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengeraddressdata_json[0].address}. Please Click the Link below to view in map.`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengeraddressdata_json[0].location}`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengeraddressdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+                removesessionID(
+                  req.body.originalDetectIntentRequest.payload.conversation
+                    .conversationId
+                );
                 res.json(simpleResponse);
               } else {
                 console.log("Address not found");
                 simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
                 simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
                 simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+                removesessionID(
+                  req.body.originalDetectIntentRequest.payload.conversation
+                    .conversationId
+                );
                 res.json(simpleResponse);
               }
             });
@@ -381,6 +397,9 @@ router.post("/webhook", function(req, res, next) {
     } else {
       var textforresponse = "It Seems Your Bus is Not In Our Record.";
       var responseObj = createResponse(false, textforresponse);
+      removesessionID(
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      );
       res.json(responseObj);
     }
   }
@@ -435,6 +454,10 @@ router.post("/webhook", function(req, res, next) {
           simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${tabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
           simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${tabledata_json[0].location}`;
           simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${tabledata_json[0].location}`;
+          removesessionID(
+            req.body.originalDetectIntentRequest.payload.conversation
+              .conversationId
+          );
           res.json(simpleResponse);
         } else {
           console.log("Stop Name Not found");
@@ -456,14 +479,22 @@ router.post("/webhook", function(req, res, next) {
             if (addressdata_json.length > 0) {
               console.log("IF address is there");
               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${addressdata_json[0].address}. Please Click the Link below to view in map.`;
-              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${addressdata_json[0].location}`;
-              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${addressdata_json[0].location}`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${tabledata_json[0].location}`;
+              simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${tabledata_json[0].location}`;
+              removesessionID(
+                req.body.originalDetectIntentRequest.payload.conversation
+                  .conversationId
+              );
               res.json(simpleResponse);
             } else {
               console.log("Address not found");
               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${tabledata_json[0].location}`;
               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${tabledata_json[0].location}`;
+              removesessionID(
+                req.body.originalDetectIntentRequest.payload.conversation
+                  .conversationId
+              );
               res.json(simpleResponse);
             }
           });
@@ -472,6 +503,9 @@ router.post("/webhook", function(req, res, next) {
     } else {
       var textforresponse = `It seems ${schoolNameUser} is not in Your records`;
       var responseObj = createResponse(false, textforresponse);
+      removesessionID(
+        req.body.originalDetectIntentRequest.payload.conversation.conversationId
+      );
       res.json(responseObj);
     }
   }
@@ -518,6 +552,10 @@ router.post("/webhook", function(req, res, next) {
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${finalStr} was Last seen 2 Min Ago near ${singletabledata_json[0].stop_name}. Please Click the Link below to view in map.`;
         simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${singletabledata_json[0].location}`;
         simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${singletabledata_json[0].location}`;
+        removesessionID(
+          req.body.originalDetectIntentRequest.payload.conversation
+            .conversationId
+        );
         res.json(simpleResponse);
       } else {
         console.log("Stop Name Not found");
@@ -539,13 +577,21 @@ router.post("/webhook", function(req, res, next) {
 
           if (saddressdata_json.length > 0) {
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your ${finalStr} was Last seen 2 Min Ago near ${saddressdata_json[0].address}. Please Click the Link below to view in map.`;
-            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${saddressdata_json[0].location}`;
-            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${saddressdata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${singletabledata_json[0].location}`;
+            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${singletabledata_json[0].location}`;
+            removesessionID(
+              req.body.originalDetectIntentRequest.payload.conversation
+                .conversationId
+            );
             res.json(simpleResponse);
           } else {
             simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${singletabledata_json[0].location}`;
             simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${singletabledata_json[0].location}`;
+            removesessionID(
+              req.body.originalDetectIntentRequest.payload.conversation
+                .conversationId
+            );
             res.json(simpleResponse);
           }
         });
@@ -691,6 +737,11 @@ function verifyJWT(token, cert) {
       console.log(pass);
     }
   });
+}
+
+// Removes the session ID from the User data session array
+function removesessionID(conversationID) {
+  delete sessionUserData[conversationID];
 }
 
 //Saves the User data after pin verification with ConversationID
