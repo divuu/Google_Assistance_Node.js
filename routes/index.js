@@ -87,7 +87,7 @@ let simpleResponse = {
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "tel:9066841400"
+                    url: "https://www.google.com"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
