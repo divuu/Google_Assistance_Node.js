@@ -110,7 +110,8 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/webhook", function(req, res, next) {                  // google fires any intent
+router.post("/webhook", function(req, res, next) {
+  // google fires any intent
 
   let user = verifyJWT(
     req.body.originalDetectIntentRequest.payload.user.idToken,
@@ -561,31 +562,32 @@ router.post("/webhook", function(req, res, next) {                  // google fi
     console.log("spquery Is fired", spquery);
     db.query(spquery);
     db.query("SELECT * FROM holidays", function(err, results, fields) {
-    if (err) throw err;
-    console.log("Results", results);
-    console.log("Fields", fields);
-    test.push({
-      results: results,
-      fields: fields
-    });
-
-    db.query("SELECT * FROM temph", function(err, results, fields) {
-      // if (err) throw err;
+      if (err) throw err;
       console.log("Results", results);
       console.log("Fields", fields);
       test.push({
         results: results,
         fields: fields
       });
-      //res.json(
-      simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on 
+
+      db.query("SELECT * FROM temph", function(err, results, fields) {
+        // if (err) throw err;
+        console.log("Results", results);
+        console.log("Fields", fields);
+        test.push({
+          results: results,
+          fields: fields
+        });
+        //res.json(
+        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `yes Kid !! Next Holiday is on 
       ${results[results.length - 1].holiday_name}.`;
 
-      res.json(simpleResponse);
-      // else {
-      //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
-      //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
-      // }
+        res.json(simpleResponse);
+        // else {
+        //   simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech =
+        //     "I am not configured for this intent that was fired. Good Stuff Keep Scoring.";
+        // }
+      });
     });
   }
 
