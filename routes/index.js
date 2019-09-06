@@ -7,7 +7,6 @@ let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
 let test = [];
-let responseNumber = 0;
 var sessionUserData = {};
 
 let basicResponse = {
@@ -27,40 +26,6 @@ let basicResponse = {
     }
   }
 };
-
-let busdetailcard = {
-  payload: {
-    google: {
-      expectUserResponse: true,
-      richResponse: {
-        items: [
-          {
-            basicCard: {
-              title: "Title: this is a title",
-              subtitle: "This is a subtitle",
-              formattedText: "This is a basic card.",
-              image: {
-                url:
-                  "https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png",
-                accessibilityText: "Image alternate text"
-              },
-              buttons: [
-                {
-                  title: "This is a button",
-                  openUrlAction: {
-                    url: "https://assistant.google.com/"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  }
-};
-
-// let reqs=req.body.user.userID;
 
 let simpleResponse = {
   fulfillmentText: "This is a text response",
@@ -122,7 +87,7 @@ let simpleResponse = {
                 {
                   title: "Call RouteAlert",
                   openUrlAction: {
-                    url: "https://example.com"
+                    url: "tel:9066841400"
                   },
                   description: "Call RouteAlert Support Team For Any Help !",
                   image: {
@@ -143,17 +108,9 @@ let simpleResponse = {
 /* GET home page. Used to check whether the server is running or not */
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
-  //req.render('index',{title:'Express'});
 });
 
-// router.post("/webhook", function(req, res, next) {
-//   console.log("REQUEST BODY", JSON.stringify(req.body));
-
-//   res.json(basicResponse);
-// });
-
-router.post("/webhook", function(req, res, next) {
-  // google fires any intent
+router.post("/webhook", function(req, res, next) {                  // google fires any intent
 
   let user = verifyJWT(
     req.body.originalDetectIntentRequest.payload.user.idToken,
@@ -172,14 +129,6 @@ router.post("/webhook", function(req, res, next) {
     req.body.originalDetectIntentRequest.payload.user.idToken
   );
   console.log(decoded);
-
-  // resp.push({
-  //   incoming_payload: req.body,
-  //   number: count++
-  //   //user: user,
-  //   // decoded: decoded,
-  //   // token: req.body.originalDetectIntentRequest.payload.user.idToken
-  // });
 
   // let user = verifyJWT(
   //   req.body.originalDetectIntentRequest.payload.user.idToken,
@@ -312,7 +261,7 @@ router.post("/webhook", function(req, res, next) {
 
         simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
         simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
-        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${runningData.location}`;
+        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=Vehicle Live Location\n${runningData.location}`;
         removesessionID(
           req.body.originalDetectIntentRequest.payload.conversation
             .conversationId
@@ -607,19 +556,18 @@ router.post("/webhook", function(req, res, next) {
   // }
 
   if (req.body.queryResult.action == "Action_Holidays") {
-    //let idarray = [1, 2, 3];
+    let idarray = [1, 2, 3];
     let spquery = "CALL holiday_info(3)";
     console.log("spquery Is fired", spquery);
     db.query(spquery);
-    // db.query("SELECT * FROM holidays", function(err, results, fields) {
-    // if (err) throw err;
-    // console.log("Results", results);
-    // console.log("Fields", fields);
-    // test.push({
-    //   results: results,
-    //   fields: fields
-    // });
-    //Where is
+    db.query("SELECT * FROM holidays", function(err, results, fields) {
+    if (err) throw err;
+    console.log("Results", results);
+    console.log("Fields", fields);
+    test.push({
+      results: results,
+      fields: fields
+    });
 
     db.query("SELECT * FROM temph", function(err, results, fields) {
       // if (err) throw err;
