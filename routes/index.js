@@ -6,26 +6,13 @@ var jwtDecode = require("jwt-decode");
 let router = express.Router();
 const jwt = require("jsonwebtoken");
 const keys = require("../assets/keys.json");
+const ACTION = require("../actions/actions")
+const Response = require("../response/response_creator")
+const ActionHandler = require("../actions/action_handlers")
+const ConvoController = require("../conversion_controller/convo_controller")
 let test = [];
-var sessionUserData = {};
+global.sessionUserData = {};
 
-let basicResponse = {
-  payload: {
-    google: {
-      expectUserResponse: true,
-      richResponse: {
-        items: [
-          {
-            simpleResponse: {
-              textToSpeech:
-                "Today is not a holiday. From Register intent. finally success."
-            }
-          }
-        ]
-      }
-    }
-  }
-};
 
 let simpleResponse = {
   fulfillmentText: "This is a text response",
@@ -106,253 +93,156 @@ let simpleResponse = {
 };
 
 /* GET home page. Used to check whether the server is running or not */
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/webhook", function(req, res, next) {
+router.get("/sessionUserData", function (req, res, next) {
+  res.json(sessionUserData)
+});
+
+router.post("/webhook", function (req, res, next) {
   // google fires any intent
 
-  let user = verifyJWT(
-    req.body.originalDetectIntentRequest.payload.user.idToken,
-    keys.CERTIFICATE
-  );
   //checking data
-  console.log("USER", user);
-  console.log("Request", req.body);
-  console.log("Payload", req.body.originalDetectIntentRequest.payload);
-  console.log(
-    "Token",
-    req.body.originalDetectIntentRequest.payload.user.idToken
-  );
-  // Decoding the JWT Token from the Google #not verifying Only decoding
-  var decoded = jwtDecode(
-    req.body.originalDetectIntentRequest.payload.user.idToken
-  );
-  console.log(decoded);
-
-  // let user = verifyJWT(
-  //   req.body.originalDetectIntentRequest.payload.user.idToken,
-  //   keys.CERTIFICATE
+  // console.log("USER", user);
+  // console.log("Request", req.body);
+  // console.log("Payload", req.body.originalDetectIntentRequest.payload);
+  // console.log(
+  //   "Token",
+  //   req.body.originalDetectIntentRequest.payload.user.idToken
   // );
-  // console.log("User");
-  // if (req.body.queryResult.action === "action_register") {
-  //   thisResponse = JSON.parse(JSON.stringify(basicResponse));
-  //   res.json(register(thisResponse, req.body, user));
-  // } else {
-  // resp.push({
-  //   response_number: responseNumber++,
-  //   payload: req.body
-  // });
+  const conversationId = req.body.originalDetectIntentRequest.payload.conversation.conversationId
+  let action = req.body.queryResult.action;
 
-  // Intent For Verification of sysuser and Parents
-  // Send Parameters :- take PIN from parents/sysuser.
-  // Receive Parameters :- A welcome sentence will be fired.
-  if (req.body.queryResult.action == "action_welcome") {
-    var PIN = req.body.queryResult.parameters.PIN;
-    //Validation of pin()
-    let spquery = "CALL sp_rga_pin_verification('" + PIN + "')";
-    console.log("spquery", spquery);
-    db.query(spquery, true, (error, results, fields) => {
-      if (error) {
-        return console.log(error.message);
-      }
 
-      console.log("Result", results);
-      console.log("Result[0]", results[0]);
+  switch (action) {
+    case ACTION.ACTION_WELCOME:
+      // Intent For Verification of sysuser and Parents
+      // Send Parameters :- take PIN from parents/sysuser.
+      // Receive Parameters :- A welcome sentence will be fired.
+      //Validation of pin
 
-      //console.log("Actual Name of sysuser", tabledata_json[0].name);
+      const PIN = req.body.queryResult.parameters.PIN
+      ActionHandler.handleWelcomeAction(conversationId, PIN).then(jsonResponse => {
+        res.json(jsonResponse)
+      }).then
+      break;
 
-      if (results[0].length == 0) {
-        var textforresponse =
-          "Sorry, your PIN is invalid. We cant find the user in our records. Thank you for your interest in RouteAlert.";
-        var responseObj = createResponse(false, textforresponse);
-        res.json(responseObj);
-      } else {
-        var tabledata = JSON.stringify(results[0]);
-        var tabledata_json = JSON.parse(tabledata);
-
-        console.log("tabledat_json", tabledata_json);
-
-        // Check data values for sysuser or Parent
-        if (tabledata_json[0].passenger_id) {
-          console.log("PIN Verfication Passenger master");
-          basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `  Welcome ${tabledata_json[0].name} of ${tabledata_json[0].org_name}. Do you want to know the location of your school bus ? `;
-          //Store User Data With Session
-
-          userDataWithSession(
-            req.body.originalDetectIntentRequest.payload.conversation
-              .conversationId,
-            tabledata_json
-          );
-
-          //res.json(sessionUserData);
-          res.json(basicResponse);
-        } else {
-          console.log("PIN Verfication SysUser Master");
-
-          //Check for sysUser Organization
-          if (tabledata_json.length > 1) {
-            console.log("In multiple School");
-            basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School's information do you want to know about ?`;
-            //Store User Data With Session
-            userDataWithSession(
-              req.body.originalDetectIntentRequest.payload.conversation
-                .conversationId,
-              tabledata_json
-            );
-            //res.json(sessionUserData);
-            res.json(basicResponse);
-          } else {
-            if (tabledata_json.length == 1) {
-              console.log("In Single School");
-              basicResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Hi ${tabledata_json[0].user_name}. Welcome to Route Alert. Which School Bus' location do you want to know about ?`;
-              //Store User Data With Session
-              tabledata_json.forEach(val => {
-                userDataWithSession(
-                  req.body.originalDetectIntentRequest.payload.conversation
-                    .conversationId,
-                  val
-                );
-              });
-              res.json(basicResponse);
-            }
-          }
-        }
-      }
-    });
+    // this intent will work for Passenger School Bus Info
+    // Send Parameters :- input Bus Number eg:- yes/Bus Number 1
+    // Receive Parameters :- give back the Bus Details. from local only. it will not fetch the details from server.
+    case ACTION.ACTION_PASSENGER_BUS_LOCATION:
+      ActionHandler.handlePassengerBusLocation(conversationId).then(jsonResponse => {
+        res.json(jsonResponse)
+      })
+    case ACTION.ACTION_REGISTER:
+      res.json(Response.getBasicResponse(false, "You are registered"))
+      break;
+    default:
+      break;
   }
 
-  // this intent will work for Passenger School Bus Info
-  // Send Parameters :- input Bus Number eg:- yes/Bus Number 1
-  // Receive Parameters :- give back the Bus Details. from local only. it will not fetch the details from server.
-  if (req.body.queryResult.action == "Action_passenger_bus_location") {
-    console.log("Passenger Bus Location");
-    if (
-      sessionUserData.hasOwnProperty(
-        req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      )
-    ) {
-      let passData = 0;
-      sessionUserData[
-        req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      ].payload
-        .filter(val => val.running_route_id == 0)
-        .forEach(val => {
-          passData + val.running_route_id;
-          //console.log(passData);
-        });
 
-      console.log("passData", passData);
 
-      if (passData > 0) {
-        console.log("The Pass data Has value greater than 0");
-        let runningData = sessionUserData[
-          req.body.originalDetectIntentRequest.payload.conversation
-            .conversationId
-        ].payload
-          .filter(val => val.route_id == val.running_route_id)
-          .forEach(val => {
-            userDataWithSession(
-              req.body.originalDetectIntentRequest.payload.conversation
-                .conversationId,
-              val
-            );
-          });
 
-        simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData.custom_name} was Last seen 2 Min Ago near ${runningData.stop_name}. Please Click the Link below to view in map.`;
-        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${runningData.location}`;
-        simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=Vehicle Live Location\n${runningData.location}`;
-        removesessionID(
-          req.body.originalDetectIntentRequest.payload.conversation
-            .conversationId
-        );
-        res.json(simpleResponse);
-      } else {
-        let Buscustomname =
-          sessionUserData[
-            req.body.originalDetectIntentRequest.payload.conversation
-              .conversationId
-          ].payload[0].custom_name;
 
-        console.log("MAin Data From else", Buscustomname);
+  // if (req.body.queryResult.action == "Action_passenger_bus_location") {
+  //   console.log("Passenger Bus Location");
 
-        // implemeting the logic[ check stop if not found check the address]
-        let spquery =
-          "CALL sp_rga_vehicle_location_nearby_stop('" + Buscustomname + "')";
-        console.log("spquery", spquery);
-        db.query(spquery, true, (error, results, fields) => {
-          if (error) {
-            return console.log(error.message);
-          }
-          console.log("Result", results);
-          console.log("Result[0]", results[0]);
-          var passengerstopdata = JSON.stringify(results[0]);
-          var passengerstopdata_json = JSON.parse(passengerstopdata);
-          console.log(passengerstopdata);
-          console.log(passengerstopdata_json);
+  //   if (ConvoController.getConversationData()) {
+  //     let passData = 0;
+  //     sessionUserData[
+  //       req.body.originalDetectIntentRequest.payload.conversation.conversationId
+  //     ].payload
+  //       .filter(val => val.running_route_id == 0)
+  //       .forEach(val => {
+  //         passData + val.running_route_id;
+  //         //console.log(passData);
+  //       });
 
-          if (passengerstopdata_json[0].stop_id) {
-            console.log("Stop Name found");
-            simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
-            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
-            simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
-            //simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[2].openUrlAction.url = `tel:09066841400`;
-            removesessionID(
-              req.body.originalDetectIntentRequest.payload.conversation
-                .conversationId
-            );
-            res.json(simpleResponse);
-          } else {
-            console.log("Stop Name Not found");
-            var lat = passengerstopdata_json[0].last_seen_latitude;
-            var long = passengerstopdata_json[0].last_seen_longitude;
-            let spquery =
-              "CALL sp_rga_location_nearby_address(" + lat + "," + long + ")";
-            db.query(spquery, true, (error, results, fields) => {
-              if (error) {
-                return console.log(error.message);
-              }
+  //     console.log("passData", passData);
 
-              var passengeraddressdata = JSON.stringify(results[0]);
-              var passengeraddressdata_json = JSON.parse(passengeraddressdata);
-              console.log(passengeraddressdata);
-              console.log(passengeraddressdata_json);
+  //     if (passData > 0) {
 
-              if (passengeraddressdata_json.length > 0) {
-                console.log("IF address is there");
-                simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengeraddressdata_json[0].address}. Please Click the Link below to view in map.`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
-                removesessionID(
-                  req.body.originalDetectIntentRequest.payload.conversation
-                    .conversationId
-                );
-                res.json(simpleResponse);
-              } else {
-                console.log("Address not found");
-                simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
-                simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
-                removesessionID(
-                  req.body.originalDetectIntentRequest.payload.conversation
-                    .conversationId
-                );
-                res.json(simpleResponse);
-              }
-            });
-          }
-        });
-      }
-    } else {
-      var textforresponse = "It Seems Your Bus is Not In Our Record.";
-      var responseObj = createResponse(false, textforresponse);
-      removesessionID(
-        req.body.originalDetectIntentRequest.payload.conversation.conversationId
-      );
-      res.json(responseObj);
-    }
-  }
+  //     } else {
+  //       let Buscustomname =
+  //         sessionUserData[
+  //           req.body.originalDetectIntentRequest.payload.conversation
+  //             .conversationId
+  //         ].payload[0].custom_name;
+
+  //       console.log("MAin Data From else", Buscustomname);
+
+  //       // implemeting the logic[ check stop if not found check the address]
+  //       let spquery =
+  //         "CALL sp_rga_vehicle_location_nearby_stop('" + Buscustomname + "')";
+  //       console.log("spquery", spquery);
+  //       db.query(spquery, true, (error, results, fields) => {
+  //         if (error) {
+  //           return console.log(error.message);
+  //         }
+  //         console.log("Result", results);
+  //         console.log("Result[0]", results[0]);
+  //         var passengerstopdata = JSON.stringify(results[0]);
+  //         var passengerstopdata_json = JSON.parse(passengerstopdata);
+  //         console.log(passengerstopdata);
+  //         console.log(passengerstopdata_json);
+
+  //         if (passengerstopdata_json[0].stop_id) {
+  //           console.log("Stop Name found");
+  //           simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengerstopdata_json[0].stop_name}. Please Click the Link below to view in map.`;
+  //           simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+  //           simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+  //           //simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[2].openUrlAction.url = `tel:09066841400`;
+  //           removesessionID(
+  //             req.body.originalDetectIntentRequest.payload.conversation
+  //               .conversationId
+  //           );
+  //           res.json(simpleResponse);
+  //         } else {
+  //           console.log("Stop Name Not found");
+  //           var lat = passengerstopdata_json[0].last_seen_latitude;
+  //           var long = passengerstopdata_json[0].last_seen_longitude;
+  //           let spquery =
+  //             "CALL sp_rga_location_nearby_address(" + lat + "," + long + ")";
+  //           db.query(spquery, true, (error, results, fields) => {
+  //             if (error) {
+  //               return console.log(error.message);
+  //             }
+
+  //             var passengeraddressdata = JSON.stringify(results[0]);
+  //             var passengeraddressdata_json = JSON.parse(passengeraddressdata);
+  //             console.log(passengeraddressdata);
+  //             console.log(passengeraddressdata_json);
+
+  //             if (passengeraddressdata_json.length > 0) {
+  //               console.log("IF address is there");
+  //               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Your Bus ${Buscustomname} was Last seen 2 Min Ago near ${passengeraddressdata_json[0].address}. Please Click the Link below to view in map.`;
+  //               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+  //               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+  //               removesessionID(
+  //                 req.body.originalDetectIntentRequest.payload.conversation
+  //                   .conversationId
+  //               );
+  //               res.json(simpleResponse);
+  //             } else {
+  //               console.log("Address not found");
+  //               simpleResponse.payload.google.richResponse.items[0].simpleResponse.textToSpeech = `Ok ! I found your Bus. Please Click the Link below to view in map.`;
+  //               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[0].openUrlAction.url = `${passengerstopdata_json[0].location}`;
+  //               simpleResponse.payload.google.richResponse.items[1].carouselBrowse.items[1].openUrlAction.url = `https://api.whatsapp.com/send?text=${passengerstopdata_json[0].location}`;
+  //               removesessionID(
+  //                 req.body.originalDetectIntentRequest.payload.conversation
+  //                   .conversationId
+  //               );
+  //               res.json(simpleResponse);
+  //             }
+  //           });
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
 
   // For SysUser with Multiple School Bus Info
   // Send Parameters :- input Bus Number eg:- Maria public School, Bus Number 1.
@@ -452,7 +342,7 @@ router.post("/webhook", function(req, res, next) {
       });
     } else {
       var textforresponse = `It seems ${schoolNameUser} is not in Your records`;
-      var responseObj = createResponse(false, textforresponse);
+      var responseObj = getBasicResponse(false, textforresponse);
       removesessionID(
         req.body.originalDetectIntentRequest.payload.conversation.conversationId
       );
@@ -561,7 +451,7 @@ router.post("/webhook", function(req, res, next) {
     let spquery = "CALL holiday_info(3)";
     console.log("spquery Is fired", spquery);
     db.query(spquery);
-    db.query("SELECT * FROM holidays", function(err, results, fields) {
+    db.query("SELECT * FROM holidays", function (err, results, fields) {
       if (err) throw err;
       console.log("Results", results);
       console.log("Fields", fields);
@@ -570,7 +460,7 @@ router.post("/webhook", function(req, res, next) {
         fields: fields
       });
 
-      db.query("SELECT * FROM temph", function(err, results, fields) {
+      db.query("SELECT * FROM temph", function (err, results, fields) {
         // if (err) throw err;
         console.log("Results", results);
         console.log("Fields", fields);
@@ -591,12 +481,7 @@ router.post("/webhook", function(req, res, next) {
     });
   }
 
-  if (req.body.queryResult.action == "action_register") {
-    console.log("HELLO I'M IN Action REGISTER Start");
-    let thisResponse = JSON.parse(JSON.stringify(basicResponse));
-    //res.json(basicResponse);
-    res.json(register(thisResponse, req.body, decoded));
-  }
+
 
   //if (req.body.queryResult.action == "Action_Bus_Route" || "DefaultWelcomeIntent.DefaultWelcomeIntent-yes") {
   if (
@@ -633,23 +518,6 @@ router.post("/webhook", function(req, res, next) {
   }
 });
 
-router.get("/responses", function(req, res, next) {
-  res.json(resp);
-});
-
-router.get("/test", function(req, res, next) {
-  res.json(test);
-});
-
-router.get("/mysql", function(req, res) {
-  db.query("SELECT * FROM temph", function(err, results, fields) {
-    if (err) throw err;
-    console.log("Results", results);
-    console.log("Fields", fields);
-    res.json(results);
-  });
-});
-
 // handles registration process
 // adds in the data base
 function register(bResponse, requestObj, decoded) {
@@ -676,53 +544,6 @@ function register(bResponse, requestObj, decoded) {
   });
   return bResponse;
 }
-// Verify
-//verify jwt for user information
-function verifyJWT(token, cert) {
-  console.log("VerifyJWT", token, "CERT", cert);
-  return jwt.verify(token, cert, function(err, pass) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(pass);
-    }
-  });
-}
 
-// Removes the session ID from the User data session array
-function removesessionID(conversationID) {
-  delete sessionUserData[conversationID];
-}
-
-//Saves the User data after pin verification with ConversationID
-function userDataWithSession(conversationID, parameter) {
-  if (Array.isArray(parameter)) {
-    sessionUserData[conversationID] = {
-      payload: Array.from(parameter)
-    };
-  } else {
-    sessionUserData[conversationID] = Object.assign({}, parameter);
-  }
-}
-
-// Create the dynamic reponse on the basis of Input paramets
-function createResponse(boolean, textToSpeech) {
-  return {
-    payload: {
-      google: {
-        expectUserResponse: `${boolean}`,
-        richResponse: {
-          items: [
-            {
-              simpleResponse: {
-                textToSpeech: `${textToSpeech}`
-              }
-            }
-          ]
-        }
-      }
-    }
-  };
-}
 
 module.exports = router;
