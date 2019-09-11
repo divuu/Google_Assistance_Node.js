@@ -60,11 +60,11 @@ const ActionHandlers = {
 
         return new Promise((resolve, reject) => {
             if (ConvoController.getConversationData(convoId)) {
-                let runningData = ConvoController.getConversationData(convoId).payload.filter(val => val.running_route_id == val.route_id)
+                let runningData = ConvoController.getConversationData(convoId).payload.filter(val => { return val.running_route_id == val.route_id });
                 if (runningData.length > 0) {
 
                     ConvoController.removeConversationId(convoId)
-                    let textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData[0].custom_name} was Last seen 2 Min Ago near ${runningData[0].stop_name}. Please Click the Link below to view in map.`
+                    let textToSpeech = `Ok ! I found your Bus. Your Bus ${runningData[0].custom_name} was Last seen 2 Min Ago near ${runningData[0].user_stop_name}. Please Click the Link below to view in map.`
                     resolve(Response.getRichResponse(false, textToSpeech, Utils.getCarouselItemsArray(runningData[0].location)))
                 } else {
 
