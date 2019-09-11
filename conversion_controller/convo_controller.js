@@ -13,7 +13,7 @@ const ConvoController = {
         delete sessionUserData[conversationId];
     },
     getConversationData: (conversationId) => {
-        if (sessionUserData.hasOwnProperty(conversationId)){
+        if (sessionUserData.hasOwnProperty(conversationId)) {
             return sessionUserData[conversationId]
         }
         return null;
