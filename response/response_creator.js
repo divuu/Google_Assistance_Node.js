@@ -3,7 +3,7 @@ const Response = {
     return {
       payload: {
         google: {
-          expectUserResponse: `${isUserResponseExpected}`,
+          expectUserResponse: isUserResponseExpected,
           richResponse: {
             items: [
               {
